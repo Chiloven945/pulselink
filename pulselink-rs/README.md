@@ -17,10 +17,16 @@ The Rust workspace for `pulselink`, a reliable, asynchronous SDK for DG-LAB devi
 
 ## Status
 
-Milestones **M0 (workspace foundation)** through **M8 (facade)** are implemented. Release hardening
-(M9) is in progress; see [`docs/ROADMAP.md`](docs/ROADMAP.md).
+Milestones **M0 (workspace foundation)** through **M8 (facade)** are implemented. The Rust 0.1.0
+crates are published on crates.io; hardware verification and JVM publishing remain in M9. See
+[`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Quick start
+
+```toml
+[dependencies]
+pulselink = "0.1.0"
+```
 
 ```bash
 cargo test --workspace

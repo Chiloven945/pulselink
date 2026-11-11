@@ -3767,9 +3767,10 @@ checks the feature matrix and dependency isolation; package metadata and
 - Tag `v0.1.0`;
 - Release announcement/CHANGELOG.
 
-**Progress**: three-platform CI, fuzz targets/workflow, security review,
+**Progress**: the Rust 0.1.0 crates are published on crates.io and docs.rs is
+building them. Three-platform CI, fuzz targets/workflow, security review,
 version-metadata checks, and the hardware test procedure are in place. A real
-Coyote V3 run and release publishing remain pending.
+Coyote V3 run, JVM publishing, and post-release verification remain pending.
 
 ---
 

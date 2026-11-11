@@ -1,6 +1,7 @@
 # Rust release procedure
 
-The Rust workspace publishes eight libraries:
+The Rust workspace publishes eight libraries. The 0.1.0 release was published
+on 2026-11-11:
 
 ```text
 pulselink-core
