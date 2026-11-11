@@ -1,0 +1,18 @@
+[package]
+name = "pulselink-integration-tests"
+description = "Integration tests for pulselink-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+pulselink-core = { workspace = true }
+pulselink-pattern = { workspace = true }
+
+[lints]
+workspace = true

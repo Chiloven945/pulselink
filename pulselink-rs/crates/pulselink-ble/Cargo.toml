@@ -1,0 +1,18 @@
+[package]
+name = "pulselink-ble"
+description = "btleplug-based local BLE backend for pulselink-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+readme = "README.md"
+
+[dependencies]
+pulselink-transport = { workspace = true }
+
+[features]
+default = ["btleplug"]
+btleplug = []
+
+[lints]
+workspace = true

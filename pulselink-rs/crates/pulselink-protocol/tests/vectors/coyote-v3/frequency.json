@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "encode-10ms",
+      "kind": "frequency.encode",
+      "input": {
+        "interval_ms": 10
+      },
+      "expect": {
+        "wire": 10
+      }
+    },
+    {
+      "id": "encode-100ms",
+      "kind": "frequency.encode",
+      "input": {
+        "interval_ms": 100
+      },
+      "expect": {
+        "wire": 100
+      }
+    },
+    {
+      "id": "encode-101ms",
+      "kind": "frequency.encode",
+      "input": {
+        "interval_ms": 101
+      },
+      "expect": {
+        "wire": 100
+      }
+    },
+    {
+      "id": "encode-600ms",
+      "kind": "frequency.encode",
+      "input": {
+        "interval_ms": 600
+      },
+      "expect": {
+        "wire": 200
+      }
+    },
+    {
+      "id": "encode-601ms",
+      "kind": "frequency.encode",
+      "input": {
+        "interval_ms": 601
+      },
+      "expect": {
+        "wire": 200
+      }
+    },
+    {
+      "id": "encode-1000ms",
+      "kind": "frequency.encode",
+      "input": {
+        "interval_ms": 1000
+      },
+      "expect": {
+        "wire": 240
+      }
+    },
+    {
+      "id": "decode-10",
+      "kind": "frequency.decode",
+      "input": {
+        "wire": 10
+      },
+      "expect": {
+        "interval_ms": 10
+      }
+    },
+    {
+      "id": "decode-100",
+      "kind": "frequency.decode",
+      "input": {
+        "wire": 100
+      },
+      "expect": {
+        "interval_ms": 100
+      }
+    },
+    {
+      "id": "decode-101",
+      "kind": "frequency.decode",
+      "input": {
+        "wire": 101
+      },
+      "expect": {
+        "interval_ms": 105
+      }
+    },
+    {
+      "id": "decode-200",
+      "kind": "frequency.decode",
+      "input": {
+        "wire": 200
+      },
+      "expect": {
+        "interval_ms": 600
+      }
+    },
+    {
+      "id": "decode-201",
+      "kind": "frequency.decode",
+      "input": {
+        "wire": 201
+      },
+      "expect": {
+        "interval_ms": 610
+      }
+    },
+    {
+      "id": "decode-240",
+      "kind": "frequency.decode",
+      "input": {
+        "wire": 240
+      },
+      "expect": {
+        "interval_ms": 1000
+      }
+    }
+  ]
+}

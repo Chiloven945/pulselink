@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "request",
+      "kind": "app_message",
+      "input": {
+        "t": "req",
+        "reqId": "req-1",
+        "m": "devices.get"
+      },
+      "expect": {
+        "variant": "req"
+      }
+    },
+    {
+      "id": "response-result",
+      "kind": "app_message",
+      "input": {
+        "t": "resp",
+        "reqId": "req-1",
+        "result": {
+          "devices": []
+        }
+      },
+      "expect": {
+        "variant": "resp"
+      }
+    },
+    {
+      "id": "response-error",
+      "kind": "app_message",
+      "input": {
+        "t": "resp",
+        "reqId": "req-2",
+        "error": "slot_not_found"
+      },
+      "expect": {
+        "variant": "resp"
+      }
+    },
+    {
+      "id": "event-snapshot",
+      "kind": "app_message",
+      "input": {
+        "t": "ev",
+        "ev": "devices.snapshot",
+        "devices": []
+      },
+      "expect": {
+        "variant": "ev",
+        "event": "devices_snapshot"
+      }
+    },
+    {
+      "id": "event-custom-action",
+      "kind": "app_message",
+      "input": {
+        "t": "ev",
+        "ev": "custom.action",
+        "action": 7
+      },
+      "expect": {
+        "variant": "ev",
+        "event": "custom_action"
+      }
+    },
+    {
+      "id": "event-unknown",
+      "kind": "app_message",
+      "input": {
+        "t": "ev",
+        "ev": "future.event",
+        "data": 1
+      },
+      "expect": {
+        "variant": "ev",
+        "event": "unknown"
+      }
+    }
+  ]
+}

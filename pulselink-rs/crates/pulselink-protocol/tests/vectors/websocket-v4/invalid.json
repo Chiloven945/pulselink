@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "relay-frame-missing-client-id",
+      "kind": "relay_frame_invalid",
+      "input": {
+        "type": "hello"
+      },
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "id": "app-message-unknown-type",
+      "kind": "app_message_invalid",
+      "input": {
+        "t": "future",
+        "reqId": "req-1"
+      },
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "id": "device-operate-unknown-action",
+      "kind": "device_operate_invalid",
+      "input": {
+        "s": "slot-a",
+        "t": 5,
+        "c": 0,
+        "v": 0
+      },
+      "expect": {
+        "error": true
+      }
+    }
+  ]
+}

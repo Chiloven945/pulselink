@@ -1,0 +1,22 @@
+[package]
+name = "pulselink-core"
+description = "Core domain types for pulselink-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+readme = "README.md"
+
+[dependencies]
+serde = { workspace = true, optional = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
+
+[features]
+default = []
+serde = ["dep:serde"]
+
+[lints]
+workspace = true

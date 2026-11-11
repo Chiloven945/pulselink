@@ -1,0 +1,31 @@
+[package]
+name = "pulselink"
+description = "A reliable Rust SDK for DG-LAB devices"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+readme = "README.md"
+
+[dependencies]
+pulselink-core = { workspace = true }
+pulselink-pattern = { workspace = true }
+pulselink-protocol = { workspace = true, default-features = false }
+pulselink-transport = { workspace = true }
+pulselink-runtime = { workspace = true, optional = true }
+pulselink-ble = { workspace = true, optional = true }
+pulselink-ws = { workspace = true, optional = true }
+
+[features]
+default = ["ble"]
+ble = [
+    "dep:pulselink-runtime",
+    "dep:pulselink-ble",
+    "pulselink-ble/btleplug",
+    "pulselink-protocol/coyote-v3",
+]
+websocket = ["dep:pulselink-ws", "pulselink-protocol/socket-v4"]
+full = ["ble", "websocket"]
+
+[lints]
+workspace = true

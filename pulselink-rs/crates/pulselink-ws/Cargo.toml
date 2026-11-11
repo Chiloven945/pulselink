@@ -1,0 +1,16 @@
+[package]
+name = "pulselink-ws"
+description = "DG-LAB V4 WebSocket controller SDK for pulselink-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+readme = "README.md"
+
+[dependencies]
+pulselink-core = { workspace = true }
+pulselink-pattern = { workspace = true }
+pulselink-protocol = { workspace = true, default-features = false, features = ["socket-v4"] }
+
+[lints]
+workspace = true

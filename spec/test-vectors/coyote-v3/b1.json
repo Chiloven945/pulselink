@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "normal",
+      "kind": "b1.decode",
+      "input": { "hex": "B1071928" },
+      "expect": { "sequence": 7, "a": 25, "b": 40 }
+    },
+    {
+      "id": "unsolicited",
+      "kind": "b1.decode",
+      "input": { "hex": "B1000000" },
+      "expect": { "sequence": 0, "a": 0, "b": 0 }
+    },
+    {
+      "id": "invalid-sequence",
+      "kind": "b1.decode",
+      "input": { "hex": "B1100000" },
+      "expect": { "error": true }
+    },
+    {
+      "id": "invalid-intensity-a",
+      "kind": "b1.decode",
+      "input": { "hex": "B101C900" },
+      "expect": { "error": true }
+    },
+    {
+      "id": "invalid-length",
+      "kind": "b1.decode",
+      "input": { "hex": "B101" },
+      "expect": { "error": true }
+    },
+    {
+      "id": "invalid-header",
+      "kind": "b1.decode",
+      "input": { "hex": "B0010000" },
+      "expect": { "error": true }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+[package]
+name = "pulselink-protocol"
+description = "Sans-io DG-LAB protocol codecs for pulselink-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+readme = "README.md"
+
+[dependencies]
+pulselink-core = { workspace = true }
+pulselink-pattern = { workspace = true }
+serde = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
+thiserror = { workspace = true }
+uuid = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[[example]]
+name = "b0_encode"
+required-features = ["coyote-v3"]
+
+[features]
+default = ["coyote-v3"]
+coyote-v3 = []
+socket-v4 = ["dep:serde", "dep:serde_json"]
+
+[lints]
+workspace = true

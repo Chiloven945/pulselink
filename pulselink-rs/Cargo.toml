@@ -1,0 +1,62 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/pulselink-core",
+    "crates/pulselink-pattern",
+    "crates/pulselink-protocol",
+    "crates/pulselink-transport",
+    "crates/pulselink-ble",
+    "crates/pulselink-runtime",
+    "crates/pulselink-ws",
+    "crates/pulselink",
+    "integration-tests",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+pulselink-core = { path = "crates/pulselink-core", version = "0.1.0" }
+pulselink-pattern = { path = "crates/pulselink-pattern", version = "0.1.0" }
+pulselink-protocol = { path = "crates/pulselink-protocol", version = "0.1.0" }
+pulselink-transport = { path = "crates/pulselink-transport", version = "0.1.0" }
+pulselink-ble = { path = "crates/pulselink-ble", version = "0.1.0" }
+pulselink-runtime = { path = "crates/pulselink-runtime", version = "0.1.0" }
+pulselink-ws = { path = "crates/pulselink-ws", version = "0.1.0" }
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+uuid = "1"
+tokio = { version = "1", default-features = false }
+tokio-util = "0.7"
+tokio-tungstenite = { version = "0.30", default-features = false, features = [
+    "connect",
+    "handshake",
+    "rustls-tls-webpki-roots",
+] }
+btleplug = "0.13.5"
+futures = "0.3"
+futures-channel = "0.3"
+futures-core = "0.3"
+futures-util = { version = "0.3", default-features = false, features = ["std"] }
+tracing = "0.1"
+async-trait = "0.1"
+proptest = "1"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+rust_2018_idioms = { level = "warn", priority = -1 }
+unreachable_pub = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+must_use_candidate = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"

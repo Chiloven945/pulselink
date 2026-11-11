@@ -1,0 +1,26 @@
+[package]
+name = "pulselink-transport"
+description = "Local device transport SPI for pulselink-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+readme = "README.md"
+
+[dependencies]
+async-trait = { workspace = true }
+futures-core = { workspace = true }
+futures-channel = { workspace = true, optional = true }
+futures-util = { workspace = true, optional = true }
+thiserror = { workspace = true }
+uuid = { workspace = true }
+
+[dev-dependencies]
+futures = { workspace = true }
+
+[features]
+default = []
+mock = ["dep:futures-channel", "dep:futures-util"]
+
+[lints]
+workspace = true

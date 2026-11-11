@@ -1,0 +1,23 @@
+[package]
+name = "pulselink-pattern"
+description = "Device-agnostic waveform timeline types for pulselink-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+readme = "README.md"
+
+[dependencies]
+pulselink-core = { workspace = true }
+serde = { workspace = true, optional = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
+
+[features]
+default = []
+serde = ["dep:serde", "pulselink-core/serde"]
+
+[lints]
+workspace = true

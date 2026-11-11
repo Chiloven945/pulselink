@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "layout",
+      "kind": "bf.encode",
+      "input": {
+        "soft_limit_a": 50,
+        "soft_limit_b": 60,
+        "frequency_balance_a": 128,
+        "frequency_balance_b": 129,
+        "intensity_balance_a": 130,
+        "intensity_balance_b": 131
+      },
+      "expect": { "hex": "BF323C80818283" }
+    },
+    {
+      "id": "boundaries",
+      "kind": "bf.encode",
+      "input": {
+        "soft_limit_a": 0,
+        "soft_limit_b": 200,
+        "frequency_balance_a": 0,
+        "frequency_balance_b": 255,
+        "intensity_balance_a": 0,
+        "intensity_balance_b": 255
+      },
+      "expect": { "hex": "BF00C800FF00FF" }
+    }
+  ]
+}

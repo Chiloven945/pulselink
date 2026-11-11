@@ -1,0 +1,108 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - "pulselink-rs/**"
+      - "spec/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    paths:
+      - "pulselink-rs/**"
+      - "spec/**"
+      - ".github/workflows/ci.yml"
+
+env:
+  CARGO_TERM_COLOR: always
+
+defaults:
+  run:
+    working-directory: pulselink-rs
+
+jobs:
+  fmt:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - run: cargo fmt --all -- --check
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: pulselink-rs
+      - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+  test:
+    name: Test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: pulselink-rs
+      - run: cargo test --workspace --all-features
+
+  feature-matrix:
+    name: Feature matrix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: pulselink-rs
+      - run: cargo test --workspace --no-default-features
+      - run: cargo check -p pulselink --no-default-features
+      - run: cargo check -p pulselink --no-default-features --features ble
+      - run: cargo check -p pulselink --no-default-features --features websocket
+      - run: cargo check -p pulselink --all-features
+      - run: cargo test -p pulselink-protocol --no-default-features --features socket-v4
+
+  docs:
+    name: Docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: pulselink-rs
+      - run: cargo doc --workspace --no-deps
+        env:
+          RUSTDOCFLAGS: -D warnings
+
+  deny:
+    name: cargo-deny
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: taiki-e/install-action@cargo-deny
+      - run: cargo deny check
+
+  msrv:
+    name: MSRV (1.99)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.99.1
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: pulselink-rs
+      - run: cargo check --workspace

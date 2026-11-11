@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "zero",
+      "kind": "battery.decode",
+      "input": { "hex": "00" },
+      "expect": { "level": 0 }
+    },
+    {
+      "id": "full",
+      "kind": "battery.decode",
+      "input": { "hex": "64" },
+      "expect": { "level": 100 }
+    },
+    {
+      "id": "invalid-value",
+      "kind": "battery.decode",
+      "input": { "hex": "65" },
+      "expect": { "error": true }
+    },
+    {
+      "id": "invalid-length",
+      "kind": "battery.decode",
+      "input": { "hex": "0000" },
+      "expect": { "error": true }
+    }
+  ]
+}
