@@ -28,5 +28,9 @@ mock = []
 [dev-dependencies]
 tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time", "net"] }
 
+[package.metadata.docs.rs]
+all-features = true
+targets = []
+
 [lints]
 workspace = true

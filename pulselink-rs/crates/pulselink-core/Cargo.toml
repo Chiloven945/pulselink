@@ -20,5 +20,9 @@ serde_json = { workspace = true }
 default = []
 serde = ["dep:serde"]
 
+[package.metadata.docs.rs]
+all-features = true
+targets = []
+
 [lints]
 workspace = true

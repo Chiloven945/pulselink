@@ -24,5 +24,9 @@ tracing = { workspace = true }
 pulselink-transport = { workspace = true, features = ["mock"] }
 tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time", "test-util"] }
 
+[package.metadata.docs.rs]
+all-features = true
+targets = []
+
 [lints]
 workspace = true

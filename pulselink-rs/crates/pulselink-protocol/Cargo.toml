@@ -31,5 +31,9 @@ default = ["coyote-v3"]
 coyote-v3 = []
 socket-v4 = ["dep:serde", "dep:serde_json"]
 
+[package.metadata.docs.rs]
+all-features = true
+targets = []
+
 [lints]
 workspace = true
