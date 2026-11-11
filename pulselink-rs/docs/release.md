@@ -55,9 +55,11 @@ publish = true
 ```
 
 It accepts `CARGO_REGISTRY_TOKEN` from the protected `crates-io` environment.
-For future releases, configure crates.io Trusted Publishing for every crate and
-switch the workflow to `rust-lang/crates-io-auth-action@v1` with
-`id-token: write`; the first release still has to be manual.
+The workflow skips crates whose workspace version is already the latest version
+on crates.io, so a partial release can be resumed. For future releases, configure
+crates.io Trusted Publishing for every crate and switch the workflow to
+`rust-lang/crates-io-auth-action@v1` with `id-token: write`; the first release
+still has to be manual.
 
 ## After publishing
 

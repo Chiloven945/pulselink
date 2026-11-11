@@ -58,6 +58,8 @@ jobs:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
         run: |
           set -euo pipefail
+          version=$(python3 -c 'import tomllib; print(tomllib.load(open("Cargo.toml", "rb"))["workspace"]["package"]["version"])')
+          echo "workspace version: $version"
           crates=(
             pulselink-core
             pulselink-transport
@@ -70,19 +72,27 @@ jobs:
           )
 
           for crate in "${crates[@]}"; do
-            echo "::group::publish $crate"
+            current=$(curl -fsS -A 'pulselink-release-workflow' \
+              "https://crates.io/api/v1/crates/$crate" 2>/dev/null \
+              | python3 -c 'import json,sys; print(json.load(sys.stdin)["crate"]["max_version"])' 2>/dev/null || true)
+            if [ "$current" = "$version" ]; then
+              echo "skip $crate $version (already published)"
+              continue
+            fi
+
+            echo "::group::publish $crate $version"
             cargo publish -p "$crate" --locked
-            echo "waiting for crates.io index: $crate"
-            for attempt in $(seq 1 20); do
-              if curl -fsS -A 'pulselink-release-workflow' \
-                "https://crates.io/api/v1/crates/$crate" \
-                | python3 -c 'import json,sys; data=json.load(sys.stdin); print(data["crate"]["max_version"])' \
-                | grep -qx '0.1.0'; then
-                echo "$crate 0.1.0 is visible"
+            echo "waiting for crates.io index: $crate $version"
+            for attempt in $(seq 1 40); do
+              current=$(curl -fsS -A 'pulselink-release-workflow' \
+                "https://crates.io/api/v1/crates/$crate" 2>/dev/null \
+                | python3 -c 'import json,sys; print(json.load(sys.stdin)["crate"]["max_version"])' 2>/dev/null || true)
+              if [ "$current" = "$version" ]; then
+                echo "$crate $version is visible"
                 break
               fi
-              if [ "$attempt" -eq 20 ]; then
-                echo "timed out waiting for $crate 0.1.0" >&2
+              if [ "$attempt" -eq 40 ]; then
+                echo "timed out waiting for $crate $version" >&2
                 exit 1
               fi
               sleep 15
