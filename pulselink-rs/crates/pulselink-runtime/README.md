@@ -1,16 +1,50 @@
 # pulselink-runtime
 
-Device session runtime for pulselink-rs.
+Coyote V3 session runtime for `pulselink`.
 
-Planned components:
+The runtime owns the session actor, sequence/ACK handling, the 100 ms scheduler, safety policy,
+reconnection, and shutdown. It depends on `pulselink-transport`, not on btleplug, so it can be
+tested with the mock backend.
 
-- `Client` — scan/connect;
-- `CoyoteV3Session` — device session handle;
-- Session Actor, command queue, state cache;
-- Sequence/ACK manager;
-- 100 ms scheduler and pattern player;
-- safety policy, reconnect, shutdown.
+## Example
 
-The runtime depends on `pulselink-transport`, not btleplug.
+```rust,no_run
+use std::sync::Arc;
+use std::time::Duration;
 
-Implementation starts in milestone M6. See `docs/ROADMAP.md` and `docs/runtime-contracts.md`.
+use pulselink_core::{Channel, Intensity};
+use pulselink_runtime::{Client, CoyoteV3Config};
+use pulselink_transport::{Backend, ScanFilter};
+
+# async fn example(backend: Arc<dyn Backend>) -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(backend);
+let devices = client
+    .scan(ScanFilter::default(), Duration::from_secs(5))
+    .await?;
+let device = devices.first().ok_or("no device")?;
+let session = client
+    .connect_coyote_v3(device, CoyoteV3Config::default())
+    .await?;
+
+session
+    .set_intensity(Channel::A, Intensity::new(10)?)
+    .await?;
+session.stop().await?;
+session.shutdown().await?;
+client.shutdown().await;
+# Ok(())
+# }
+```
+
+## Behavior
+
+- Initialization: subscribe notify, optional battery, read battery, write BF, then enter `Ready`.
+- Intensity changes use B0 sequence `1..=15` and wait for matching B1.
+- Waveform and silence frames are emitted every 100 ms; stale frames are skipped.
+- `SafetyPolicy` and BF soft limits both apply; the stricter limit wins.
+- Reconnect reinitializes BF but never restores a pattern or intensity.
+- `shutdown().await` performs a best-effort zero-intensity write before closing.
+- `Drop` only sends a cancellation signal; use `shutdown` for deterministic cleanup.
+
+See [`../../docs/runtime-contracts.md`](../../docs/runtime-contracts.md) and
+[`../../docs/ROADMAP.md`](../../docs/ROADMAP.md).

@@ -31,9 +31,7 @@ impl RpcManager {
     ) -> Result<(String, oneshot::Receiver<Result<Value, WsError>>), WsError> {
         let mut pending = self.pending.lock().expect("RPC pending mutex poisoned");
         if pending.len() >= MAX_PENDING_RPCS {
-            return Err(WsError::InvalidParams(
-                "too many pending RPC requests".to_owned(),
-            ));
+            return Err(WsError::Busy);
         }
 
         let req_id = format!("req-{}", next_id.fetch_add(1, Ordering::Relaxed) + 1);

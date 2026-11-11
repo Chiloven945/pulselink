@@ -11,7 +11,7 @@ use serde_json::Value;
 use tokio::sync::{broadcast, mpsc};
 use tokio::time::timeout;
 
-use crate::device::DeviceCache;
+use crate::device::{DeviceCache, RemoteDeviceHandle};
 use crate::error::WsError;
 use crate::operation::{ClearTarget, PendingOperation, validate_operate};
 use crate::rpc::{PendingGuard, RpcManager};
@@ -119,6 +119,32 @@ impl AppClient {
             .expect("device cache lock poisoned")
             .replace(devices.clone());
         Ok(devices)
+    }
+
+    /// Returns a snapshot of one cached device.
+    #[must_use]
+    pub fn device_snapshot(&self, slot_id: &str) -> Option<crate::device::RemoteDeviceSnapshot> {
+        self.inner
+            .cache
+            .read()
+            .expect("device cache lock poisoned")
+            .snapshot_device(slot_id)
+    }
+
+    /// Returns a live device handle if the slot is currently cached.
+    #[must_use]
+    pub fn device(&self, slot_id: &str) -> Option<RemoteDeviceHandle> {
+        let shared = self
+            .inner
+            .cache
+            .read()
+            .expect("device cache lock poisoned")
+            .shared(slot_id)?;
+        Some(RemoteDeviceHandle::new(
+            self.clone(),
+            shared,
+            slot_id.to_owned(),
+        ))
     }
 
     /// Subscribes to this app's events.

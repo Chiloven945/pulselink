@@ -18,14 +18,17 @@ mod transport;
 pub mod testing;
 
 pub use app::{AppClient, WsEvent};
+pub use device::{RemoteDeviceHandle, RemoteDeviceSnapshot};
 pub use error::WsError;
-pub use operation::{ClearTarget, PendingOperation};
+pub use operation::{
+    ClearTarget, OperationHandle, OperationOptions, OperationResult, PendingOperation, PulseFrame,
+};
 pub use options::SocketOptions;
 pub use socket::{Socket, SocketEvent, SocketState};
 
-pub use pulselink_core::Channel;
+pub use pulselink_core::{Channel, Intensity};
 pub use pulselink_protocol::socket::v4::{
     ActionType, AppEvent, AppMessage, ClearOperate, DeviceOperate, DeviceOperateResult,
     DevicePatch, OperateValue, OperationEndReason, PulseFrameWire, RelayFrame, RemoteDevice,
-    RpcResponse, SlotPatch, SlotPatchEntry,
+    RpcRequest, RpcResponse, SlotPatch, SlotPatchEntry,
 };

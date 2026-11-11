@@ -772,8 +772,15 @@ dependencies = [
 name = "pulselink-integration-tests"
 version = "0.1.0"
 dependencies = [
+ "pulselink-ble",
  "pulselink-core",
  "pulselink-pattern",
+ "pulselink-protocol",
+ "pulselink-runtime",
+ "pulselink-transport",
+ "pulselink-ws",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]
@@ -803,10 +810,15 @@ dependencies = [
 name = "pulselink-runtime"
 version = "0.1.0"
 dependencies = [
+ "futures-util",
  "pulselink-core",
  "pulselink-pattern",
  "pulselink-protocol",
  "pulselink-transport",
+ "thiserror",
+ "tokio",
+ "tokio-util",
+ "tracing",
 ]
 
 [[package]]

@@ -19,7 +19,7 @@ The facade currently exposes:
 - `pulselink::pattern`;
 - `pulselink::protocol` when at least one protocol feature is enabled;
 - `pulselink::transport`;
-- `pulselink::ble`, `pulselink::runtime`, and `pulselink::ws` will be added as
-  those crates expose their high-level APIs.
+- `pulselink::ble` and `pulselink::runtime` with the `ble` feature;
+- `pulselink::ws` with the `websocket` feature.
 
 See `docs/ROADMAP.md`.

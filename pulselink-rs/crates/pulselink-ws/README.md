@@ -3,23 +3,41 @@
 DG-LAB V4 WebSocket controller SDK for `pulselink`.
 
 The crate owns the controller-side WebSocket connection, pairing target id, multiple app clients,
-RPC requests, device cache, and `device.op` submission. It does not depend on BLE or the
-local-device runtime.
+RPC requests, device cache, and `device.op` lifecycle. It does not depend on BLE or the local-device
+runtime.
 
 ## Usage
 
 ```rust,no_run
-use pulselink_ws::{ClearTarget, Socket};
+use std::time::Duration;
+
+use pulselink_ws::{Channel, OperationOptions, Socket};
 
 # async fn example() -> Result<(), Box<dyn std::error::Error>> {
 let socket = Socket::connect("wss://relay.example/v4").await?;
 println!("pair target id: {}", socket.target_id());
 
-let client = socket.wait_for_client().await?;
-let devices = client.request_devices().await?;
-println!("{} device(s)", devices.len());
+let app = socket.wait_for_client().await?;
+let devices = app.request_devices().await?;
+let device = app.device(&devices[0].slot_id).ok_or("device removed")?;
 
-client.clear_operate(ClearTarget::All).await?;
+device
+    .add_intensity(Channel::A, 5, OperationOptions::default())
+    .await?
+    .completion()
+    .await?;
+
+device
+    .set_temp_intensity(
+        Channel::A,
+        pulselink_ws::Intensity::new(20)?,
+        Duration::from_secs(3),
+        OperationOptions::default(),
+    )
+    .await?
+    .completion()
+    .await?;
+
 socket.shutdown().await?;
 # Ok(())
 # }
@@ -27,18 +45,18 @@ socket.shutdown().await?;
 
 ## API
 
-- `Socket` — connection, `target_id`, state, app registry, lifecycle events.
-- `SocketOptions` — URL, connect/response timeouts, optional ping interval, max message size.
-- `AppClient` — device list/cache, app-level ping, `device.op.clear`, and raw
-  `device.op` submission.
-- `PendingOperation` — waits for a `device.op` completion and returns the
-  `DeviceOperateResult`.
+- `Socket` — connection, target id, state, app registry, lifecycle events.
+- `AppClient` — device list/cache, app-level ping, clear, and live device handles.
+- `RemoteDeviceHandle` — snapshot and typed operations for one slot.
+- `OperationOptions` / `OperationHandle` — priority, immediate replacement, optional completion
+  timeout, and completion results.
+- `PulseFrame` — eight-byte version-3 pulse frame for `send_pulse`.
 - `WsEvent` — app-scoped snapshot/patch/custom/disconnect events.
 - `SocketEvent` — connection lifecycle, heartbeat, pong, close, and errors.
 
 `device.op` responses arrive when a task completes, is cleared, replaced, or cancelled.
-`AppendPulseData` and `SetTempIntensity` may therefore stay pending for a long time. Pass `None` as
-the operation timeout when the task duration is controlled by `duration_ms` or by `device.op.clear`.
+`AppendPulseData` and `SetTempIntensity` may stay pending for a long time; use
+`OperationOptions::timeout` only when the caller needs a bound.
 
 ## Reconnect
 
@@ -55,5 +73,5 @@ pulselink-ws = { version = "0.1", features = ["mock"] }
 ```
 
 The mock relay is a real localhost WebSocket server. It supports hello, client attach/detach, device
-snapshots and patches, RPC success/error/timeout,
-`device.op` completion/clear, heartbeat/pong, and close codes.
+snapshots and patches, RPC success/error/timeout, `device.op` completion/clear, heartbeat/pong, idle
+timeout, and close codes.

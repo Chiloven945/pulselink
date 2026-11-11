@@ -23,12 +23,23 @@ pub mod transport {
     pub use pulselink_transport::*;
 }
 
-// The following modules are added when the corresponding crates expose their
-// first public items:
-//
-// - `ble` (M4, feature `ble`)
-// - `runtime` (M6, feature `ble`)
-// - `ws` (M5/M7, feature `websocket`)
+/// btleplug BLE backend.
+#[cfg(feature = "ble")]
+pub mod ble {
+    pub use pulselink_ble::*;
+}
+
+/// Coyote V3 session runtime.
+#[cfg(feature = "ble")]
+pub mod runtime {
+    pub use pulselink_runtime::*;
+}
+
+/// DG-LAB V4 WebSocket session API.
+#[cfg(feature = "websocket")]
+pub mod ws {
+    pub use pulselink_ws::*;
+}
 
 pub use pulselink_core::{
     BatteryLevel, BatteryState, BleDeviceId, Channel, ChannelMap, ChannelSet, ChannelState,

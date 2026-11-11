@@ -48,6 +48,9 @@ pub enum WsError {
     /// The socket was closed locally.
     #[error("socket closed")]
     Closed,
+    /// The pending-operation limit was reached.
+    #[error("too many pending operations")]
+    Busy,
 }
 
 impl From<serde_json::Error> for WsError {

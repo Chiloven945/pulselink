@@ -17,10 +17,8 @@ The Rust workspace for `pulselink`, a reliable, asynchronous SDK for DG-LAB devi
 
 ## Status
 
-Milestones **M0 (workspace foundation)**, **M1 (core + pattern)**, **M2 (protocol)**, **M3 (
-transport)**, **M4 (BLE backend)**, and **M5 (WebSocket transport/RPC)** are implemented. Runtime,
-full WebSocket session API, and facade finalization follow the plan in
-[`docs/ROADMAP.md`](docs/ROADMAP.md).
+Milestones **M0 (workspace foundation)** through **M7 (WebSocket session)** are implemented. Facade
+finalization and release hardening follow the plan in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Quick start
 

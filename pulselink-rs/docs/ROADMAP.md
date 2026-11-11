@@ -12,8 +12,8 @@
 > - [x] M3 — Transport
 > - [x] M4 — BLE Backend
 > - [x] M5 — WebSocket Transport / RPC
-> - [ ] M6 — BLE Runtime
-> - [ ] M7 — WebSocket Session
+> - [x] M6 — BLE Runtime
+> - [x] M7 — WebSocket Session
 > - [ ] M8 — Facade
 > - [ ] M9 — Hardening & Release
 >
@@ -3684,6 +3684,11 @@ provides a real localhost WebSocket relay used by 13 integration tests.
 - BF rewritten after reconnect;
 - `shutdown` leaves no leaked tasks.
 
+**Completion notes**: the runtime exposes `Client`, `CoyoteV3Session`, the session state/events, ACK
+queue, scheduler/player, safety policy, reconnect, and shutdown. Tests use
+`pulselink-transport::mock` with paused time; the real hardware test is `#[ignore]` and requires
+`PULSELINK_HW=1`.
+
 ### M7 — WebSocket Session
 
 **Goal**: user-friendly V4 remote device API.
@@ -3706,6 +3711,11 @@ provides a real localhost WebSocket relay used by 13 integration tests.
 - Multiple apps do not cross requests;
 - `device.op` completion semantics match the official protocol;
 - Disconnect does not pretend the old targetId is valid.
+
+**Completion notes**: M7 adds `RemoteDeviceHandle`, typed
+`RemoteDeviceSnapshot` accessors, `OperationOptions`, `OperationHandle`,
+`OperationResult`, `PulseFrame`, and live per-slot cache handles. The mock relay and integration
+tests cover operations, clear, patches, multiple apps, heartbeats, idle timeout, and close codes.
 
 ### M8 — Facade
 

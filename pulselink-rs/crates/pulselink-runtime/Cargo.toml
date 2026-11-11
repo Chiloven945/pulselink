@@ -12,6 +12,15 @@ pulselink-core = { workspace = true }
 pulselink-pattern = { workspace = true }
 pulselink-protocol = { workspace = true, default-features = false, features = ["coyote-v3"] }
 pulselink-transport = { workspace = true }
+futures-util = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["rt", "sync", "time", "macros"] }
+tokio-util = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+pulselink-transport = { workspace = true, features = ["mock"] }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time", "test-util"] }
 
 [lints]
 workspace = true

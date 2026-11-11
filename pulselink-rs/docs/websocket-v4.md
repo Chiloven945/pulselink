@@ -98,6 +98,20 @@ queued. `device.op.clear` returns `{}` immediately; each cleared task also recei
 - `custom.action` carries an integer `0..=9`.
 - Keep unknown fields; do not deserialize into a closed struct.
 
+## Rust SDK
+
+`pulselink-ws` exposes:
+
+- `Socket` for connection, target id, state, and app registry;
+- `AppClient` for device discovery and app-level RPC;
+- `RemoteDeviceHandle` for live per-slot snapshots and typed operations;
+- `OperationOptions` / `OperationHandle` for priority, immediate replacement, timeouts, and
+  completion results;
+- `PulseFrame` for version-3 `AppendPulseData` frames.
+
+`devices.snapshot`, `devices.patch`, and `slots.patch` update the same live device state observed by
+existing handles.
+
 ## Reconnect
 
 A new controller connection gets a new `clientId`. The app must re-pair with the new `targetId`. Do

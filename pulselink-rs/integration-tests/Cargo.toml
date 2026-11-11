@@ -11,8 +11,15 @@ publish = false
 path = "src/lib.rs"
 
 [dependencies]
+pulselink-ble = { workspace = true }
 pulselink-core = { workspace = true }
 pulselink-pattern = { workspace = true }
+pulselink-protocol = { workspace = true, default-features = false, features = ["coyote-v3"] }
+pulselink-runtime = { workspace = true }
+pulselink-transport = { workspace = true, features = ["mock"] }
+pulselink-ws = { workspace = true, default-features = false, features = ["mock"] }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time", "test-util"] }
 
 [lints]
 workspace = true

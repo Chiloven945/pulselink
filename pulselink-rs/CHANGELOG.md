@@ -28,3 +28,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - M5: `pulselink-ws` V4 transport: socket lifecycle, hello/target id, multi-app registry, RPC
   manager, device cache, `device.op` submission/completion, heartbeat/ping, close handling, and a
   mock relay.
+- M6: `pulselink-runtime` Coyote V3 session actor: initialization, sequence/ACK, 100 ms scheduler,
+  pattern playback, safety policy, reconnect, shutdown, and mock session tests.
+- M7: `pulselink-ws` live `RemoteDeviceHandle`/snapshot API, operation options/handles/results,
+  version-3 pulse frames, typed props accessors, and multi-app integration tests.
+- CI: install Linux D-Bus development packages before BLE compilation.
