@@ -41,3 +41,62 @@ async fn hardware_scan_connect_read_battery() {
     session.shutdown().await.expect("shutdown");
     client.shutdown().await;
 }
+
+#[tokio::test]
+#[ignore = "requires PULSELINK_HW=1 and a real Coyote V3"]
+async fn hardware_raw_gatt_battery_notify_bf_zero_b0() {
+    use pulselink_core::{ChannelMap, Intensity};
+    use pulselink_protocol::coyote::v3::gatt::{CHAR_BATTERY, CHAR_NOTIFY, CHAR_WRITE};
+    use pulselink_protocol::coyote::v3::{
+        B0Command, BfCommand, ChannelWaveform, IntensityOp, Sequence, StereoIntensityOp,
+        StereoWaveform,
+    };
+    use pulselink_transport::{Central, GattLink, WriteMode};
+
+    if std::env::var("PULSELINK_HW").as_deref() != Ok("1") {
+        return;
+    }
+
+    let central = BtleplugCentral::new().await.expect("adapter");
+    let devices = central
+        .scan(
+            ScanFilter {
+                name_prefixes: vec![DEVICE_NAME.to_owned()],
+                service_uuids: vec![SERVICE_CONTROL],
+            },
+            Duration::from_secs(5),
+        )
+        .await
+        .expect("scan");
+    let device = devices.first().expect("no Coyote V3 found");
+    let link = central.connect_link(device).await.expect("connect");
+
+    let battery = link.read(CHAR_BATTERY).await.expect("battery read");
+    assert_ne!(battery.len(), 0);
+    let _notifications = link.subscribe(CHAR_NOTIFY).await.expect("subscribe");
+
+    let bf = BfCommand {
+        soft_limit: ChannelMap::new(Intensity::MIN, Intensity::MIN),
+        frequency_balance: ChannelMap::new(128, 128),
+        intensity_balance: ChannelMap::new(128, 128),
+    };
+    link.write(CHAR_WRITE, &bf.encode(), WriteMode::Auto)
+        .await
+        .expect("BF write");
+
+    let b0 = B0Command {
+        sequence: Sequence::new(0).expect("sequence"),
+        intensity: StereoIntensityOp {
+            a: IntensityOp::Set(Intensity::MIN),
+            b: IntensityOp::Set(Intensity::MIN),
+        },
+        waveform: StereoWaveform {
+            a: ChannelWaveform::Silent,
+            b: ChannelWaveform::Silent,
+        },
+    };
+    link.write(CHAR_WRITE, &b0.encode(), WriteMode::Auto)
+        .await
+        .expect("zero B0 write");
+    link.disconnect().await.expect("disconnect");
+}

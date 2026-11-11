@@ -5,6 +5,8 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
+repository.workspace = true
+homepage.workspace = true
 readme = "README.md"
 
 [dependencies]
@@ -13,11 +15,13 @@ pulselink-pattern = { workspace = true }
 pulselink-protocol = { workspace = true, default-features = false }
 pulselink-transport = { workspace = true }
 pulselink-runtime = { workspace = true, optional = true }
-pulselink-ble = { workspace = true, optional = true }
-pulselink-ws = { workspace = true, optional = true }
+pulselink-ble = { workspace = true, optional = true, default-features = false }
+pulselink-ws = { workspace = true, optional = true, default-features = false }
+thiserror = { workspace = true }
 
 [features]
 default = ["ble"]
+protocol = ["pulselink-protocol/coyote-v3", "pulselink-protocol/socket-v4"]
 ble = [
     "dep:pulselink-runtime",
     "dep:pulselink-ble",
@@ -27,5 +31,29 @@ ble = [
 websocket = ["dep:pulselink-ws", "pulselink-protocol/socket-v4"]
 full = ["ble", "websocket"]
 
+[dev-dependencies]
+pulselink-transport = { workspace = true, features = ["mock"] }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time"] }
+
 [lints]
 workspace = true
+
+[[example]]
+name = "ble_scan"
+required-features = ["ble"]
+
+[[example]]
+name = "coyote_v3_control"
+required-features = ["ble"]
+
+[[example]]
+name = "ws_pairing"
+required-features = ["websocket"]
+
+[[example]]
+name = "ws_control"
+required-features = ["websocket"]
+
+[[example]]
+name = "protocol_only"
+required-features = ["protocol"]

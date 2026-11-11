@@ -1,0 +1,29 @@
+name: Fuzz
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+env:
+  CARGO_TERM_COLOR: always
+
+defaults:
+  run:
+    working-directory: pulselink-rs
+
+jobs:
+  fuzz:
+    name: cargo-fuzz
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@nightly
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: pulselink-rs/fuzz
+      - run: cargo install cargo-fuzz --locked
+      - run: |
+          for target in b0_encode b1_decode frequency relay_frame app_message device_operate; do
+            cargo +nightly fuzz run "$target" -- -max_total_time=60
+          done

@@ -17,6 +17,8 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.99"
 license = "Apache-2.0"
+repository = "https://github.com/Chiloven945/pulselink"
+homepage = "https://github.com/Chiloven945/pulselink"
 
 [workspace.dependencies]
 pulselink-core = { path = "crates/pulselink-core", version = "0.1.0" }

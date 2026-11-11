@@ -740,6 +740,8 @@ dependencies = [
  "pulselink-runtime",
  "pulselink-transport",
  "pulselink-ws",
+ "thiserror",
+ "tokio",
 ]
 
 [[package]]

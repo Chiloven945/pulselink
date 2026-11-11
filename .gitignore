@@ -4,3 +4,5 @@ target/
 .DS_Store
 *.log
 /.gradle/
+pulselink-rs/fuzz/corpus/
+pulselink-rs/fuzz/artifacts/

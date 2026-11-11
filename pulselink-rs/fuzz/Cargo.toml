@@ -1,0 +1,56 @@
+[package]
+name = "pulselink-fuzz"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[package.metadata]
+cargo-fuzz = true
+
+[workspace]
+
+[profile.release]
+debug = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+pulselink-core = { path = "../crates/pulselink-core" }
+pulselink-pattern = { path = "../crates/pulselink-pattern" }
+pulselink-protocol = { path = "../crates/pulselink-protocol", default-features = false, features = ["coyote-v3", "socket-v4"] }
+serde_json = "1"
+
+[[bin]]
+name = "b0_encode"
+path = "fuzz_targets/b0_encode.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "b1_decode"
+path = "fuzz_targets/b1_decode.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "frequency"
+path = "fuzz_targets/frequency.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "relay_frame"
+path = "fuzz_targets/relay_frame.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "app_message"
+path = "fuzz_targets/app_message.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "device_operate"
+path = "fuzz_targets/device_operate.rs"
+test = false
+doc = false

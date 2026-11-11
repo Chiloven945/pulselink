@@ -46,5 +46,5 @@ client.shutdown().await;
 - `shutdown().await` performs a best-effort zero-intensity write before closing.
 - `Drop` only sends a cancellation signal; use `shutdown` for deterministic cleanup.
 
-See [`../../docs/runtime-contracts.md`](../../docs/runtime-contracts.md) and
-[`../../docs/ROADMAP.md`](../../docs/ROADMAP.md).
+See [`https://github.com/Chiloven945/pulselink/blob/main/pulselink-rs/docs/runtime-contracts.md`](https://github.com/Chiloven945/pulselink/blob/main/pulselink-rs/docs/runtime-contracts.md) and
+[`https://github.com/Chiloven945/pulselink/blob/main/pulselink-rs/docs/ROADMAP.md`](https://github.com/Chiloven945/pulselink/blob/main/pulselink-rs/docs/ROADMAP.md).

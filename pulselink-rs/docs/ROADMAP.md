@@ -14,7 +14,7 @@
 > - [x] M5 — WebSocket Transport / RPC
 > - [x] M6 — BLE Runtime
 > - [x] M7 — WebSocket Session
-> - [ ] M8 — Facade
+> - [x] M8 — Facade
 > - [ ] M9 — Hardening & Release
 >
 > Scope: Coyote V3 BLE + DG-LAB V4 WebSocket.
@@ -3739,6 +3739,11 @@ tests cover operations, clear, patches, multiple apps, heartbeats, idle timeout,
 - Docs have no warnings;
 - Publish dry-run passes.
 
+**Completion notes**: the facade adds `PulseLink`, unified `Error`, curated
+re-exports, a `protocol` feature, and five examples. `scripts/check-features.sh`
+checks the feature matrix and dependency isolation; package metadata and
+`cargo publish --workspace --dry-run` pass.
+
 ### M9 — Hardening & Release
 
 **Goal**: release 0.1.0.
@@ -3761,6 +3766,10 @@ tests cover operations, clear, patches, multiple apps, heartbeats, idle timeout,
 - Root README install example works;
 - Tag `v0.1.0`;
 - Release announcement/CHANGELOG.
+
+**Progress**: three-platform CI, fuzz targets/workflow, security review,
+version-metadata checks, and the hardware test procedure are in place. A real
+Coyote V3 run and release publishing remain pending.
 
 ---
 

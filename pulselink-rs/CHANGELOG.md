@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-11
+
 ### Added
 
 - M0: virtual Cargo workspace with eight library crates and an integration-test package.
@@ -32,4 +34,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   pattern playback, safety policy, reconnect, shutdown, and mock session tests.
 - M7: `pulselink-ws` live `RemoteDeviceHandle`/snapshot API, operation options/handles/results,
   version-3 pulse frames, typed props accessors, and multi-app integration tests.
+- M8: `pulselink` facade with `PulseLink`, unified `Error`, curated re-exports, `protocol` feature, and BLE/WebSocket/protocol examples.
+- M8: feature matrix script, package metadata, README/roadmap updates, and publish dry-run support.
+- M9: three-platform CI checks, scheduled cargo-fuzz targets, hardware-matrix procedure, security documentation, and version-metadata checks.
 - CI: install Linux D-Bus development packages before BLE compilation.
