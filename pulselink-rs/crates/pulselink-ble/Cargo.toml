@@ -39,3 +39,8 @@ workspace = true
 [[example]]
 name = "coyote_v3_probe"
 required-features = ["btleplug"]
+
+# Force libdbus-sys to build its vendored copy so Linux CI and docs.rs do not
+# require system D-Bus development headers.
+[target.'cfg(target_os = "linux")'.dependencies]
+dbus = { version = "0.9.12", features = ["vendored"] }

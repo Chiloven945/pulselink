@@ -37,11 +37,6 @@ jobs:
         with:
           workspaces: pulselink-rs
 
-      - name: Install Linux BLE build dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libdbus-1-dev pkg-config
-
       - uses: taiki-e/install-action@cargo-deny
 
       - name: Preflight

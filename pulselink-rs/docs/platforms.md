@@ -5,8 +5,8 @@
 ## Linux
 
 - BlueZ must be available; the user needs permission to access the Bluetooth adapter.
-- Building `pulselink-ble` requires the D-Bus development headers and `pkg-config`
-  (`libdbus-1-dev` on Debian/Ubuntu, `dbus-devel` on Fedora).
+- `pulselink-ble` builds a vendored libdbus on Linux, so no system D-Bus development
+  headers are required.
 - btleplug scan filtering is not fully isolated by service UUID; `pulselink` performs a second-pass
   filter in the SDK.
 - Multiple adapters are possible. `BtleplugCentral::new()` must handle an empty adapter list without
