@@ -23,4 +23,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - M2: cross-language test vectors for Coyote V3 and V4.
 - M3: `pulselink-transport` device link SPI with `GattLink`, `Central`, `Connector`, `Backend`,
   `ScanFilter`, and a controllable mock backend.
-
+- M4: `pulselink-ble` btleplug backend: adapter selection, filtered/deduplicated scanning with
+  cancellation, connection setup, write/read/notify, reconnect, error mapping, and a hardware probe.
+- M5: `pulselink-ws` V4 transport: socket lifecycle, hello/target id, multi-app registry, RPC
+  manager, device cache, `device.op` submission/completion, heartbeat/ping, close handling, and a
+  mock relay.

@@ -11,6 +11,20 @@ readme = "README.md"
 pulselink-core = { workspace = true }
 pulselink-pattern = { workspace = true }
 pulselink-protocol = { workspace = true, default-features = false, features = ["socket-v4"] }
+async-trait = { workspace = true }
+futures-util = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["rt", "sync", "time", "macros", "net"] }
+tokio-tungstenite = { workspace = true }
+tracing = { workspace = true }
+
+[features]
+default = []
+mock = []
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time", "net"] }
 
 [lints]
 workspace = true

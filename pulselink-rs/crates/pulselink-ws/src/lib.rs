@@ -1,7 +1,31 @@
 //! DG-LAB V4 WebSocket controller SDK.
 //!
-//! Implementation starts in milestone M5/M7. This crate will contain the V4
-//! socket, app registry, RPC manager, device cache, and operation handles. It
-//! does not depend on BLE or the runtime.
+//! The crate owns the controller-side WebSocket connection, RPC requests,
+//! multi-app registry, device cache, and `device.op` submission. It does not
+//! depend on BLE or the local-device runtime.
 
-#![doc = "See `docs/ROADMAP.md` for the WebSocket contracts."]
+mod app;
+mod device;
+mod error;
+mod operation;
+mod options;
+mod registry;
+mod rpc;
+mod socket;
+mod transport;
+
+#[cfg(feature = "mock")]
+pub mod testing;
+
+pub use app::{AppClient, WsEvent};
+pub use error::WsError;
+pub use operation::{ClearTarget, PendingOperation};
+pub use options::SocketOptions;
+pub use socket::{Socket, SocketEvent, SocketState};
+
+pub use pulselink_core::Channel;
+pub use pulselink_protocol::socket::v4::{
+    ActionType, AppEvent, AppMessage, ClearOperate, DeviceOperate, DeviceOperateResult,
+    DevicePatch, OperateValue, OperationEndReason, PulseFrameWire, RelayFrame, RemoteDevice,
+    RpcResponse, SlotPatch, SlotPatchEntry,
+};

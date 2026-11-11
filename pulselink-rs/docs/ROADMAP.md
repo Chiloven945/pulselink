@@ -10,8 +10,8 @@
 > - [x] M1 — Core + Pattern
 > - [x] M2 — Protocol
 > - [x] M3 — Transport
-> - [ ] M4 — BLE Backend
-> - [ ] M5 — WebSocket Transport / RPC
+> - [x] M4 — BLE Backend
+> - [x] M5 — WebSocket Transport / RPC
 > - [ ] M6 — BLE Runtime
 > - [ ] M7 — WebSocket Session
 > - [ ] M8 — Facade
@@ -19,7 +19,8 @@
 >
 > Scope: Coyote V3 BLE + DG-LAB V4 WebSocket.
 >
-> Out of scope for 0.1: Coyote V2 BLE, V3 WebSocket, PawPrints/Civet/Opossum drivers, audio analysis, waveform visualization, CLI, FFI, first-class Android/iOS support.
+> Out of scope for 0.1: Coyote V2 BLE, V3 WebSocket, PawPrints/Civet/Opossum drivers, audio
+> analysis, waveform visualization, CLI, FFI, first-class Android/iOS support.
 
 ---
 
@@ -28,18 +29,17 @@
 This is not an "architecture essay"; it is an executable construction plan for
 `pulselink-rs` from an empty repository to `0.1.0`. It defines:
 
-1. Each crate's responsibilities, boundaries, dependency direction, and public
-   API;
+1. Each crate's responsibilities, boundaries, dependency direction, and public API;
 2. Each module's file layout and key types;
-3. Precise contracts for protocol codecs, Session runtime, ACK, scheduling,
-   safety, and reconnection;
+3. Precise contracts for protocol codecs, Session runtime, ACK, scheduling, safety, and
+   reconnection;
 4. Test vectors, mocks, real hardware, CI, release, and acceptance criteria;
-5. A dependency-ordered task list (M0–M9), where every task has a concrete
-   deliverable and completion condition.
+5. A dependency-ordered task list (M0–M9), where every task has a concrete deliverable and
+   completion condition.
 
-If implementation discovers a conflict between this document and the real
-protocol or the Rust ecosystem, update this document first, then change the
-code. Do not bypass the contracts with a "write it first, figure it out later"
+If implementation discovers a conflict between this document and the real protocol or the Rust
+ecosystem, update this document first, then change the code. Do not bypass the contracts with a
+"write it first, figure it out later"
 approach.
 
 ---
@@ -48,18 +48,17 @@ approach.
 
 ### 1.1 Goals
 
-`pulselink-rs` is the Rust workspace for `pulselink`, a reliable, async-first,
-testable, and extensible DG-LAB device-control SDK:
+`pulselink-rs` is the Rust workspace for `pulselink`, a reliable, async-first, testable, and
+extensible DG-LAB device-control SDK:
 
-- **Connectivity**: BLE scanning, connection, GATT discovery, Notify
-  subscription, disconnection, and reconnection;
+- **Connectivity**: BLE scanning, connection, GATT discovery, Notify subscription, disconnection,
+  and reconnection;
 - **Protocol**: Coyote V3 BLE codecs; DG-LAB V4 WebSocket frames and RPC;
-- **Control**: channel intensity, soft limits, balance parameters, waveform
-  playback, and stop;
-- **Execution**: Session Actor, command queue, Sequence/ACK, 100 ms scheduling,
-  safety policy, and lifecycle;
-- **Remote**: V4 multi-app, device discovery, remote device operations, and task
-  completion semantics;
+- **Control**: channel intensity, soft limits, balance parameters, waveform playback, and stop;
+- **Execution**: Session Actor, command queue, Sequence/ACK, 100 ms scheduling, safety policy, and
+  lifecycle;
+- **Remote**: V4 multi-app, device discovery, remote device operations, and task completion
+  semantics;
 - **Ergonomics**: most users only depend on `pulselink`; advanced users can use
   protocol/transport/ble/ws directly.
 
@@ -80,19 +79,17 @@ testable, and extensible DG-LAB device-control SDK:
 
 When `pulselink 0.1.0` is complete, it should satisfy:
 
-1. A user can add only `pulselink = "0.1"`, enable `ble`, and scan, connect to,
-   and safely control a Coyote V3;
-2. A user can add only `pulselink = "0.1"`, enable `websocket`, and complete V4
-   pairing, multi-app handling, device discovery, intensity, and waveform
-   operations;
-3. `pulselink-protocol` can be published and used independently, without Tokio,
-   btleplug, or WebSocket;
-4. `pulselink-transport` can be implemented by third parties (custom BLE
-   backends), and the runtime does not depend on btleplug;
-5. Mock GATT + paused time cover ACK timeout, late B1, disconnection,
-   reconnection, scheduler lag, and other exceptional scenarios;
-6. Windows/Linux/macOS compile; at least one platform is validated with a real
+1. A user can add only `pulselink = "0.1"`, enable `ble`, and scan, connect to, and safely control a
    Coyote V3;
+2. A user can add only `pulselink = "0.1"`, enable `websocket`, and complete V4 pairing, multi-app
+   handling, device discovery, intensity, and waveform operations;
+3. `pulselink-protocol` can be published and used independently, without Tokio, btleplug, or
+   WebSocket;
+4. `pulselink-transport` can be implemented by third parties (custom BLE backends), and the runtime
+   does not depend on btleplug;
+5. Mock GATT + paused time cover ACK timeout, late B1, disconnection, reconnection, scheduler lag,
+   and other exceptional scenarios;
+6. Windows/Linux/macOS compile; at least one platform is validated with a real Coyote V3;
 7. All feature combinations pass CI; `cargo publish --workspace --dry-run`
    passes;
 8. There is no `unsafe`; library code has no panic paths caused by
@@ -103,26 +100,26 @@ When `pulselink 0.1.0` is complete, it should satisfy:
 
 ## 2. Decisions (ADR Summary)
 
-| ID | Decision | Rationale |
-|---|---|---|
-| D1 | Use a virtual Cargo workspace; the facade lives at `crates/pulselink` | A workspace is not a publish unit; the facade needs its own package name `pulselink` |
-| D2 | Use eight crates: core, pattern, protocol, transport, ble, runtime, ws, pulselink | Each crate has an independent responsibility and dependency direction; avoids a single-crate mud ball and over-splitting |
-| D3 | `pulselink-transport` exists from day one | Transport is a port the runtime explicitly needs, not speculation; avoids the runtime depending backwards on ble |
-| D4 | `pulselink-runtime` depends only on transport, not btleplug | A high-level runtime should not depend on a platform adapter; enables mocks and third-party backends |
-| D5 | `pulselink-ble` is an adapter that implements transport traits | btleplug is isolated inside the adapter; replacing the backend does not affect protocol |
-| D6 | `pulselink-protocol` is sans-io | Pure codecs and validation; no Tokio/btleplug/WebSocket |
-| D7 | `pulselink-pattern` is separate but minimal | Semantic waveform is separated from wire encoding; V3 semantics first, V2 can be a lossy compiler later |
-| D8 | `pulselink-ws` is fully independent of BLE/runtime | V4 task-completion semantics differ; WS-only builds must not compile BLE |
-| D9 | First version implements only a concrete `CoyoteV3Session`; no generic DeviceDriver trait | With one device, a driver abstraction becomes a god trait; extract it after a second device lands |
-| D10 | Auto-reconnect is enabled by default, but never automatically resumes a Pattern/output | The user confirmed default-on; safety requires explicit output resumption |
-| D11 | Default feature is `ble`; `websocket` is opt-in; `full` enables both | Keeps default builds lean; WS users can depend on `pulselink-ws` only |
-| D12 | Rust 2024, `resolver = "3"`, `rust-version = "1.99"` | Current stable; a new project does not need to carry an old MSRV |
-| D13 | License remains Apache-2.0 | User confirmed; btleplug's MIT/Apache-2.0/BSD-3-Clause is compatible |
-| D14 | All library crates are released together at the same version; `integration-tests` is `publish = false` | Cargo publishes per crate; the facade's dependencies must resolve from crates.io |
-| D15 | Platform priority: Windows/Linux/macOS; Android/iOS later | btleplug supports them; desktop reliability comes first |
-| D16 | Share `spec/` test vectors and protocol semantics with pulselink4j, not directory structure | Rust and JVM follow their own language conventions; protocol facts stay consistent |
-| D17 | Do not copy official protocol documents verbatim; `spec/` contains summaries, links, and test vectors | Official documents have commercial-use restrictions; avoid copyright issues |
-| D18 | V4 reconnect does not silently reuse the old targetId | The server assigns a new clientId per connection; the app must re-pair |
+| ID  | Decision                                                                                               | Rationale                                                                                                                |
+|-----|--------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| D1  | Use a virtual Cargo workspace; the facade lives at `crates/pulselink`                                  | A workspace is not a publish unit; the facade needs its own package name `pulselink`                                     |
+| D2  | Use eight crates: core, pattern, protocol, transport, ble, runtime, ws, pulselink                      | Each crate has an independent responsibility and dependency direction; avoids a single-crate mud ball and over-splitting |
+| D3  | `pulselink-transport` exists from day one                                                              | Transport is a port the runtime explicitly needs, not speculation; avoids the runtime depending backwards on ble         |
+| D4  | `pulselink-runtime` depends only on transport, not btleplug                                            | A high-level runtime should not depend on a platform adapter; enables mocks and third-party backends                     |
+| D5  | `pulselink-ble` is an adapter that implements transport traits                                         | btleplug is isolated inside the adapter; replacing the backend does not affect protocol                                  |
+| D6  | `pulselink-protocol` is sans-io                                                                        | Pure codecs and validation; no Tokio/btleplug/WebSocket                                                                  |
+| D7  | `pulselink-pattern` is separate but minimal                                                            | Semantic waveform is separated from wire encoding; V3 semantics first, V2 can be a lossy compiler later                  |
+| D8  | `pulselink-ws` is fully independent of BLE/runtime                                                     | V4 task-completion semantics differ; WS-only builds must not compile BLE                                                 |
+| D9  | First version implements only a concrete `CoyoteV3Session`; no generic DeviceDriver trait              | With one device, a driver abstraction becomes a god trait; extract it after a second device lands                        |
+| D10 | Auto-reconnect is enabled by default, but never automatically resumes a Pattern/output                 | The user confirmed default-on; safety requires explicit output resumption                                                |
+| D11 | Default feature is `ble`; `websocket` is opt-in; `full` enables both                                   | Keeps default builds lean; WS users can depend on `pulselink-ws` only                                                    |
+| D12 | Rust 2024, `resolver = "3"`, `rust-version = "1.99"`                                                   | Current stable; a new project does not need to carry an old MSRV                                                         |
+| D13 | License remains Apache-2.0                                                                             | User confirmed; btleplug's MIT/Apache-2.0/BSD-3-Clause is compatible                                                     |
+| D14 | All library crates are released together at the same version; `integration-tests` is `publish = false` | Cargo publishes per crate; the facade's dependencies must resolve from crates.io                                         |
+| D15 | Platform priority: Windows/Linux/macOS; Android/iOS later                                              | btleplug supports them; desktop reliability comes first                                                                  |
+| D16 | Share `spec/` test vectors and protocol semantics with pulselink4j, not directory structure            | Rust and JVM follow their own language conventions; protocol facts stay consistent                                       |
+| D17 | Do not copy official protocol documents verbatim; `spec/` contains summaries, links, and test vectors  | Official documents have commercial-use restrictions; avoid copyright issues                                              |
+| D18 | V4 reconnect does not silently reuse the old targetId                                                  | The server assigns a new clientId per connection; the app must re-pair                                                   |
 
 ---
 
@@ -140,11 +137,9 @@ flowchart TD
     runtime[pulselink-runtime]
     ws[pulselink-ws]
     facade[pulselink]
-
     pattern --> core
     protocol --> core
     protocol --> pattern
-
     ble --> transport
     runtime --> core
     runtime --> pattern
@@ -153,7 +148,6 @@ flowchart TD
     ws --> core
     ws --> pattern
     ws --> protocol
-
     facade --> core
     facade --> pattern
     facade --> protocol
@@ -165,16 +159,15 @@ flowchart TD
 
 Dependency rules:
 
-- Arrows point downward only: core/pattern/protocol/transport never depend on a
-  higher layer.
-- `pulselink-transport` does not depend on core/protocol/pattern, and does not
-  depend on Tokio. It is an independent local-device link SPI.
+- Arrows point downward only: core/pattern/protocol/transport never depend on a higher layer.
+- `pulselink-transport` does not depend on core/protocol/pattern, and does not depend on Tokio. It
+  is an independent local-device link SPI.
 - `pulselink-runtime` does not depend on `pulselink-ble`; it uses a backend via
   `Arc<dyn Backend>`.
-- `pulselink-ws` does not depend on transport/runtime/ble; it has its own
-  message transport and RPC lifecycle.
-- `pulselink` only performs composition, default backend injection, curated
-  re-exports, and unified errors; it contains no second business logic.
+- `pulselink-ws` does not depend on transport/runtime/ble; it has its own message transport and RPC
+  lifecycle.
+- `pulselink` only performs composition, default backend injection, curated re-exports, and unified
+  errors; it contains no second business logic.
 
 ### 3.2 Directory Layout
 
@@ -369,17 +362,17 @@ spec/
 
 ### 3.3 Feature Matrix
 
-| Feature | Crate | Purpose |
-|---|---|---|
-| `ble` | `pulselink` | Enables `pulselink-ble` + `pulselink-runtime` + btleplug backend |
-| `websocket` | `pulselink` | Enables `pulselink-ws` + `pulselink-protocol/socket-v4` |
-| `full` | `pulselink` | `ble` + `websocket` |
-| `coyote-v3` | `pulselink-protocol` | Enables Coyote V3 BLE codecs (default) |
-| `socket-v4` | `pulselink-protocol` | Enables V4 JSON/RPC types (requires serde/serde_json) |
-| `serde` | `pulselink-core`, `pulselink-pattern` | Optional serialization support |
-| `mock` | `pulselink-transport` | MockLink/MockCentral/MockConnector |
-| `btleplug` | `pulselink-ble` | Enables the btleplug backend by default; when off, only adapter types remain |
-| `test-util` | `pulselink-ws` | Internal WebSocket transport mock |
+| Feature     | Crate                                 | Purpose                                                                      |
+|-------------|---------------------------------------|------------------------------------------------------------------------------|
+| `ble`       | `pulselink`                           | Enables `pulselink-ble` + `pulselink-runtime` + btleplug backend             |
+| `websocket` | `pulselink`                           | Enables `pulselink-ws` + `pulselink-protocol/socket-v4`                      |
+| `full`      | `pulselink`                           | `ble` + `websocket`                                                          |
+| `coyote-v3` | `pulselink-protocol`                  | Enables Coyote V3 BLE codecs (default)                                       |
+| `socket-v4` | `pulselink-protocol`                  | Enables V4 JSON/RPC types (requires serde/serde_json)                        |
+| `serde`     | `pulselink-core`, `pulselink-pattern` | Optional serialization support                                               |
+| `mock`      | `pulselink-transport`                 | MockLink/MockCentral/MockConnector                                           |
+| `btleplug`  | `pulselink-ble`                       | Enables the btleplug backend by default; when off, only adapter types remain |
+| `test-util` | `pulselink-ws`                        | Internal WebSocket transport mock                                            |
 
 Recommended usage:
 
@@ -433,8 +426,7 @@ proptest = "1"
 Requirements:
 
 - Each crate enables only the Tokio features it needs;
-- `pulselink-core`, `pulselink-pattern`, and `pulselink-transport` do not depend
-  on Tokio;
+- `pulselink-core`, `pulselink-pattern`, and `pulselink-transport` do not depend on Tokio;
 - `pulselink-protocol` does not depend on Tokio/btleplug;
 - `pulselink-runtime` does not depend on btleplug;
 - Do not use `anyhow` in libraries;
@@ -449,13 +441,13 @@ Requirements:
 - `rust-toolchain.toml`: `channel = "stable"`, components rustfmt/clippy;
 - License: Apache-2.0;
 - Add `LICENSE` (full Apache-2.0 text) at the repository root;
-- README must state: DG-LAB's official protocol documentation requires prior
-  authorization for commercial use; the SDK's Apache-2.0 license does not
-  automatically grant commercial rights to the device protocol;
+- README must state: DG-LAB's official protocol documentation requires prior authorization for
+  commercial use; the SDK's Apache-2.0 license does not automatically grant commercial rights to the
+  device protocol;
 - All library crates share version `0.1.0`; `integration-tests` is
   `publish = false`;
-- Release with `cargo publish --workspace`, or `cargo-release` when finer
-  ordering/changelog control is needed.
+- Release with `cargo publish --workspace`, or `cargo-release` when finer ordering/changelog control
+  is needed.
 
 ### 3.6 Workspace Lints
 
@@ -475,8 +467,7 @@ missing_errors_doc = "allow"
 missing_panics_doc = "allow"
 ```
 
-Library code must not use `unwrap()`/`expect()`; tests and examples may be more
-permissive. CI adds:
+Library code must not use `unwrap()`/`expect()`; tests and examples may be more permissive. CI adds:
 
 ```bash
 cargo clippy --workspace --all-targets --all-features -- -D warnings
@@ -490,8 +481,8 @@ cargo clippy --workspace --all-targets --all-features -- -D warnings
 
 #### Responsibility
 
-A stable, lightweight, I/O-free domain model. It answers "what is a device, what
-is a channel, what is a state"; it does not answer "how are bytes encoded" or
+A stable, lightweight, I/O-free domain model. It answers "what is a device, what is a channel, what
+is a state"; it does not answer "how are bytes encoded" or
 "how do I connect".
 
 #### Dependencies
@@ -505,7 +496,10 @@ is a channel, what is a state"; it does not answer "how are bytes encoded" or
 ```rust
 pub struct DeviceId(/* private */);
 pub struct BleDeviceId(Arc<str>);
-pub struct RemoteDeviceId { pub client_id: Arc<str>, pub slot_id: Arc<str> }
+pub struct RemoteDeviceId {
+    pub client_id: Arc<str>,
+    pub slot_id: Arc<str>
+}
 
 pub enum DeviceId {
     Ble(BleDeviceId),
@@ -553,7 +547,9 @@ pub struct WaveformCapabilities {
 
 pub enum Channel { A, B }
 
-pub struct ChannelMap<T> { /* a, b */ }
+pub struct ChannelMap<T> {
+    /* a, b */
+}
 
 pub struct Intensity(u8);       // 0..=200
 pub struct IntensityDelta(i16); // -200..=200
@@ -618,23 +614,20 @@ pub enum CoreError {
 
 #### Key Semantics
 
-- `Intensity` is a logical intensity `0..=200`, corresponding to V3/V4 channel
-  intensity. It is not V4's temporary intensity value, nor V2's raw `0..=2047`.
-- `IntensityDelta` allows negative values; `Increase`/`Decrease` are encoded
-  separately in the protocol layer, and the runtime is responsible for queueing.
-- `Observed<T>` must distinguish "unknown" from "known zero". After the first
-  connection, intensity is usually `Unknown`, because B1 is not guaranteed to
-  arrive on connect.
-- `DeviceState.revision` increments on every state update; users can compare it
-  to determine snapshot freshness.
-- `DeviceEvent` is `#[non_exhaustive]` to leave room for future device
-  extensions.
+- `Intensity` is a logical intensity `0..=200`, corresponding to V3/V4 channel intensity. It is not
+  V4's temporary intensity value, nor V2's raw `0..=2047`.
+- `IntensityDelta` allows negative values; `Increase`/`Decrease` are encoded separately in the
+  protocol layer, and the runtime is responsible for queueing.
+- `Observed<T>` must distinguish "unknown" from "known zero". After the first connection, intensity
+  is usually `Unknown`, because B1 is not guaranteed to arrive on connect.
+- `DeviceState.revision` increments on every state update; users can compare it to determine
+  snapshot freshness.
+- `DeviceEvent` is `#[non_exhaustive]` to leave room for future device extensions.
 - `DeviceKind` is `#[non_exhaustive]`; the 0.1 BLE runtime supports only
   `CoyoteV3` and returns `Unsupported` for other kinds.
-- `DeviceId` does not promise cross-platform or cross-restart stability; BLE id
-  is a platform-specific opaque id.
-- Do not put `CoyoteSettings` or B0/BF types in core; those belong to
-  protocol/runtime.
+- `DeviceId` does not promise cross-platform or cross-restart stability; BLE id is a
+  platform-specific opaque id.
+- Do not put `CoyoteSettings` or B0/BF types in core; those belong to protocol/runtime.
 
 #### Tests
 
@@ -658,8 +651,8 @@ pub enum CoreError {
 
 #### Responsibility
 
-Represent "waveform content" and "timeline"; does not handle wire encoding and
-does not depend on Tokio/devices.
+Represent "waveform content" and "timeline"; does not handle wire encoding and does not depend on
+Tokio/devices.
 
 #### Dependencies
 
@@ -668,16 +661,16 @@ does not depend on Tokio/devices.
 
 #### Core Concepts
 
-| Concept | Meaning |
-|---|---|
-| `PulseInterval` | Duration of one output unit, in ms, range 10..=1000 |
-| `PulseIntensity` | Pulse intensity, 0..=100, unitless |
-| `PulseSample` | One 25 ms window's interval + intensity |
-| `ChannelFrame` | Four `PulseSample`s covering 100 ms; or explicit silence |
-| `StereoFrame` | A/B channel frames |
-| `Timeline` | Playback timeline with 25 ms resolution |
-| `Pattern` | A loopable/non-loopable sequence of `StereoFrame`s |
-| `PatternCursor` | Playback cursor; the runtime uses it to select frames by elapsed time |
+| Concept          | Meaning                                                               |
+|------------------|-----------------------------------------------------------------------|
+| `PulseInterval`  | Duration of one output unit, in ms, range 10..=1000                   |
+| `PulseIntensity` | Pulse intensity, 0..=100, unitless                                    |
+| `PulseSample`    | One 25 ms window's interval + intensity                               |
+| `ChannelFrame`   | Four `PulseSample`s covering 100 ms; or explicit silence              |
+| `StereoFrame`    | A/B channel frames                                                    |
+| `Timeline`       | Playback timeline with 25 ms resolution                               |
+| `Pattern`        | A loopable/non-loopable sequence of `StereoFrame`s                    |
+| `PatternCursor`  | Playback cursor; the runtime uses it to select frames by elapsed time |
 
 #### Type Draft
 
@@ -725,22 +718,20 @@ pub enum PatternError {
 
 #### Key Semantics
 
-- `PulseInterval` is in milliseconds, not Hz. Provide `from_hz`/`to_hz` helpers,
-  but the internal and wire conversions use ms.
-- `ChannelFrame::Silent` means the channel has no output for the whole 100 ms
-  window; the protocol layer encodes it as an invalid amplitude 101 silence
-  frame, not simple all-zero data (all-zero is still a valid output with
-  intensity 0).
-- `Pattern` is not bound to Coyote V3; it is a semantic timeline. V3 compilation
-  happens in protocol/runtime; V2 gets a lossy compiler later.
-- `Pattern` must not contain 20 pre-encoded B0 packets; it stores semantic
-  frames.
-- 0.1 supports only 25 ms samples and 100 ms frames; if future devices need a
-  different window, add `SampleRate` or a compiler parameter.
-- An empty Pattern is an error; playback-end behavior is controlled by the
-  runtime's `PlayOptions` (default: stop output).
-- Looping is controlled by `looped`; the runtime does not automatically restore
-  a Pattern after a disconnect.
+- `PulseInterval` is in milliseconds, not Hz. Provide `from_hz`/`to_hz` helpers, but the internal
+  and wire conversions use ms.
+- `ChannelFrame::Silent` means the channel has no output for the whole 100 ms window; the protocol
+  layer encodes it as an invalid amplitude 101 silence frame, not simple all-zero data (all-zero is
+  still a valid output with intensity 0).
+- `Pattern` is not bound to Coyote V3; it is a semantic timeline. V3 compilation happens in
+  protocol/runtime; V2 gets a lossy compiler later.
+- `Pattern` must not contain 20 pre-encoded B0 packets; it stores semantic frames.
+- 0.1 supports only 25 ms samples and 100 ms frames; if future devices need a different window, add
+  `SampleRate` or a compiler parameter.
+- An empty Pattern is an error; playback-end behavior is controlled by the runtime's `PlayOptions`
+  (default: stop output).
+- Looping is controlled by `looped`; the runtime does not automatically restore a Pattern after a
+  disconnect.
 
 #### Tests
 
@@ -765,8 +756,7 @@ pub enum PatternError {
 
 #### Responsibility
 
-Pure protocol codecs and validation. It is the single source of truth for "what
-the bytes mean".
+Pure protocol codecs and validation. It is the single source of truth for "what the bytes mean".
 
 #### Dependencies
 
@@ -788,10 +778,10 @@ socket-v4 = ["dep:serde", "dep:serde_json"]
 
 ```rust
 pub const SERVICE_CONTROL: Uuid = uuid!("0000180c-0000-1000-8000-00805f9b34fb");
-pub const CHAR_WRITE: Uuid      = uuid!("0000150a-0000-1000-8000-00805f9b34fb");
-pub const CHAR_NOTIFY: Uuid     = uuid!("0000150b-0000-1000-8000-00805f9b34fb");
+pub const CHAR_WRITE: Uuid = uuid!("0000150a-0000-1000-8000-00805f9b34fb");
+pub const CHAR_NOTIFY: Uuid = uuid!("0000150b-0000-1000-8000-00805f9b34fb");
 pub const SERVICE_BATTERY: Uuid = uuid!("0000180a-0000-1000-8000-00805f9b34fb");
-pub const CHAR_BATTERY: Uuid    = uuid!("00001500-0000-1000-8000-00805f9b34fb");
+pub const CHAR_BATTERY: Uuid = uuid!("00001500-0000-1000-8000-00805f9b34fb");
 
 pub const DEVICE_NAME: &str = "47L121000";
 pub const SENSOR_NAME: &str = "47L120100";
@@ -859,8 +849,8 @@ Silence encoding:
 
 - `ChannelWaveform::Silent` encodes frequency `{0,0,0,0}` and amplitude
   `{0,0,0,101}`;
-- Official convention: any amplitude >100 makes the device discard that
-  channel's four pairs, producing no output;
+- Official convention: any amplitude >100 makes the device discard that channel's four pairs,
+  producing no output;
 - Do not expose this hack to ordinary users; use `Silent`.
 
 #### 4.3.3 BF
@@ -913,8 +903,7 @@ impl B1Message {
 - byte 1: sequence (0..=15; >15 is a protocol error);
 - byte 2: actual A intensity;
 - byte 3: actual B intensity;
-- sequence 0 means an unsolicited device-side change; non-zero is a response to
-  B0.
+- sequence 0 means an unsolicited device-side change; non-zero is a response to B0.
 
 #### 4.3.5 Battery
 
@@ -927,7 +916,7 @@ impl BatteryLevel {
 ```
 
 - Must be 1 byte;
-- >100 is invalid; the runtime may record it as unknown instead of panicking.
+- > 100 is invalid; the runtime may record it as unknown instead of panicking.
 
 #### 4.3.6 Frequency Conversion
 
@@ -950,9 +939,9 @@ Notes:
 
 - Integer division;
 - 600 -> 200; 601 -> 200; 1000 -> 240;
-- The reverse mapping is not unique; `decode_wire_frequency` returns the
-  representative interval for that wire value (lower bound of the forward range
-  or a lookup table), for display only, not for control;
+- The reverse mapping is not unique; `decode_wire_frequency` returns the representative interval for
+  that wire value (lower bound of the forward range or a lookup table), for display only, not for
+  control;
 - Do not say "200 Hz"; 10 ms = 100 Hz, 1000 ms = 1 Hz.
 
 #### 4.3.7 ProtocolError
@@ -1163,11 +1152,10 @@ Validation:
 - `channel` must be 0/1;
 - `priority` must be 0/1/2;
 - `SetIntensity`'s `v` must be 0;
-- `AddIntensity`'s `v` may be positive or negative; recommended range
-  -200..=200;
+- `AddIntensity`'s `v` may be positive or negative; recommended range -200..=200;
 - `SetTempIntensity`'s `v` 0..=200, `d` non-negative;
-- `AppendPulseData`'s `ver` 2/3; V3 frames must be 8 bytes, V2 frames 3 bytes;
-  hex must contain complete byte pairs;
+- `AppendPulseData`'s `ver` 2/3; V3 frames must be 8 bytes, V2 frames 3 bytes; hex must contain
+  complete byte pairs;
 - `ClearOperate.channel` requires `slot_id`;
 - `custom.action` 0..=9;
 - Preserve unknown fields; unknown events must not fail parsing (`#[serde(other)]`
@@ -1183,8 +1171,8 @@ Validation:
 - Four `device.op` ActionTypes;
 - `SetIntensity` non-zero rejection;
 - `device.op.clear` parameter validation;
-- Property tests: legal B0 encode/decode roundtrip (if decode is implemented),
-  invalid input rejected;
+- Property tests: legal B0 encode/decode roundtrip (if decode is implemented), invalid input
+  rejected;
 - Test vectors synchronized from `spec/`.
 
 #### Completion Criteria
@@ -1201,12 +1189,10 @@ Validation:
 
 #### Responsibility
 
-Define the port for local device links. It keeps `pulselink-runtime` independent
-of btleplug, lets third parties implement their own BLE backend, and allows mock
-tests without real hardware.
+Define the port for local device links. It keeps `pulselink-runtime` independent of btleplug, lets
+third parties implement their own BLE backend, and allows mock tests without real hardware.
 
-It is **not** a universal network transport. It does not contain WebSocket,
-HTTP, or RPC.
+It is **not** a universal network transport. It does not contain WebSocket, HTTP, or RPC.
 
 #### Dependencies
 
@@ -1219,7 +1205,7 @@ HTTP, or RPC.
 
 ```rust
 pub type NotificationStream =
-    Pin<Box<dyn Stream<Item = Result<Vec<u8>, TransportError>> + Send + 'static>>;
+Pin<Box<dyn Stream<Item=Result<Vec<u8>, TransportError>> + Send + 'static>>;
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct TransportDeviceId(pub String);
@@ -1324,21 +1310,18 @@ pub enum TransportError {
 
 #### Behavior Contracts
 
-- `scan` must stop the underlying scan when the future is dropped; the timeout
-  returns discovered results or `Timeout` (implementation-defined, but must be
-  documented).
+- `scan` must stop the underlying scan when the future is dropped; the timeout returns discovered
+  results or `Timeout` (implementation-defined, but must be documented).
 - `connect` must cancel the connection attempt when the future is dropped.
-- `subscribe` returns an independent stream per characteristic; dropping the
-  stream stops that subscription.
+- `subscribe` returns an independent stream per characteristic; dropping the stream stops that
+  subscription.
 - `write` in `Auto` mode lets the backend inspect characteristic properties:
   prefer `WithoutResponse`, otherwise `WithResponse`.
-- `GattLink` does not serialize writes; the runtime must serialize writes to the
-  same device.
+- `GattLink` does not serialize writes; the runtime must serialize writes to the same device.
 - `disconnect` is idempotent.
-- `is_connected` is best-effort; actual disconnection is signalled by the
-  notification stream ending or a write error.
-- `TransportDeviceId` is a platform opaque id; it is not guaranteed stable across
-  restarts.
+- `is_connected` is best-effort; actual disconnection is signalled by the notification stream ending
+  or a write error.
+- `TransportDeviceId` is a platform opaque id; it is not guaranteed stable across restarts.
 - `Central`/`Connector`/`GattLink` must be object-safe (`async-trait`).
 - Errors must not panic; backend errors are wrapped in
   `TransportError::Backend` or a specific variant.
@@ -1348,9 +1331,15 @@ pub enum TransportError {
 The `mock` feature provides:
 
 ```rust
-pub struct MockLink { /* ... */ }
-pub struct MockCentral { /* ... */ }
-pub struct MockConnector { /* ... */ }
+pub struct MockLink {
+    /* ... */
+}
+pub struct MockCentral {
+    /* ... */
+}
+pub struct MockConnector {
+    /* ... */
+}
 
 impl MockLink {
     pub fn new(device_id: TransportDeviceId) -> Self;
@@ -1406,7 +1395,9 @@ The btleplug adapter. Implements `Central`, `Connector`, and `GattLink` from
 #### Public API
 
 ```rust
-pub struct BtleplugCentral { /* ... */ }
+pub struct BtleplugCentral {
+    /* ... */
+}
 
 impl BtleplugCentral {
     pub async fn new() -> Result<Self, BleError>;
@@ -1420,7 +1411,9 @@ impl Central for BtleplugCentral { /* scan/connect */ }
 #[async_trait]
 impl Connector for BtleplugCentral { /* reconnect */ }
 
-pub struct BtleplugLink { /* ... */ }
+pub struct BtleplugLink {
+    /* ... */
+}
 
 #[async_trait]
 impl GattLink for BtleplugLink { /* write/read/subscribe/disconnect */ }
@@ -1429,100 +1422,96 @@ impl GattLink for BtleplugLink { /* write/read/subscribe/disconnect */ }
 #### Scanning
 
 - `Central::new()` selects an adapter:
-  - Get `Manager::adapters()`;
-  - Return `BleError::NoAdapter` for an empty list; do not `swap_remove(0)`
-    without a bounds check;
-  - Default to the first adapter; provide `with_adapter` for advanced users.
+    - Get `Manager::adapters()`;
+    - Return `BleError::NoAdapter` for an empty list; do not `swap_remove(0)`
+      without a bounds check;
+    - Default to the first adapter; provide `with_adapter` for advanced users.
 - `scan(filter, timeout)`:
-  - Start btleplug `scan(ScanFilter)`;
-  - Apply the SDK's own `ScanFilter` as a second pass (Linux/BlueZ filtering is
-    not reliable);
-  - Deduplicate by `PeripheralId`, keeping the latest RSSI/name;
-  - Stop scanning on timeout;
-  - Stop scanning when the future is dropped;
-  - Do not rely on a fixed device name as the only criterion; combine name
-    prefix + service UUID.
+    - Start btleplug `scan(ScanFilter)`;
+    - Apply the SDK's own `ScanFilter` as a second pass (Linux/BlueZ filtering is not reliable);
+    - Deduplicate by `PeripheralId`, keeping the latest RSSI/name;
+    - Stop scanning on timeout;
+    - Stop scanning when the future is dropped;
+    - Do not rely on a fixed device name as the only criterion; combine name prefix + service UUID.
 - `DiscoveredDevice` mapping:
-  - `id` = peripheral id string;
-  - `name` = local name;
-  - `rssi` = properties.rssi;
-  - `service_uuids` = properties.services;
-  - `manufacturer_data` = properties.manufacturer_data.
+    - `id` = peripheral id string;
+    - `name` = local name;
+    - `rssi` = properties.rssi;
+    - `service_uuids` = properties.services;
+    - `manufacturer_data` = properties.manufacturer_data.
 
 #### Connection
 
 - `connect(device)`:
-  - Find the peripheral by id;
-  - `connect()` with a timeout;
-  - `discover_services()`;
-  - Verify the control service/write/notify characteristics exist;
-  - Verify the battery characteristic exists (optional; warn if missing);
-  - Return `BtleplugLink`.
+    - Find the peripheral by id;
+    - `connect()` with a timeout;
+    - `discover_services()`;
+    - Verify the control service/write/notify characteristics exist;
+    - Verify the battery characteristic exists (optional; warn if missing);
+    - Return `BtleplugLink`.
 - Map connection failures to `TransportError::Connect`; never panic.
 - Map connection timeouts to `TransportError::Timeout`.
 
 #### GattLink
 
 - `write`:
-  - Find the characteristic;
-  - `WriteMode::Auto` inspects properties:
-    - `WRITE_WITHOUT_RESPONSE` -> `WriteType::WithoutResponse`;
-    - otherwise `WRITE` -> `WriteType::WithResponse`;
-    - neither -> `TransportError::Gatt`;
-  - Apply a timeout;
-  - On failure, update `is_connected` when it is a disconnect error.
+    - Find the characteristic;
+    - `WriteMode::Auto` inspects properties:
+        - `WRITE_WITHOUT_RESPONSE` -> `WriteType::WithoutResponse`;
+        - otherwise `WRITE` -> `WriteType::WithResponse`;
+        - neither -> `TransportError::Gatt`;
+    - Apply a timeout;
+    - On failure, update `is_connected` when it is a disconnect error.
 - `read`: with timeout; used for battery.
 - `subscribe`:
-  - Call `peripheral.subscribe(uuid)`;
-  - Start a notification pump: read `peripheral.notifications()`, filter by
-    characteristic;
-  - Return a `NotificationStream`;
-  - Stop the pump when the stream is dropped, and `unsubscribe` when possible;
-  - When multiple subscriptions share one peripheral notification stream,
-    broadcast/multiplex; do not let each subscription read the same stream.
+    - Call `peripheral.subscribe(uuid)`;
+    - Start a notification pump: read `peripheral.notifications()`, filter by characteristic;
+    - Return a `NotificationStream`;
+    - Stop the pump when the stream is dropped, and `unsubscribe` when possible;
+    - When multiple subscriptions share one peripheral notification stream, broadcast/multiplex; do
+      not let each subscription read the same stream.
 - `disconnect`: `peripheral.disconnect()`, idempotent.
 - `is_connected`: `AtomicBool`, updated by connect/disconnect/write errors.
 
 #### Reconnect
 
 - `Connector::reconnect(target)`:
-  - First look up the peripheral by `target.device_id`;
-  - If not found, rescan with `target.filter`;
-  - Connect + discover + return a new link;
-  - Do not perform BF initialization or restore output; that is the runtime's
-    job.
+    - First look up the peripheral by `target.device_id`;
+    - If not found, rescan with `target.filter`;
+    - Connect + discover + return a new link;
+    - Do not perform BF initialization or restore output; that is the runtime's job.
 
 #### Platform Notes
 
 - Linux/BlueZ:
-  - The user needs Bluetooth permissions;
-  - Scan filtering is not guaranteed to be isolated; the SDK does a second pass;
-  - Multiple adapters may exist.
+    - The user needs Bluetooth permissions;
+    - Scan filtering is not guaranteed to be isolated; the SDK does a second pass;
+    - Multiple adapters may exist.
 - macOS:
-  - Info.plist/entitlements are required (document in examples);
-  - Peripheral ids differ from Linux/Windows and are not guaranteed stable.
+    - Info.plist/entitlements are required (document in examples);
+    - Peripheral ids differ from Linux/Windows and are not guaranteed stable.
 - Windows:
-  - WinRT permissions and Bluetooth radio state matter;
-  - WriteWithoutResponse behavior can differ; always inspect properties.
+    - WinRT permissions and Bluetooth radio state matter;
+    - WriteWithoutResponse behavior can differ; always inspect properties.
 - Do not make device-protocol decisions in the ble crate.
 
 #### Tests
 
 - Use `pulselink-transport::mock` to test the runtime, not btleplug;
 - ble crate tests:
-  - Scan result dedup/filter (pure functions);
-  - WriteMode selection (pure function);
-  - Error mapping;
-  - Connection timeout/scan drop (mock adapter or conditional compilation).
+    - Scan result dedup/filter (pure functions);
+    - WriteMode selection (pure function);
+    - Error mapping;
+    - Connection timeout/scan drop (mock adapter or conditional compilation).
 - Real hardware:
-  - Separate `#[ignore]` test/example;
-  - Environment variable `PULSELINK_HW=1`;
-  - By default, only read battery/subscribe, no output.
+    - Separate `#[ignore]` test/example;
+    - Environment variable `PULSELINK_HW=1`;
+    - By default, only read battery/subscribe, no output.
 
 #### Completion Criteria
 
-- Real device: scan → connect → discover → read battery → subscribe → write BF →
-  send zero-intensity B0 → disconnect;
+- Real device: scan → connect → discover → read battery → subscribe → write BF → send zero-intensity
+  B0 → disconnect;
 - No dependency on the protocol crate;
 - btleplug types do not enter the public API;
 - clippy is clean.
@@ -1533,8 +1522,8 @@ impl GattLink for BtleplugLink { /* write/read/subscribe/disconnect */ }
 
 #### Responsibility
 
-The core of device control. It coordinates transport, protocol, and pattern to
-implement Session, ACK, scheduling, safety, reconnection, and shutdown.
+The core of device control. It coordinates transport, protocol, and pattern to implement Session,
+ACK, scheduling, safety, reconnection, and shutdown.
 
 It does not implement protocol byte encoding and does not use btleplug directly.
 
@@ -1583,7 +1572,9 @@ pub struct CoyoteV3Config {
     pub balance: Option<CoyoteV3Balance>,
 }
 
-pub struct CoyoteV3Session { /* handle */ }
+pub struct CoyoteV3Session {
+    /* handle */
+}
 
 impl CoyoteV3Session {
     pub fn id(&self) -> &DeviceId;
@@ -1724,8 +1715,8 @@ pub enum RuntimeError {
 
 #### Responsibility
 
-The DG-LAB V4 WebSocket controller SDK: connection, pairing, multiple apps,
-device discovery, RPC, device operations, task completion, and state caching.
+The DG-LAB V4 WebSocket controller SDK: connection, pairing, multiple apps, device discovery, RPC,
+device operations, task completion, and state caching.
 
 It does not depend on BLE/runtime and does not use `pulselink-transport`.
 
@@ -1748,7 +1739,9 @@ pub struct SocketOptions {
     pub max_message_size: usize,
 }
 
-pub struct Socket { /* cloneable handle */ }
+pub struct Socket {
+    /* cloneable handle */
+}
 
 impl Socket {
     pub async fn connect(url: impl Into<String>) -> Result<Self, WsError>;
@@ -1762,7 +1755,9 @@ impl Socket {
     pub async fn shutdown(self) -> Result<(), WsError>;
 }
 
-pub struct AppClient { /* cloneable handle */ }
+pub struct AppClient {
+    /* cloneable handle */
+}
 
 impl AppClient {
     pub fn client_id(&self) -> &str;
@@ -1777,7 +1772,9 @@ impl AppClient {
     ) -> Result<(), WsError>;
 }
 
-pub struct RemoteDeviceHandle { /* cloneable handle */ }
+pub struct RemoteDeviceHandle {
+    /* cloneable handle */
+}
 
 impl RemoteDeviceHandle {
     pub fn slot_id(&self) -> &str;
@@ -1853,8 +1850,7 @@ pub struct OperationResult {
 - `operation.rs`: `OperationHandle`, submission/completion semantics.
 - `rpc.rs`: `reqId` generation, pending map, timeout, cancellation.
 - `registry.rs`: multiple apps, device lists, snapshot/patch/slots.patch merge.
-- `transport.rs`: internal WebSocket transport trait + tokio-tungstenite
-  implementation + mock.
+- `transport.rs`: internal WebSocket transport trait + tokio-tungstenite implementation + mock.
 - `error.rs`: `WsError`.
 
 #### `WsError`
@@ -1892,8 +1888,7 @@ pub enum WsError {
 #### Completion Criteria
 
 - No BLE/runtime dependency;
-- Mock relay covers hello, client attach, multiple apps, RPC, operations, clear,
-  and disconnect;
+- Mock relay covers hello, client attach, multiple apps, RPC, operations, clear, and disconnect;
 - `cargo check -p pulselink --no-default-features --features websocket` passes;
 - All V4 public methods have rustdoc.
 
@@ -1903,8 +1898,8 @@ pub enum WsError {
 
 #### Responsibility
 
-The single entry point for users. Composes runtime + default BLE backend, exposes
-WS by feature, and provides curated re-exports. Contains no business logic.
+The single entry point for users. Composes runtime + default BLE backend, exposes WS by feature, and
+provides curated re-exports. Contains no business logic.
 
 #### Dependencies
 
@@ -1928,7 +1923,9 @@ full = ["ble", "websocket"]
 #### Public API
 
 ```rust
-pub struct PulseLink { /* wraps runtime::Client + BtleplugCentral */ }
+pub struct PulseLink {
+    /* wraps runtime::Client + BtleplugCentral */
+}
 
 #[cfg(feature = "ble")]
 impl PulseLink {
@@ -1954,7 +1951,9 @@ pub mod pattern { pub use pulselink_pattern::*; }
 pub mod transport { pub use pulselink_transport::*; }
 
 #[cfg(feature = "websocket")]
-pub mod ws { pub use pulselink_ws::*; }
+pub mod ws {
+    pub use pulselink_ws::*;
+}
 
 pub use pulselink_core::{
     BatteryState, Channel, ChannelMap, ConnectionState, DeviceCapabilities, DeviceEvent,
@@ -1971,17 +1970,14 @@ pub enum Error { /* wraps Core/Protocol/Transport/Runtime/Ws */ }
 - `PulseLink::new()` constructs `Arc<BtleplugCentral>` and injects it as both
   `Central` + `Connector` into the runtime;
 - `PulseLink::with_backend()` allows third-party backends;
-- Do not `pub use pulselink_protocol::*` at the crate root; use modules to avoid
-  name collisions;
+- Do not `pub use pulselink_protocol::*` at the crate root; use modules to avoid name collisions;
 - Do not reimplement ACK/scheduling/reconnection in the facade;
-- All re-exports are intentional; do not pollute the root namespace with
-  wildcards.
+- All re-exports are intentional; do not pollute the root namespace with wildcards.
 
 #### Example Requirements
 
 - `ble_scan.rs`: scan only, no output;
-- `coyote_v3_control.rs`: connect, read state, set low intensity, play a short
-  Pattern, stop;
+- `coyote_v3_control.rs`: connect, read state, set low intensity, play a short Pattern, stop;
 - `ws_pairing.rs`: connect V4, print targetId/QR URL;
 - `ws_control.rs`: wait for app, list devices, intensity/waveform/clear;
 - `protocol_only.rs`: no BLE/WS, demonstrate B0/BF codecs.
@@ -1994,11 +1990,11 @@ pub enum Error { /* wraps Core/Protocol/Transport/Runtime/Ws */ }
 
 #### 5.1.1 GATT
 
-| Service | Characteristic | Properties | Purpose |
-|---|---|---|---|
-| `0x180C` | `0x150A` | Write | All command writes |
-| `0x180C` | `0x150B` | Notify | Device responses |
-| `0x180A` | `0x1500` | Read/Notify | Battery |
+| Service  | Characteristic | Properties  | Purpose            |
+|----------|----------------|-------------|--------------------|
+| `0x180C` | `0x150A`       | Write       | All command writes |
+| `0x180C` | `0x150B`       | Notify      | Device responses   |
+| `0x180A` | `0x1500`       | Read/Notify | Battery            |
 
 Base UUID: `0000xxxx-0000-1000-8000-00805f9b34fb`.
 
@@ -2024,18 +2020,17 @@ Device names:
 
 Modes:
 
-| Value | Behavior |
-|---|---|
+| Value  | Behavior                              |
+|--------|---------------------------------------|
 | `0b00` | Keep unchanged; ignore intensity byte |
-| `0b01` | Increase |
-| `0b10` | Decrease |
-| `0b11` | Set absolute value |
+| `0b01` | Increase                              |
+| `0b10` | Decrease                              |
+| `0b11` | Set absolute value                    |
 
 Intensity:
 
 - 0..=200;
-- Out-of-range values are treated as 0 by the device; the SDK must reject them
-  at construction;
+- Out-of-range values are treated as 0 by the device; the SDK must reject them at construction;
 - B1 returns the actual value, which may be clamped by the soft limit.
 
 Waveform:
@@ -2044,8 +2039,7 @@ Waveform:
 - Each pair covers 25 ms; four pairs cover 100 ms;
 - Wire frequency 10..=240;
 - Amplitude 0..=100;
-- Any amplitude >100 makes the device discard all four pairs for that channel
-  (used for silence).
+- Any amplitude >100 makes the device discard all four pairs for that channel (used for silence).
 
 #### 5.1.3 BF
 
@@ -2079,8 +2073,7 @@ Waveform:
 - Changes caused by B0 use the B0 sequence;
 - Other sources (wheel, etc.) use sequence 0;
 - A non-zero sequence must match the pending request to complete it;
-- A mismatched B1 still updates actual intensity but does not complete the
-  request.
+- A mismatched B1 still updates actual intensity but does not complete the request.
 
 #### 5.1.5 Battery
 
@@ -2101,20 +2094,20 @@ wire 10..=240
 Examples:
 
 | interval ms | wire |
-|---:|---:|
-| 10 | 10 |
-| 100 | 100 |
-| 110 | 102 |
-| 150 | 110 |
-| 600 | 200 |
-| 650 | 205 |
-| 1000 | 240 |
+|------------:|-----:|
+|          10 |   10 |
+|         100 |  100 |
+|         110 |  102 |
+|         150 |  110 |
+|         600 |  200 |
+|         650 |  205 |
+|        1000 |  240 |
 
 #### 5.1.7 Timing and ACK
 
 - B0 is sent every 100 ms;
-- After a B0 with a non-zero sequence, wait for the matching B1 before making
-  another intensity change;
+- After a B0 with a non-zero sequence, wait for the matching B1 before making another intensity
+  change;
 - Waiting for ACK must not block subsequent B0 waveform frames;
 - The first version allows only one pending intensity request per device;
 - Do not automatically retry relative increases/decreases after a timeout;
@@ -2154,15 +2147,13 @@ flowchart LR
     app3[DG-LAB App 3]
     relay[V4 WebSocket Relay]
     controller[Controller / pulselink-ws]
-
-    app1 <-->|"ws ?tid=targetId"| relay
-    app2 <-->|"ws ?tid=targetId"| relay
-    app3 <-->|"ws ?tid=targetId"| relay
-    relay <-->|"message / clientId"| controller
+    app1 <-->|" ws ?tid=targetId "| relay
+    app2 <-->|" ws ?tid=targetId "| relay
+    app3 <-->|" ws ?tid=targetId "| relay
+    relay <-->|" message / clientId "| controller
 ```
 
-- The controller connects first and receives `clientId`, called `targetId` by
-  the SDK;
+- The controller connects first and receives `clientId`, called `targetId` by the SDK;
 - Apps connect with `?tid=<targetId>`;
 - The controller can have multiple apps connected;
 - Each app has a `clientId`; each device has a `slotId`;
@@ -2178,7 +2169,10 @@ ws://127.0.0.1:9998
 After the controller connects:
 
 ```json
-{ "type": "hello", "clientId": "<controller-client-id>" }
+{
+  "type": "hello",
+  "clientId": "<controller-client-id>"
+}
 ```
 
 App connection:
@@ -2195,29 +2189,40 @@ https://dungeon-lab.cn/s/?v=1&action=socket&url=<encoded app socket url>
 
 #### 5.2.3 Outer Frames
 
-| Type | Direction | Purpose |
-|---|---|---|
-| `hello` | server → client | Assign clientId |
-| `client_attached` | server → controller | App attached |
-| `client_disconnected` | server → controller | App disconnected |
-| `controller_attached` | server → app | App attached to controller |
-| `controller_disconnected` | server → app | Controller disconnected |
-| `heartbeat` | server → client | Every 30 s |
-| `pong` | server → client | Response to `ping`, with `ts` |
-| `message` | both | Application message |
-| `idle_timeout` | server → controller | No app for 5 minutes |
-| `error` | server → client | Error |
+| Type                      | Direction           | Purpose                       |
+|---------------------------|---------------------|-------------------------------|
+| `hello`                   | server → client     | Assign clientId               |
+| `client_attached`         | server → controller | App attached                  |
+| `client_disconnected`     | server → controller | App disconnected              |
+| `controller_attached`     | server → app        | App attached to controller    |
+| `controller_disconnected` | server → app        | Controller disconnected       |
+| `heartbeat`               | server → client     | Every 30 s                    |
+| `pong`                    | server → client     | Response to `ping`, with `ts` |
+| `message`                 | both                | Application message           |
+| `idle_timeout`            | server → controller | No app for 5 minutes          |
+| `error`                   | server → client     | Error                         |
 
 Controller-to-app message:
 
 ```json
-{ "type": "message", "clientId": "<app-client-id>", "data": { ... } }
+{
+  "type": "message",
+  "clientId": "<app-client-id>",
+  "data": {
+    ...
+  }
+}
 ```
 
 App-to-controller message:
 
 ```json
-{ "type": "message", "data": { ... } }
+{
+  "type": "message",
+  "data": {
+    ...
+  }
+}
 ```
 
 The server adds `clientId`.
@@ -2225,10 +2230,27 @@ The server adds `clientId`.
 #### 5.2.4 Inner RPC
 
 ```json
-{ "t": "req", "reqId": "req-1", "m": "devices.get", "data": {} }
-{ "t": "resp", "reqId": "req-1", "result": {} }
-{ "t": "resp", "reqId": "req-1", "error": "slot_not_found" }
-{ "t": "ev", "ev": "devices.snapshot", "devices": [] }
+{
+  "t": "req",
+  "reqId": "req-1",
+  "m": "devices.get",
+  "data": {}
+}
+{
+  "t": "resp",
+  "reqId": "req-1",
+  "result": {}
+}
+{
+  "t": "resp",
+  "reqId": "req-1",
+  "error": "slot_not_found"
+}
+{
+  "t": "ev",
+  "ev": "devices.snapshot",
+  "devices": []
+}
 ```
 
 - `reqId` is unique among pending requests for the same app;
@@ -2238,12 +2260,12 @@ The server adds `clientId`.
 
 #### 5.2.5 Methods
 
-| Method | data | result |
-|---|---|---|
-| `devices.get` | none | `{ devices: RemoteDevice[] }` |
-| `ping` | none | App local timestamp |
-| `device.op` | `DeviceOperate` | `DeviceOperateResult` |
-| `device.op.clear` | `ClearOperate` | `{}` |
+| Method            | data            | result                        |
+|-------------------|-----------------|-------------------------------|
+| `devices.get`     | none            | `{ devices: RemoteDevice[] }` |
+| `ping`            | none            | App local timestamp           |
+| `device.op`       | `DeviceOperate` | `DeviceOperateResult`         |
+| `device.op.clear` | `ClearOperate`  | `{}`                          |
 
 #### 5.2.6 Device Model
 
@@ -2254,7 +2276,10 @@ The server adds `clientId`.
   "name": "Device A",
   "type": "COYOTE_030",
   "props": {},
-  "slotState": { "markLight": "yellow", "hasDevice": true }
+  "slotState": {
+    "markLight": "yellow",
+    "hasDevice": true
+  }
 }
 ```
 
@@ -2275,45 +2300,46 @@ The server adds `clientId`.
   "c": 0,
   "p": 1,
   "d": 1000,
-  "v": ["0A0A0A0A00000000"],
+  "v": [
+    "0A0A0A0A00000000"
+  ],
   "im": false
 }
 ```
 
 Fields:
 
-| Field | Meaning |
-|---|---|
-| `s` | slotId |
-| `t` | ActionType |
-| `c` | 0=A, 1=B |
-| `p` | 0/1/2, default 1 |
-| `d` | duration ms, default 0 |
-| `v` | intensity value or pulse frames |
-| `im` | replace existing tasks with the same device/channel/type |
-| `ver` | waveform version 2/3 |
-| `seq` | legacy protocol compatibility |
+| Field | Meaning                                                  |
+|-------|----------------------------------------------------------|
+| `s`   | slotId                                                   |
+| `t`   | ActionType                                               |
+| `c`   | 0=A, 1=B                                                 |
+| `p`   | 0/1/2, default 1                                         |
+| `d`   | duration ms, default 0                                   |
+| `v`   | intensity value or pulse frames                          |
+| `im`  | replace existing tasks with the same device/channel/type |
+| `ver` | waveform version 2/3                                     |
+| `seq` | legacy protocol compatibility                            |
 
 ActionType:
 
-| t | Type | Lifecycle |
-|---:|---|---|
-| 0 | AppendPulseData | continuous |
-| 3 | AddIntensity | oneShot |
-| 4 | SetTempIntensity | continuous |
-| 7 | SetIntensity | oneShot, only v=0 |
+| t | Type             | Lifecycle         |
+|--:|------------------|-------------------|
+| 0 | AppendPulseData  | continuous        |
+| 3 | AddIntensity     | oneShot           |
+| 4 | SetTempIntensity | continuous        |
+| 7 | SetIntensity     | oneShot, only v=0 |
 
 Semantics:
 
-- `device.op` does not respond on enqueue; it responds when the task completes,
-  is cleared, replaced, or cancelled;
-- `AppendPulseData` completes when frames are consumed; `d=0` disables automatic
-  duration-based completion;
-- `SetTempIntensity` resets to 0 when the task ends; completion means the
-  temporary task ended;
+- `device.op` does not respond on enqueue; it responds when the task completes, is cleared,
+  replaced, or cancelled;
+- `AppendPulseData` completes when frames are consumed; `d=0` disables automatic duration-based
+  completion;
+- `SetTempIntensity` resets to 0 when the task ends; completion means the temporary task ended;
 - `SetIntensity` accepts only 0;
-- Different device/channel/type/priority schedules independently; the same
-  combination queues in order;
+- Different device/channel/type/priority schedules independently; the same combination queues in
+  order;
 - Consecutive oneShot tasks in the same tick all execute;
 - `im=true` first replaces existing tasks with the same device/channel/type.
 
@@ -2342,9 +2368,28 @@ Errors:
 #### 5.2.8 `device.op.clear`
 
 ```json
-{ "t": "req", "reqId": "req-3", "m": "device.op.clear" }
-{ "t": "req", "reqId": "req-4", "m": "device.op.clear", "data": { "s": "slot-a" } }
-{ "t": "req", "reqId": "req-5", "m": "device.op.clear", "data": { "s": "slot-a", "c": 0 } }
+{
+  "t": "req",
+  "reqId": "req-3",
+  "m": "device.op.clear"
+}
+{
+  "t": "req",
+  "reqId": "req-4",
+  "m": "device.op.clear",
+  "data": {
+    "s": "slot-a"
+  }
+}
+{
+  "t": "req",
+  "reqId": "req-5",
+  "m": "device.op.clear",
+  "data": {
+    "s": "slot-a",
+    "c": 0
+  }
+}
 ```
 
 - No `data`: clear all tasks on all devices;
@@ -2362,8 +2407,7 @@ Errors:
 - Close code 4000: controller disconnected;
 - 4001: controller not found;
 - 4002: idle timeout;
-- After 5 minutes without an app, the controller receives `idle_timeout` and is
-  disconnected.
+- After 5 minutes without an app, the controller receives `idle_timeout` and is disconnected.
 
 ### 5.3 Test Vectors
 
@@ -2377,7 +2421,9 @@ Unified schema:
       "id": "b0-absolute-a-10",
       "kind": "b0.encode",
       "input": {},
-      "expect": { "hex": "B0..." },
+      "expect": {
+        "hex": "B0..."
+      },
       "notes": "..."
     }
   ]
@@ -2394,10 +2440,8 @@ Synchronization:
 - Script `scripts/sync-vectors.sh` (or `xtask`) copies
   `spec/test-vectors` into the crate;
 - CI runs the script and then `git diff --exit-code` to ensure copies match;
-- Do not read `../spec` at build time; Cargo packages do not include files
-  outside the crate;
-- JVM tests read `spec/` directly (Gradle can configure the path), or maintain
-  the same copy.
+- Do not read `../spec` at build time; Cargo packages do not include files outside the crate;
+- JVM tests read `spec/` directly (Gradle can configure the path), or maintain the same copy.
 
 ---
 
@@ -2419,7 +2463,6 @@ stateDiagram-v2
     Degraded --> Disconnected: reconnect disabled
     Closing --> Disconnected
     Disconnected --> [*]
-
     note right of Disconnected
         Scanning is a Client state,
         not a Session state.
@@ -2429,11 +2472,10 @@ stateDiagram-v2
 Rules:
 
 - `Scanning` is a `Client` state, not a `Session` state;
-- `Connected` and `Ready` must be distinct: BLE connected does not imply Notify
-  subscription or BF initialization;
+- `Connected` and `Ready` must be distinct: BLE connected does not imply Notify subscription or BF
+  initialization;
 - Only `Ready` allows intensity/waveform operations;
-- `Degraded` means the link may be unreliable, but the session is not fully
-  closed;
+- `Degraded` means the link may be unreliable, but the session is not fully closed;
 - During `Reconnecting`, new commands return `NotReady`; do not queue forever;
 - During `Closing`, no new commands are accepted.
 
@@ -2511,13 +2553,10 @@ Rules:
 - Commands enter the actor through a bounded `mpsc`; when full, return `Busy`
   instead of blocking the caller forever;
 - `SetIntensity`/`AdjustIntensity` futures complete on B1 ACK or timeout;
-- `Play` returns a `PlayHandle` immediately; it does not wait for playback to
-  finish;
+- `Play` returns a `PlayHandle` immediately; it does not wait for playback to finish;
 - `Stop` completes when the zero-intensity B0's B1 arrives or times out;
-- `Shutdown` cancels all pending operations, makes a best-effort zero-intensity
-  B0, and closes;
-- All replies use `oneshot`; dropping the caller's future must not panic the
-  actor.
+- `Shutdown` cancels all pending operations, makes a best-effort zero-intensity B0, and closes;
+- All replies use `oneshot`; dropping the caller's future must not panic the actor.
 
 ### 6.4 Sequence / ACK
 
@@ -2526,8 +2565,7 @@ Sequence rules:
 - 4 bits, 0..=15;
 - 0 means "no B1 required";
 - Intensity changes use 1..=15;
-- Wrap after 15; only one pending request exists at a time, so exhaustion is not
-  a concern;
+- Wrap after 15; only one pending request exists at a time, so exhaustion is not a concern;
 - Reset to 0 after reconnect;
 - BF/waveform-only B0 uses 0.
 
@@ -2552,33 +2590,31 @@ On B1:
 1. Validate length/header/sequence;
 2. Update `observed intensity` regardless of sequence match;
 3. If `sequence == pending.sequence`:
-   - Update desired to the actual value (the device may clamp);
-   - Complete the reply;
-   - Clear pending;
-   - Dequeue the next intensity command;
+    - Update desired to the actual value (the device may clamp);
+    - Complete the reply;
+    - Clear pending;
+    - Dequeue the next intensity command;
 4. If `sequence == 0`:
-   - Treat as an unsolicited device-side change;
-   - Update state;
-   - Do not complete pending;
+    - Treat as an unsolicited device-side change;
+    - Update state;
+    - Do not complete pending;
 5. If `sequence != pending.sequence`:
-   - Update state;
-   - Do not complete pending;
-   - Emit `B1Mismatch` for diagnostics;
-   - It may be a late/duplicate B1; never complete the current request by
-     mistake.
+    - Update state;
+    - Do not complete pending;
+    - Emit `B1Mismatch` for diagnostics;
+    - It may be a late/duplicate B1; never complete the current request by mistake.
 
 Timeout:
 
 - Default 1000 ms, configurable;
 - On timeout:
-  - Complete the reply with `AckTimeout`;
-  - Mark `observed intensity` as `Unknown`;
-  - Clear pending;
-  - Do not automatically retry relative increases/decreases;
-  - Do not automatically resend the same sequence;
-  - Emit `AckTimeout`;
-- A late B1 still updates observed state but does not complete the timed-out
-  request.
+    - Complete the reply with `AckTimeout`;
+    - Mark `observed intensity` as `Unknown`;
+    - Clear pending;
+    - Do not automatically retry relative increases/decreases;
+    - Do not automatically resend the same sequence;
+    - Emit `AckTimeout`;
+- A late B1 still updates observed state but does not complete the timed-out request.
 
 Disconnect:
 
@@ -2608,33 +2644,32 @@ frame_index = elapsed / 100ms
 - Compute the frame from actual elapsed time on each tick, not `index += 1`;
 - If `frame_index` skips multiple frames, take the current frame; do not replay;
 - If `elapsed - last_sent >= lag_threshold`:
-  - Pause playback;
-  - Send a silence B0;
-  - Emit `SchedulerLag`;
-  - Require the user to call `play()` again (no automatic recovery);
+    - Pause playback;
+    - Send a silence B0;
+    - Emit `SchedulerLag`;
+    - Require the user to call `play()` again (no automatic recovery);
 - If the Pattern ends:
-  - Default to stopping output;
-  - Send a final silence B0;
-  - Emit `PatternFinished(Completed)`;
-  - If `looped=true`, wrap to the beginning and continue.
+    - Default to stopping output;
+    - Send a final silence B0;
+    - Emit `PatternFinished(Completed)`;
+    - If `looped=true`, wrap to the beginning and continue.
 
 B0 merging:
 
 - Generate exactly one B0 per tick;
 - Include the current waveform frame (A/B);
-- If an intensity command is queued and no request is pending, insert the
-  intensity operation and use a non-zero sequence;
+- If an intensity command is queued and no request is pending, insert the intensity operation and
+  use a non-zero sequence;
 - Otherwise use sequence=0 and mode=Keep;
 - Never write multiple B0 frames in one tick.
 
 Idle output:
 
 - If `intensity > 0` but no Pattern is playing:
-  - Continue sending silence waveform frames every 100 ms, maintaining intensity
-    without output;
-  - Or configure `PlayOptions` to stop output;
-- Default safety policy: with no Pattern, send silence frames; do not retain the
-  previous output frame;
+    - Continue sending silence waveform frames every 100 ms, maintaining intensity without output;
+    - Or configure `PlayOptions` to stop output;
+- Default safety policy: with no Pattern, send silence frames; do not retain the previous output
+  frame;
 - After stop, send one absolute zero-intensity B0, then stop the ticker.
 
 ### 6.6 Playback Handle
@@ -2654,19 +2689,17 @@ impl PlayHandle {
 ```
 
 - `wait()` returns on completion/stop/error;
-- `stop()` stops that Pattern; the first version allows one Pattern at a time;
-  a later `play` returns `Busy` or replaces it according to `PlayOptions`;
+- `stop()` stops that Pattern; the first version allows one Pattern at a time; a later `play`returns
+  `Busy` or replaces it according to `PlayOptions`;
 - The first version implements single-Pattern playback, not multi-track mixing.
 
 ### 6.7 State Synchronization
 
 - `state()` returns the latest snapshot (`watch` cache) without blocking;
 - `subscribe()` returns `broadcast::Receiver<CoyoteV3Event>`;
-- `watch` is for snapshots; `broadcast` is for events; do not use broadcast to
-  store state;
+- `watch` is for snapshots; `broadcast` is for events; do not use broadcast to store state;
 - State updates must increment `revision`;
-- Slow event consumers may lose intermediate events, but the state snapshot
-  remains current;
+- Slow event consumers may lose intermediate events, but the state snapshot remains current;
 - Critical command results go through `oneshot`, not broadcast.
 
 ### 6.8 Safety Policy
@@ -2700,13 +2733,13 @@ Rules:
   `Ready`;
 - Soft limits and SafetyPolicy both apply; use the stricter one;
 - Emergency stop:
-  - Stop the scheduler;
-  - Cancel pending;
-  - Send an absolute zero-intensity B0 (sequence 1..=15);
-  - Wait for B1; mark Unknown on timeout;
-  - Emit `Stopped`/`Error`;
-- Documentation must state: if the link is down, software cannot guarantee the
-  device stops; device-side protection takes priority.
+    - Stop the scheduler;
+    - Cancel pending;
+    - Send an absolute zero-intensity B0 (sequence 1..=15);
+    - Wait for B1; mark Unknown on timeout;
+    - Emit `Stopped`/`Error`;
+- Documentation must state: if the link is down, software cannot guarantee the device stops;
+  device-side protection takes priority.
 
 ### 6.9 Reconnect
 
@@ -2729,23 +2762,22 @@ Flow:
 5. Emit `Disconnected`;
 6. If `enabled=false`, enter `Disconnected` and wait for explicit `reconnect()`;
 7. If `enabled=true`:
-   - Enter `Reconnecting`;
-   - Call `Connector::reconnect` with backoff;
-   - Emit `Reconnecting { attempt, delay }`;
-   - On success, re-initialize (GATT/subscribe/battery/BF);
-   - Clear Pattern, clear desired state, keep observed Unknown;
-   - Enter `Ready`, emit `Reconnected`;
-   - **Never automatically resume Pattern/intensity**;
+    - Enter `Reconnecting`;
+    - Call `Connector::reconnect` with backoff;
+    - Emit `Reconnecting { attempt, delay }`;
+    - On success, re-initialize (GATT/subscribe/battery/BF);
+    - Clear Pattern, clear desired state, keep observed Unknown;
+    - Enter `Ready`, emit `Reconnected`;
+    - **Never automatically resume Pattern/intensity**;
 8. On reaching `max_attempts`:
-   - Emit `ReconnectFailed`;
-   - Enter `Disconnected`;
-   - The user must explicitly reconnect.
+    - Emit `ReconnectFailed`;
+    - Enter `Disconnected`;
+    - The user must explicitly reconnect.
 
 Explicit `reconnect()`:
 
 - Available even when `enabled=false`;
-- Same behavior as above, but attempts once (or according to the supplied
-  policy);
+- Same behavior as above, but attempts once (or according to the supplied policy);
 - If already connected, return `AlreadyReady` or no-op (documented).
 
 ### 6.10 Shutdown
@@ -2753,14 +2785,14 @@ Explicit `reconnect()`:
 - Provide `shutdown().await`;
 - `Drop` only sends a cancellation signal; it does not wait for async work;
 - `shutdown` order:
-  1. Stop accepting new commands;
-  2. Stop the scheduler;
-  3. Cancel pending;
-  4. If Ready, attempt an absolute zero-intensity B0, waiting at most
-     `ack_timeout`;
-  5. Disconnect GATT;
-  6. Cancel reconnect;
-  7. Join the actor task;
+    1. Stop accepting new commands;
+    2. Stop the scheduler;
+    3. Cancel pending;
+    4. If Ready, attempt an absolute zero-intensity B0, waiting at most
+       `ack_timeout`;
+    5. Disconnect GATT;
+    6. Cancel reconnect;
+    7. Join the actor task;
 - After shutdown, all handle operations return `Closed`;
 - Do not `block_on` inside `Drop`.
 
@@ -2770,8 +2802,7 @@ Explicit `reconnect()`:
 - Spans: `session.connect`, `session.init`, `session.tick`, `session.ack`,
   `session.reconnect`;
 - Record sequence, channel, intensity, RTT, lag;
-- Do not log the full targetId (pairing credential) at info level; redact at
-  debug level too;
+- Do not log the full targetId (pairing credential) at info level; redact at debug level too;
 - Errors include the source chain;
 - Do not initialize a subscriber inside the library; examples/apps do that.
 
@@ -2808,23 +2839,22 @@ Explicit `reconnect()`:
 ### 7.2 Reader / Writer
 
 - Reader task:
-  - Read text frames one at a time;
-  - Parse `RelayFrame`;
-  - `hello`: set targetId;
-  - `client_attached`: register app, emit event;
-  - `client_disconnected`: remove app, cancel its pending, emit event;
-  - `message`: route by `clientId` to the app;
-  - `heartbeat`: update last_seen, no reply;
-  - `pong`: complete server-level ping;
-  - `idle_timeout`: close and return an error;
-  - `error`: map error;
-  - close: clean all pending, emit Disconnected.
+    - Read text frames one at a time;
+    - Parse `RelayFrame`;
+    - `hello`: set targetId;
+    - `client_attached`: register app, emit event;
+    - `client_disconnected`: remove app, cancel its pending, emit event;
+    - `message`: route by `clientId` to the app;
+    - `heartbeat`: update last_seen, no reply;
+    - `pong`: complete server-level ping;
+    - `idle_timeout`: close and return an error;
+    - `error`: map error;
+    - close: clean all pending, emit Disconnected.
 - Writer task:
-  - Read from a bounded `mpsc<String>`;
-  - Send text frames;
-  - On send failure, close the socket and clean pending.
-- Do not await user callbacks in the reader task; emit events through
-  broadcast/mpsc.
+    - Read from a bounded `mpsc<String>`;
+    - Send text frames;
+    - On send failure, close the socket and clean pending.
+- Do not await user callbacks in the reader task; emit events through broadcast/mpsc.
 
 ### 7.3 RPC Management
 
@@ -2846,14 +2876,13 @@ Rules:
 - `reqId` is globally unique, formatted `req-{n}`;
 - Insert pending before sending; if send fails, remove and return an error;
 - On `resp`:
-  - Look up reqId;
-  - `error` -> `WsError::Rpc`;
-  - `result` -> complete;
-  - neither -> `InvalidParams`/`Json` error;
-  - Remove pending;
+    - Look up reqId;
+    - `error` -> `WsError::Rpc`;
+    - `result` -> complete;
+    - neither -> `InvalidParams`/`Json` error;
+    - Remove pending;
 - Timeout: remove pending, return `RpcTimeout`;
-- Dropping `OperationHandle` does not cancel the device task; it only stops
-  waiting for the result;
+- Dropping `OperationHandle` does not cancel the device task; it only stops waiting for the result;
 - Disconnect: complete all pending with `Disconnected`;
 - Duplicate reqId (app returns `duplicate_request_id`) maps to
   `DuplicateRequestId`;
@@ -2875,12 +2904,11 @@ sequenceDiagram
     participant C as Controller
     participant R as Relay
     participant A as DG-LAB App
-
-    C->>R: message { device.op, reqId }
-    R->>A: forward message
+    C ->> R: message { device.op, reqId }
+    R ->> A: forward message
     Note over A: task queued and running
-    A-->>R: resp when completed / cleared / replaced / cancelled
-    R-->>C: forward resp
+    A -->> R: resp when completed / cleared / replaced / cancelled
+    R -->> C: forward resp
     Note over C: OperationHandle.completion() resolves
 ```
 
@@ -2890,8 +2918,8 @@ Semantics:
 - `add_intensity` may complete within 100 ms;
 - `send_pulse` completes when frames are consumed, possibly earlier than
   `duration`;
-- `set_temp_intensity` completes when the temporary task ends; the app resets
-  intensity to 0 at that point;
+- `set_temp_intensity` completes when the temporary task ends; the app resets intensity to 0 at that
+  point;
 - `reset_intensity` is `SetIntensity(0)`; completion means the reset task ended;
 - `clear_operate` itself returns `{}`; cleared tasks each receive a `cleared`
   response;
@@ -2930,13 +2958,12 @@ Merge rules:
 - Increment revision on every update;
 - `RemoteDeviceHandle::snapshot()` returns a cloned snapshot;
 - Typed accessors:
-  - `intensity_a() -> Option<u8>`
-  - `intensity_b() -> Option<u8>`
-  - `battery() -> Option<u8>`
-  - `has_device() -> Option<bool>`
-  - `mark_light() -> Option<&str>`
-- Do not drop fields by deserializing into a closed struct; V4 may add new
-  props.
+    - `intensity_a() -> Option<u8>`
+    - `intensity_b() -> Option<u8>`
+    - `battery() -> Option<u8>`
+    - `has_device() -> Option<bool>`
+    - `mark_light() -> Option<&str>`
+- Do not drop fields by deserializing into a closed struct; V4 may add new props.
 
 ### 7.6 Multiple Apps
 
@@ -2947,18 +2974,17 @@ Merge rules:
 - Each app has its own RPC pending map and device cache;
 - `Socket::clients()` returns a snapshot;
 - `Socket::client(client_id)` looks up by id;
-- Operations go through `AppClient`/`RemoteDeviceHandle` to avoid passing the
-  wrong clientId.
+- Operations go through `AppClient`/`RemoteDeviceHandle` to avoid passing the wrong clientId.
 
 ### 7.7 Heartbeat and Timeouts
 
 - Server `heartbeat` every 30 s; receive it, do not reply;
 - Optional client `ping_interval`:
-  - Send `{ "type": "ping" }`;
-  - Wait for `pong`;
-  - Timeout means the connection is unhealthy; close;
-- RPC `ping` is application-level: it calls the app's `ping` method and returns
-  the app's local timestamp;
+    - Send `{ "type": "ping" }`;
+    - Wait for `pong`;
+    - Timeout means the connection is unhealthy; close;
+- RPC `ping` is application-level: it calls the app's `ping` method and returns the app's local
+  timestamp;
 - Do not confuse the two.
 
 ### 7.8 Reconnect
@@ -2966,30 +2992,28 @@ Merge rules:
 - A V4 controller gets a new `clientId` on every connection;
 - After disconnect, do not silently reuse the old `targetId`;
 - `Socket` does not automatically reconnect;
-- The user must call `Socket::connect` again, get a new targetId, and display a
-  new QR/link;
+- The user must call `Socket::connect` again, get a new targetId, and display a new QR/link;
 - The app must re-pair;
 - Documentation must state this;
-- If automatic reconnect is added later, it may only rebuild the socket and
-  notify the user of the new targetId; it cannot pretend the old pairing is
-  still valid.
+- If automatic reconnect is added later, it may only rebuild the socket and notify the user of the
+  new targetId; it cannot pretend the old pairing is still valid.
 
 ### 7.9 Error Mapping
 
-| Situation | Error |
-|---|---|
-| WebSocket connection failure | `Transport` |
-| JSON parse failure | `Json` |
-| App returns `error` string | `Rpc { code, method }` |
-| Timeout | `RpcTimeout` |
-| clientId not found | `ClientNotFound` |
-| slotId not found | `DeviceNotFound` |
-| No hello received | `NotPaired` |
-| Disconnected | `Disconnected` |
-| Duplicate reqId | `DuplicateRequestId` |
-| Invalid parameters | `InvalidParams` |
-| Cleared/replaced | `OperationResult.reason`, not an error |
-| Cancelled | `OperationResult.reason = cancelled` |
+| Situation                    | Error                                  |
+|------------------------------|----------------------------------------|
+| WebSocket connection failure | `Transport`                            |
+| JSON parse failure           | `Json`                                 |
+| App returns `error` string   | `Rpc { code, method }`                 |
+| Timeout                      | `RpcTimeout`                           |
+| clientId not found           | `ClientNotFound`                       |
+| slotId not found             | `DeviceNotFound`                       |
+| No hello received            | `NotPaired`                            |
+| Disconnected                 | `Disconnected`                         |
+| Duplicate reqId              | `DuplicateRequestId`                   |
+| Invalid parameters           | `InvalidParams`                        |
+| Cleared/replaced             | `OperationResult.reason`, not an error |
+| Cancelled                    | `OperationResult.reason = cancelled`   |
 
 ---
 
@@ -3088,15 +3112,15 @@ async fn main() -> Result<(), pulselink::Error> {
         Duration::from_secs(3),
         OperationOptions::default(),
     )
-    .await?
-    .completion()
-    .await?;
+        .await?
+        .completion()
+        .await?;
 
     app.clear_operate(ClearTarget::Channel {
         slot_id: device.slot_id.clone(),
         channel: Channel::A,
     })
-    .await?;
+        .await?;
 
     socket.shutdown().await?;
     Ok(())
@@ -3113,22 +3137,22 @@ use pulselink::protocol::coyote::v3::{
 use pulselink::{ChannelMap, Intensity};
 
 let bf = BfCommand {
-    soft_limit: ChannelMap::new(Intensity::new(50)?, Intensity::new(50)?),
-    frequency_balance: ChannelMap::new(128, 128),
-    intensity_balance: ChannelMap::new(128, 128),
+soft_limit: ChannelMap::new(Intensity::new(50) ?, Intensity::new(50) ? ),
+frequency_balance: ChannelMap::new(128, 128),
+intensity_balance: ChannelMap::new(128, 128),
 };
 let bytes: [u8; 7] = bf.encode();
 
 let b0 = B0Command {
-    sequence: Sequence::new(1)?,
-    intensity: StereoIntensityOp {
-        a: IntensityOp::Set(Intensity::new(10)?),
-        b: IntensityOp::Keep,
-    },
-    waveform: StereoWaveform {
-        a: ChannelWaveform::Silent,
-        b: ChannelWaveform::Silent,
-    },
+sequence: Sequence::new(1) ?,
+intensity: StereoIntensityOp {
+a: IntensityOp::Set(Intensity::new(10) ? ),
+b: IntensityOp::Keep,
+},
+waveform: StereoWaveform {
+a: ChannelWaveform::Silent,
+b: ChannelWaveform::Silent,
+},
 };
 let frame: [u8; 20] = b0.encode();
 ```
@@ -3143,7 +3167,9 @@ use pulselink::{
     PulseLink,
 };
 
-struct MyBackend { /* ... */ }
+struct MyBackend {
+    /* ... */
+}
 
 #[async_trait::async_trait]
 impl Central for MyBackend { /* scan/connect */ }
@@ -3161,15 +3187,15 @@ let client = PulseLink::with_backend(backend).await?;
 
 ### 9.1 Test Pyramid
 
-| Layer | Goal | Location | Hardware required |
-|---|---|---|---|
-| Unit | Pure functions, boundaries, errors | Each crate `src` `#[cfg(test)]` | No |
-| Golden vectors | Cross-language protocol consistency | `pulselink-protocol/tests/vectors` | No |
-| Property | Legal roundtrips, invalid rejection | `pulselink-protocol/tests` | No |
-| Mock GATT | Session lifecycle, ACK, scheduling | `pulselink-runtime/tests` / `integration-tests` | No |
-| Mock relay | V4 RPC, multiple apps, cache | `pulselink-ws/tests` / `integration-tests` | No |
-| Hardware | Real Coyote V3 | `integration-tests/tests/hardware.rs` | Yes |
-| Cross-platform | Three-platform build/basic tests | CI | No |
+| Layer          | Goal                                | Location                                        | Hardware required |
+|----------------|-------------------------------------|-------------------------------------------------|-------------------|
+| Unit           | Pure functions, boundaries, errors  | Each crate `src` `#[cfg(test)]`                 | No                |
+| Golden vectors | Cross-language protocol consistency | `pulselink-protocol/tests/vectors`              | No                |
+| Property       | Legal roundtrips, invalid rejection | `pulselink-protocol/tests`                      | No                |
+| Mock GATT      | Session lifecycle, ACK, scheduling  | `pulselink-runtime/tests` / `integration-tests` | No                |
+| Mock relay     | V4 RPC, multiple apps, cache        | `pulselink-ws/tests` / `integration-tests`      | No                |
+| Hardware       | Real Coyote V3                      | `integration-tests/tests/hardware.rs`           | Yes               |
+| Cross-platform | Three-platform build/basic tests    | CI                                              | No                |
 
 ### 9.2 Protocol Tests
 
@@ -3243,8 +3269,8 @@ Must cover:
 - Do not depend on btleplug;
 - Test the full lifecycle;
 - Use `tokio::time::pause` to avoid real waiting;
-- Assert event order (when broadcast loses intermediate events, use state
-  snapshots as a supplement).
+- Assert event order (when broadcast loses intermediate events, use state snapshots as a
+  supplement).
 
 `integration-tests/tests/reconnect.rs`:
 
@@ -3277,13 +3303,13 @@ Mock relay:
 - Environment variable `PULSELINK_HW=1`;
 - Device name/address configurable via environment;
 - Default test is read-only:
-  - Scan;
-  - Connect;
-  - Read battery;
-  - Subscribe;
-  - Write BF (low soft limit, e.g. 10);
-  - Send zero-intensity B0;
-  - Disconnect;
+    - Scan;
+    - Connect;
+    - Read battery;
+    - Subscribe;
+    - Write BF (low soft limit, e.g. 10);
+    - Send zero-intensity B0;
+    - Disconnect;
 - Actual output tests require `PULSELINK_HW_OUTPUT=1` and log intensity/duration;
 - Not run in public CI;
 - Record platform, OS version, and device firmware.
@@ -3359,19 +3385,18 @@ cargo hack check --workspace --feature-powerset --depth 2
 
 ### 10.3 Platform Matrix
 
-| Platform | check | test | BLE build | Hardware |
-|---|---|---|---|---|
-| Ubuntu | ✅ | ✅ | ✅ | At least one |
-| Windows | ✅ | ✅ | ✅ | Optional |
-| macOS | ✅ | ✅ | ✅ | Optional |
+| Platform | check | test | BLE build | Hardware     |
+|----------|-------|------|-----------|--------------|
+| Ubuntu   | ✅    | ✅   | ✅        | At least one |
+| Windows  | ✅    | ✅   | ✅        | Optional     |
+| macOS    | ✅    | ✅   | ✅        | Optional     |
 
 ### 10.4 MSRV
 
 - `rust-version = "1.99"`;
 - CI adds `cargo +1.99 check --workspace`;
 - If a dependency requires newer, update this roadmap first, then bump MSRV;
-- Raising MSRV is a minor change under 0.x semantics but must be in the
-  changelog.
+- Raising MSRV is a minor change under 0.x semantics but must be in the changelog.
 
 ### 10.5 Docs
 
@@ -3401,8 +3426,7 @@ Allowed licenses:
 
 Forbidden:
 
-- GPL/AGPL (unless explicitly evaluated; current dependencies should not have
-  them);
+- GPL/AGPL (unless explicitly evaluated; current dependencies should not have them);
 - Unknown licenses;
 - Known vulnerabilities (handle by advisory);
 - Multiple versions (warn).
@@ -3416,8 +3440,7 @@ cargo publish --workspace --dry-run
 cargo publish --workspace
 ```
 
-If finer control over index propagation is needed, use `cargo-release` in
-dependency order:
+If finer control over index propagation is needed, use `cargo-release` in dependency order:
 
 1. `pulselink-core`
 2. `pulselink-pattern`
@@ -3451,44 +3474,41 @@ Requirements:
   `pulselink-transport`, `pulselink-ble`, `pulselink-runtime`, and
   `pulselink-ws` are currently not found on crates.io;
 - Re-check before publishing;
-- If a name is taken, use a `pulselink-rs-*` prefix and update workspace
-  dependencies;
+- If a name is taken, use a `pulselink-rs-*` prefix and update workspace dependencies;
 - Publishing reserves the names.
 
 ### 10.10 License and Compliance
 
 - Put the full Apache-2.0 text in `LICENSE` at the repository root;
 - Add a "Protocol Notice" to README:
-  - DG-LAB's official Bluetooth protocol documentation requires prior
-    authorization for commercial use;
-  - Apache-2.0 covers pulselink-rs code only, not DG-LAB protocols/trademarks;
-  - Commercial projects must confirm authorization themselves;
-- Do not copy official documentation verbatim into `spec/`; only summaries,
-  links, and test vectors;
+    - DG-LAB's official Bluetooth protocol documentation requires prior authorization for commercial
+      use;
+    - Apache-2.0 covers pulselink-rs code only, not DG-LAB protocols/trademarks;
+    - Commercial projects must confirm authorization themselves;
+- Do not copy official documentation verbatim into `spec/`; only summaries, links, and test vectors;
 - `cargo deny` checks dependency licenses.
 
 ---
 
 ## 11. Milestones and Task Breakdown
 
-Task ID format: `M<milestone>-T<number>`. Each task should be an independent PR;
-cross-crate changes should be split into multiple PRs.
+Task ID format: `M<milestone>-T<number>`. Each task should be an independent PR; cross-crate changes
+should be split into multiple PRs.
 
 ### M0 — Workspace Foundation
 
-**Goal**: turn the empty repository into a compilable, testable workspace with
-green CI.
+**Goal**: turn the empty repository into a compilable, testable workspace with green CI.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M0-T01 | Virtual workspace | Root `Cargo.toml`: `[workspace]`, `resolver="3"`, members, workspace.package, workspace.dependencies, workspace.lints | None | `cargo metadata` succeeds; root is no longer a package |
-| M0-T02 | Toolchain and formatting | `rust-toolchain.toml` (stable), `rustfmt.toml`, `.gitignore` update (`target/`) | M0-T01 | `cargo fmt --check` |
-| M0-T03 | License and README | `LICENSE` (Apache-2.0), root `README.md`, protocol notice | None | Files exist; README links valid |
-| M0-T04 | Crate skeletons | 8 crate `Cargo.toml` + `src/lib.rs` + `README.md`; `integration-tests` (publish=false) | M0-T01 | `cargo check --workspace` |
-| M0-T05 | CI baseline | `.github/workflows/ci.yml`: fmt/clippy/test/doc/deny | M0-T04 | CI green |
-| M0-T06 | Documentation skeleton | `docs/architecture.md`, `coyote-v3.md`, `websocket-v4.md`, `runtime-contracts.md`, `testing.md`, `platforms.md` | None | Files exist; TODO markers |
-| M0-T07 | Spec skeleton | `spec/protocols/*`, `spec/test-vectors/*` directories and READMEs | None | Layout matches 3.2 |
-| M0-T08 | Architecture decision records | `docs/adr/0001-...` recording D1–D18 | None | ADR readable |
+| ID     | Task                          | Output                                                                                                                | Depends on | Acceptance                                             |
+|--------|-------------------------------|-----------------------------------------------------------------------------------------------------------------------|------------|--------------------------------------------------------|
+| M0-T01 | Virtual workspace             | Root `Cargo.toml`: `[workspace]`, `resolver="3"`, members, workspace.package, workspace.dependencies, workspace.lints | None       | `cargo metadata` succeeds; root is no longer a package |
+| M0-T02 | Toolchain and formatting      | `rust-toolchain.toml` (stable), `rustfmt.toml`, `.gitignore` update (`target/`)                                       | M0-T01     | `cargo fmt --check`                                    |
+| M0-T03 | License and README            | `LICENSE` (Apache-2.0), root `README.md`, protocol notice                                                             | None       | Files exist; README links valid                        |
+| M0-T04 | Crate skeletons               | 8 crate `Cargo.toml` + `src/lib.rs` + `README.md`; `integration-tests` (publish=false)                                | M0-T01     | `cargo check --workspace`                              |
+| M0-T05 | CI baseline                   | `.github/workflows/ci.yml`: fmt/clippy/test/doc/deny                                                                  | M0-T04     | CI green                                               |
+| M0-T06 | Documentation skeleton        | `docs/architecture.md`, `coyote-v3.md`, `websocket-v4.md`, `runtime-contracts.md`, `testing.md`, `platforms.md`       | None       | Files exist; TODO markers                              |
+| M0-T07 | Spec skeleton                 | `spec/protocols/*`, `spec/test-vectors/*` directories and READMEs                                                     | None       | Layout matches 3.2                                     |
+| M0-T08 | Architecture decision records | `docs/adr/0001-...` recording D1–D18                                                                                  | None       | ADR readable                                           |
 
 **M0 completion criteria**:
 
@@ -3502,16 +3522,16 @@ green CI.
 
 **Goal**: stable domain model and waveform timeline.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M1-T01 | Device identity | `DeviceId`, `BleDeviceId`, `RemoteDeviceId`, `DeviceKind`, `DeviceInfo` | M0 | Unit tests; `#[non_exhaustive]` |
-| M1-T02 | Channels and intensity | `Channel`, `ChannelMap`, `Intensity`, `IntensityDelta` | M1-T01 | Boundary tests; constructors return Result |
-| M1-T03 | State model | `ConnectionState`, `Observed<T>`, `BatteryState`, `ChannelState`, `DeviceState` | M1-T02 | revision/Unknown tests |
-| M1-T04 | Capabilities and events | `DeviceCapabilities`, `IntensityCapabilities`, `WaveformCapabilities`, `DeviceEvent` | M1-T03 | Unit tests; serde feature |
-| M1-T05 | Errors and docs | `CoreError`, rustdoc, README | M1-T01..04 | `cargo doc` no warnings |
-| M1-P01 | Pattern basics | `PulseInterval`, `PulseIntensity`, `PulseSample`, `ChannelFrame`, `StereoFrame` | M1-T02 | Boundary/silence tests |
-| M1-P02 | Pattern timeline | `Timeline`, `Pattern`, `PatternCursor`, `PatternError` | M1-P01 | Cursor/loop/empty tests |
-| M1-P03 | Pattern docs | rustdoc, README, examples | M1-P02 | `cargo test -p pulselink-pattern` |
+| ID     | Task                    | Output                                                                               | Depends on | Acceptance                                 |
+|--------|-------------------------|--------------------------------------------------------------------------------------|------------|--------------------------------------------|
+| M1-T01 | Device identity         | `DeviceId`, `BleDeviceId`, `RemoteDeviceId`, `DeviceKind`, `DeviceInfo`              | M0         | Unit tests; `#[non_exhaustive]`            |
+| M1-T02 | Channels and intensity  | `Channel`, `ChannelMap`, `Intensity`, `IntensityDelta`                               | M1-T01     | Boundary tests; constructors return Result |
+| M1-T03 | State model             | `ConnectionState`, `Observed<T>`, `BatteryState`, `ChannelState`, `DeviceState`      | M1-T02     | revision/Unknown tests                     |
+| M1-T04 | Capabilities and events | `DeviceCapabilities`, `IntensityCapabilities`, `WaveformCapabilities`, `DeviceEvent` | M1-T03     | Unit tests; serde feature                  |
+| M1-T05 | Errors and docs         | `CoreError`, rustdoc, README                                                         | M1-T01..04 | `cargo doc` no warnings                    |
+| M1-P01 | Pattern basics          | `PulseInterval`, `PulseIntensity`, `PulseSample`, `ChannelFrame`, `StereoFrame`      | M1-T02     | Boundary/silence tests                     |
+| M1-P02 | Pattern timeline        | `Timeline`, `Pattern`, `PatternCursor`, `PatternError`                               | M1-P01     | Cursor/loop/empty tests                    |
+| M1-P03 | Pattern docs            | rustdoc, README, examples                                                            | M1-P02     | `cargo test -p pulselink-pattern`          |
 
 **M1 completion criteria**:
 
@@ -3525,25 +3545,25 @@ green CI.
 **Goal**: complete Coyote V3 + V4 pure protocol; publishable independently.
 
 **Completion notes**: `BatteryLevel` is reused from `pulselink-core`; `IntensityOp`
-uses validated `Intensity` values rather than signed deltas; V4 types are split
-into `frame`, `rpc`, `device`, `event`, and `operation` modules; canonical vectors
-live in `spec/test-vectors/` and are synchronized into the crate.
+uses validated `Intensity` values rather than signed deltas; V4 types are split into `frame`, `rpc`,
+`device`, `event`, and `operation` modules; canonical vectors live in `spec/test-vectors/` and are
+synchronized into the crate.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M2-T01 | Protocol errors | `ProtocolError`, common helpers | M1 | Unit tests |
-| M2-T02 | GATT + frequency | `gatt.rs`, `frequency.rs` | M1-P01 | Boundary/official table tests |
-| M2-T03 | B0 | `B0Command`, `Sequence`, `IntensityOp`, `StereoWaveform`, encode | M2-T02 | Official HEX passes |
-| M2-T04 | BF | `BfCommand`, encode | M2-T02 | 7-byte layout test |
-| M2-T05 | B1 + battery | `B1Message`, `BatteryLevel`, decode | M2-T01 | 4/1-byte/invalid length |
-| M2-T06 | V3 vectors | `tests/vectors` + `tests/vectors.rs` | M2-T03..05 | All cases pass |
-| M2-T07 | V4 outer | `RelayFrame`, serde tags, camelCase | M2-T01 | JSON samples pass |
-| M2-T08 | V4 RPC | `AppMessage`, `RpcRequest`, `RpcResponse` | M2-T07 | req/resp/ev tests |
-| M2-T09 | V4 devices/events | `RemoteDevice`, `DevicePatch`, `SlotPatch`, `AppEvent` | M2-T07 | snapshot/patch/slots |
-| M2-T10 | V4 device.op | `ActionType`, `DeviceOperate`, `OperateValue`, `ClearOperate`, `DeviceOperateResult` | M2-T08 | Four types/validation |
-| M2-T11 | V4 vectors | `spec` + crate copy | M2-T07..10 | All pass |
-| M2-T12 | Property/fuzz | proptest + optional fuzz targets | M2-T03..10 | No panic |
-| M2-T13 | Docs | rustdoc, README, examples | M2-T03..10 | `cargo doc` no warnings |
+| ID     | Task              | Output                                                                               | Depends on | Acceptance                    |
+|--------|-------------------|--------------------------------------------------------------------------------------|------------|-------------------------------|
+| M2-T01 | Protocol errors   | `ProtocolError`, common helpers                                                      | M1         | Unit tests                    |
+| M2-T02 | GATT + frequency  | `gatt.rs`, `frequency.rs`                                                            | M1-P01     | Boundary/official table tests |
+| M2-T03 | B0                | `B0Command`, `Sequence`, `IntensityOp`, `StereoWaveform`, encode                     | M2-T02     | Official HEX passes           |
+| M2-T04 | BF                | `BfCommand`, encode                                                                  | M2-T02     | 7-byte layout test            |
+| M2-T05 | B1 + battery      | `B1Message`, `BatteryLevel`, decode                                                  | M2-T01     | 4/1-byte/invalid length       |
+| M2-T06 | V3 vectors        | `tests/vectors` + `tests/vectors.rs`                                                 | M2-T03..05 | All cases pass                |
+| M2-T07 | V4 outer          | `RelayFrame`, serde tags, camelCase                                                  | M2-T01     | JSON samples pass             |
+| M2-T08 | V4 RPC            | `AppMessage`, `RpcRequest`, `RpcResponse`                                            | M2-T07     | req/resp/ev tests             |
+| M2-T09 | V4 devices/events | `RemoteDevice`, `DevicePatch`, `SlotPatch`, `AppEvent`                               | M2-T07     | snapshot/patch/slots          |
+| M2-T10 | V4 device.op      | `ActionType`, `DeviceOperate`, `OperateValue`, `ClearOperate`, `DeviceOperateResult` | M2-T08     | Four types/validation         |
+| M2-T11 | V4 vectors        | `spec` + crate copy                                                                  | M2-T07..10 | All pass                      |
+| M2-T12 | Property/fuzz     | proptest + optional fuzz targets                                                     | M2-T03..10 | No panic                      |
+| M2-T13 | Docs              | rustdoc, README, examples                                                            | M2-T03..10 | `cargo doc` no warnings       |
 
 **M2 completion criteria**:
 
@@ -3552,8 +3572,8 @@ live in `spec/test-vectors/` and are synchronized into the crate.
 - `cargo test -p pulselink-protocol --no-default-features --features socket-v4`;
 - All official HEX examples pass;
 - No Tokio/btleplug dependency;
-- `cargo publish -p pulselink-protocol --dry-run` passes (package check only,
-  before other crates are published).
+- `cargo publish -p pulselink-protocol --dry-run` passes (package check only, before other crates
+  are published).
 
 ### M3 — Transport
 
@@ -3563,61 +3583,64 @@ live in `spec/test-vectors/` and are synchronized into the crate.
 `MockCentral`/`MockConnector` are aliases. `MockLink::inject_notification` takes
 `&[u8]`. The crate has no Tokio or btleplug dependency.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M3-T01 | Trait definitions | `GattLink`, `Central`, `Connector`, `Backend`, `NotificationStream`, `WriteMode` | M0 | Object-safe compile |
-| M3-T02 | Types and errors | `TransportDeviceId`, `DiscoveredDevice`, `ScanFilter`, `ReconnectTarget`, `TransportError` | M3-T01 | Unit tests |
-| M3-T03 | Mock | `MockLink`, `MockCentral`, `MockConnector`, injection/capture/failure | M3-T01/02 | Runtime tests usable |
-| M3-T04 | Tests/docs | Trait tests, README, examples | M3-T03 | `cargo test -p pulselink-transport --features mock` |
-| M3-T05 | Dependency check | Confirm no Tokio/btleplug | M3-T04 | `cargo tree` check |
+| ID     | Task              | Output                                                                                     | Depends on | Acceptance                                          |
+|--------|-------------------|--------------------------------------------------------------------------------------------|------------|-----------------------------------------------------|
+| M3-T01 | Trait definitions | `GattLink`, `Central`, `Connector`, `Backend`, `NotificationStream`, `WriteMode`           | M0         | Object-safe compile                                 |
+| M3-T02 | Types and errors  | `TransportDeviceId`, `DiscoveredDevice`, `ScanFilter`, `ReconnectTarget`, `TransportError` | M3-T01     | Unit tests                                          |
+| M3-T03 | Mock              | `MockLink`, `MockCentral`, `MockConnector`, injection/capture/failure                      | M3-T01/02  | Runtime tests usable                                |
+| M3-T04 | Tests/docs        | Trait tests, README, examples                                                              | M3-T03     | `cargo test -p pulselink-transport --features mock` |
+| M3-T05 | Dependency check  | Confirm no Tokio/btleplug                                                                  | M3-T04     | `cargo tree` check                                  |
 
 **M3 completion criteria**:
 
-- `pulselink-runtime` can compile with only `pulselink-transport` +
-  core/pattern/protocol;
+- `pulselink-runtime` can compile with only `pulselink-transport` + core/pattern/protocol;
 - Mock covers writes/notifications/disconnect/failure;
 - No Tokio dependency.
 
 ### M4 — BLE Backend
 
-**Goal**: real device completes scan, connect, GATT, Notify, battery, BF,
-zero-intensity B0, disconnect.
+**Goal**: real device completes scan, connect, GATT, Notify, battery, BF, zero-intensity B0,
+disconnect.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M4-T01 | Adapter | `BtleplugCentral::new` / `with_adapter` / empty adapter error | M3 | No panic |
-| M4-T02 | Scan | `scan` + second-pass filter + dedup + timeout/drop | M4-T01 | Real device discoverable |
-| M4-T03 | Connect | `connect` + service discovery + characteristic validation | M4-T02 | Real device connects |
-| M4-T04 | Link basics | `write`/`read`/`is_connected`/`disconnect` | M4-T03 | Battery/BF write succeeds |
-| M4-T05 | Notify | `subscribe` + pump + drop cleanup | M4-T04 | Receive B1/battery |
-| M4-T06 | Reconnect | `Connector::reconnect` + rescan | M4-T03 | Reconnect after disconnect |
-| M4-T07 | Error mapping | btleplug -> TransportError | M4-T01..06 | No panic; source preserved |
-| M4-T08 | Hardware spike | `examples/coyote_v3_probe.rs` | M4-T05 | Real device passes |
-| M4-T09 | Platform docs | `docs/platforms.md` + README | M4-T08 | Linux/Windows/macOS notes |
-| M4-T10 | Tests | Pure function/error mapping tests | M4-T07 | `cargo test -p pulselink-ble` |
+| ID     | Task           | Output                                                        | Depends on | Acceptance                    |
+|--------|----------------|---------------------------------------------------------------|------------|-------------------------------|
+| M4-T01 | Adapter        | `BtleplugCentral::new` / `with_adapter` / empty adapter error | M3         | No panic                      |
+| M4-T02 | Scan           | `scan` + second-pass filter + dedup + timeout/drop            | M4-T01     | Real device discoverable      |
+| M4-T03 | Connect        | `connect` + service discovery + characteristic validation     | M4-T02     | Real device connects          |
+| M4-T04 | Link basics    | `write`/`read`/`is_connected`/`disconnect`                    | M4-T03     | Battery/BF write succeeds     |
+| M4-T05 | Notify         | `subscribe` + pump + drop cleanup                             | M4-T04     | Receive B1/battery            |
+| M4-T06 | Reconnect      | `Connector::reconnect` + rescan                               | M4-T03     | Reconnect after disconnect    |
+| M4-T07 | Error mapping  | btleplug -> TransportError                                    | M4-T01..06 | No panic; source preserved    |
+| M4-T08 | Hardware spike | `examples/coyote_v3_probe.rs`                                 | M4-T05     | Real device passes            |
+| M4-T09 | Platform docs  | `docs/platforms.md` + README                                  | M4-T08     | Linux/Windows/macOS notes     |
+| M4-T10 | Tests          | Pure function/error mapping tests                             | M4-T07     | `cargo test -p pulselink-ble` |
 
 **M4 completion criteria**:
 
-- Real device: scan → connect → battery → subscribe → BF → zero-intensity B0 →
-  disconnect;
+- Real device: scan → connect → battery → subscribe → BF → zero-intensity B0 → disconnect;
 - No protocol crate dependency;
 - Public API does not expose btleplug types;
 - Three-platform compile passes.
+
+**Completion notes**: adapter selection is exposed as `BtleplugCentral::new_with_adapter_index` so
+`btleplug::Adapter` does not appear in the public API. Characteristic capabilities are validated on
+first use through `BtleplugLink::characteristic`; Coyote UUIDs remain in the runtime/example.
+Notifications share one btleplug stream through `NotificationHub`.
 
 ### M5 — WebSocket Transport / RPC
 
 **Goal**: V4 connection, hello, multiple apps, RPC, events, basic device.op.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M5-T01 | WS transport | Internal trait + tokio-tungstenite implementation | M2-T07 | Connect/send/receive |
-| M5-T02 | Reader/Writer | Split, mpsc, close cleanup | M5-T01 | No deadlock |
-| M5-T03 | RPC manager | reqId, pending, timeout, disconnect cleanup | M5-T02 | Timeout/error tests |
-| M5-T04 | Registry | `client_attached/disconnected`, multiple apps | M5-T01 | Multi-app routing |
-| M5-T05 | Device cache | snapshot/patch/slots.patch deep merge | M5-T04 | Merge tests |
-| M5-T06 | Operations | `device.op` submit/complete, four types | M5-T03/05 | Mock relay passes |
-| M5-T07 | Mock relay | Local WS server + scripted responses | M5-T01 | Integration tests usable |
-| M5-T08 | Tests/docs | Errors/heartbeat/close code/README | M5-T06/07 | `cargo test -p pulselink-ws` |
+| ID     | Task          | Output                                            | Depends on | Acceptance                   |
+|--------|---------------|---------------------------------------------------|------------|------------------------------|
+| M5-T01 | WS transport  | Internal trait + tokio-tungstenite implementation | M2-T07     | Connect/send/receive         |
+| M5-T02 | Reader/Writer | Split, mpsc, close cleanup                        | M5-T01     | No deadlock                  |
+| M5-T03 | RPC manager   | reqId, pending, timeout, disconnect cleanup       | M5-T02     | Timeout/error tests          |
+| M5-T04 | Registry      | `client_attached/disconnected`, multiple apps     | M5-T01     | Multi-app routing            |
+| M5-T05 | Device cache  | snapshot/patch/slots.patch deep merge             | M5-T04     | Merge tests                  |
+| M5-T06 | Operations    | `device.op` submit/complete, four types           | M5-T03/05  | Mock relay passes            |
+| M5-T07 | Mock relay    | Local WS server + scripted responses              | M5-T01     | Integration tests usable     |
+| M5-T08 | Tests/docs    | Errors/heartbeat/close code/README                | M5-T06/07  | `cargo test -p pulselink-ws` |
 
 **M5 completion criteria**:
 
@@ -3627,25 +3650,30 @@ zero-intensity B0, disconnect.
 - Disconnect cleans pending;
 - No BLE/runtime dependency.
 
+**Completion notes**: M5 exposes the low-level `Socket`, `AppClient`, and
+`PendingOperation` foundation. M7 adds the ergonomic `RemoteDeviceHandle`,
+`OperationHandle`, typed property accessors, and the remaining session API. The `mock` feature
+provides a real localhost WebSocket relay used by 13 integration tests.
+
 ### M6 — BLE Runtime
 
 **Goal**: reliable Coyote V3 Session.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M6-T01 | Client/config | `Client`, `ClientConfig`, `CoyoteV3Config` | M3 | Compile/docs |
-| M6-T02 | Actor skeleton | Command channel, select loop, watch/broadcast | M6-T01 | Start/stop tests |
-| M6-T03 | Initialization | connect → discover → subscribe → battery → BF → Ready | M6-T02 | Mock init tests |
-| M6-T04 | State/events | `CoyoteV3State`, `CoyoteV3Event`, revision | M6-T02 | Event order tests |
-| M6-T05 | Sequence/ACK | `sequence.rs`, `ack.rs`, pending/queue/timeout | M6-T03/04 | All ACK scenarios |
-| M6-T06 | Scheduler | tick, frame selection, skip, lag | M6-T02 | Paused-time tests |
-| M6-T07 | Player | Pattern → B0, loop, end | M6-T06 | Pattern tests |
-| M6-T08 | Safety | `SafetyPolicy`, limits, emergency stop | M6-T05 | Limit tests |
-| M6-T09 | Reconnect | `ReconnectPolicy`, backoff, no output restore | M6-T03 | Disconnect/reconnect tests |
-| M6-T10 | Shutdown | Final zero-intensity, cancel, join | M6-T05 | Shutdown tests |
-| M6-T11 | Integration tests | `integration-tests/tests/session.rs` | M6-T05..10 | 18 scenarios |
-| M6-T12 | Hardware tests | `hardware.rs` + env gate | M6-T11 | Real device |
-| M6-T13 | Docs | rustdoc + `runtime-contracts.md` | M6-T11 | Complete docs |
+| ID     | Task              | Output                                                | Depends on | Acceptance                 |
+|--------|-------------------|-------------------------------------------------------|------------|----------------------------|
+| M6-T01 | Client/config     | `Client`, `ClientConfig`, `CoyoteV3Config`            | M3         | Compile/docs               |
+| M6-T02 | Actor skeleton    | Command channel, select loop, watch/broadcast         | M6-T01     | Start/stop tests           |
+| M6-T03 | Initialization    | connect → discover → subscribe → battery → BF → Ready | M6-T02     | Mock init tests            |
+| M6-T04 | State/events      | `CoyoteV3State`, `CoyoteV3Event`, revision            | M6-T02     | Event order tests          |
+| M6-T05 | Sequence/ACK      | `sequence.rs`, `ack.rs`, pending/queue/timeout        | M6-T03/04  | All ACK scenarios          |
+| M6-T06 | Scheduler         | tick, frame selection, skip, lag                      | M6-T02     | Paused-time tests          |
+| M6-T07 | Player            | Pattern → B0, loop, end                               | M6-T06     | Pattern tests              |
+| M6-T08 | Safety            | `SafetyPolicy`, limits, emergency stop                | M6-T05     | Limit tests                |
+| M6-T09 | Reconnect         | `ReconnectPolicy`, backoff, no output restore         | M6-T03     | Disconnect/reconnect tests |
+| M6-T10 | Shutdown          | Final zero-intensity, cancel, join                    | M6-T05     | Shutdown tests             |
+| M6-T11 | Integration tests | `integration-tests/tests/session.rs`                  | M6-T05..10 | 18 scenarios               |
+| M6-T12 | Hardware tests    | `hardware.rs` + env gate                              | M6-T11     | Real device                |
+| M6-T13 | Docs              | rustdoc + `runtime-contracts.md`                      | M6-T11     | Complete docs              |
 
 **M6 completion criteria**:
 
@@ -3660,22 +3688,21 @@ zero-intensity B0, disconnect.
 
 **Goal**: user-friendly V4 remote device API.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M7-T01 | AppClient | `Socket::wait_for_client`, `clients`, `client` | M5 | Multi-app tests |
-| M7-T02 | RemoteDevice | `RemoteDeviceHandle`, typed props accessors | M5-T05 | Snapshot tests |
-| M7-T03 | OperationHandle | Submit/complete/error/reason | M5-T06 | All reasons |
-| M7-T04 | Clear | `clear_operate`, `ClearTarget` | M7-T03 | Cleared responses |
-| M7-T05 | Multiple apps | Independent pending/cache/events | M7-T01 | Two apps in parallel |
-| M7-T06 | Heartbeat | Server heartbeat, client ping, close | M5-T02 | Timeout/close tests |
-| M7-T07 | Error mapping | All WsError variants | M7-T03 | Unit tests |
-| M7-T08 | Integration tests | `integration-tests/tests/ws_relay.rs` | M7-T01..07 | Pass |
-| M7-T09 | Docs | rustdoc + `websocket-v4.md` | M7-T08 | Complete docs |
+| ID     | Task              | Output                                         | Depends on | Acceptance           |
+|--------|-------------------|------------------------------------------------|------------|----------------------|
+| M7-T01 | AppClient         | `Socket::wait_for_client`, `clients`, `client` | M5         | Multi-app tests      |
+| M7-T02 | RemoteDevice      | `RemoteDeviceHandle`, typed props accessors    | M5-T05     | Snapshot tests       |
+| M7-T03 | OperationHandle   | Submit/complete/error/reason                   | M5-T06     | All reasons          |
+| M7-T04 | Clear             | `clear_operate`, `ClearTarget`                 | M7-T03     | Cleared responses    |
+| M7-T05 | Multiple apps     | Independent pending/cache/events               | M7-T01     | Two apps in parallel |
+| M7-T06 | Heartbeat         | Server heartbeat, client ping, close           | M5-T02     | Timeout/close tests  |
+| M7-T07 | Error mapping     | All WsError variants                           | M7-T03     | Unit tests           |
+| M7-T08 | Integration tests | `integration-tests/tests/ws_relay.rs`          | M7-T01..07 | Pass                 |
+| M7-T09 | Docs              | rustdoc + `websocket-v4.md`                    | M7-T08     | Complete docs        |
 
 **M7 completion criteria**:
 
-- Users can use `pulselink-ws` alone for pairing, device listing, intensity,
-  waveform, and clear;
+- Users can use `pulselink-ws` alone for pairing, device listing, intensity, waveform, and clear;
 - Multiple apps do not cross requests;
 - `device.op` completion semantics match the official protocol;
 - Disconnect does not pretend the old targetId is valid.
@@ -3684,15 +3711,15 @@ zero-intensity B0, disconnect.
 
 **Goal**: `pulselink 0.1.0` is usable and publishable.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M8-T01 | Features | `ble`/`websocket`/`full`, optional dependencies | M6/M7 | Feature matrix |
-| M8-T02 | PulseLink | Default `BtleplugCentral` injection, `with_backend` | M6/M4 | BLE example |
-| M8-T03 | Re-export/Error | Curated re-exports, `Error` wrapper | M8-T01 | Compile/docs |
-| M8-T04 | Examples | Five examples | M8-T02 | `cargo run --example` |
-| M8-T05 | README/docs | Root README, crate README, quick start | M8-T04 | Complete docs |
-| M8-T06 | Feature CI | `cargo check` combinations | M8-T01 | CI green |
-| M8-T07 | Publish dry-run | `cargo publish --workspace --dry-run` | M8-T06 | Passes |
+| ID     | Task            | Output                                              | Depends on | Acceptance            |
+|--------|-----------------|-----------------------------------------------------|------------|-----------------------|
+| M8-T01 | Features        | `ble`/`websocket`/`full`, optional dependencies     | M6/M7      | Feature matrix        |
+| M8-T02 | PulseLink       | Default `BtleplugCentral` injection, `with_backend` | M6/M4      | BLE example           |
+| M8-T03 | Re-export/Error | Curated re-exports, `Error` wrapper                 | M8-T01     | Compile/docs          |
+| M8-T04 | Examples        | Five examples                                       | M8-T02     | `cargo run --example` |
+| M8-T05 | README/docs     | Root README, crate README, quick start              | M8-T04     | Complete docs         |
+| M8-T06 | Feature CI      | `cargo check` combinations                          | M8-T01     | CI green              |
+| M8-T07 | Publish dry-run | `cargo publish --workspace --dry-run`               | M8-T06     | Passes                |
 
 **M8 completion criteria**:
 
@@ -3706,16 +3733,16 @@ zero-intensity B0, disconnect.
 
 **Goal**: release 0.1.0.
 
-| ID | Task | Output | Depends on | Acceptance |
-|---|---|---|---|---|
-| M9-T01 | Three-platform CI | Linux/Windows/macOS | M8 | All green |
-| M9-T02 | Hardware matrix | At least one real device record | M8 | Test report |
-| M9-T03 | Fuzz/property | Periodic task/local script | M2/M6 | No crash |
-| M9-T04 | Benchmarks | Optional baseline | M8 | Recorded |
-| M9-T05 | Security review | Dependencies/licenses/sensitive logs | M8 | cargo deny green |
-| M9-T06 | Changelog/version | `CHANGELOG.md`, `0.1.0` | M8 | Versions match |
-| M9-T07 | Publish | `cargo publish --workspace` | M9-T06 | Visible on crates.io |
-| M9-T08 | Post-release verification | docs.rs, install example | M9-T07 | Users can install |
+| ID     | Task                      | Output                               | Depends on | Acceptance           |
+|--------|---------------------------|--------------------------------------|------------|----------------------|
+| M9-T01 | Three-platform CI         | Linux/Windows/macOS                  | M8         | All green            |
+| M9-T02 | Hardware matrix           | At least one real device record      | M8         | Test report          |
+| M9-T03 | Fuzz/property             | Periodic task/local script           | M2/M6      | No crash             |
+| M9-T04 | Benchmarks                | Optional baseline                    | M8         | Recorded             |
+| M9-T05 | Security review           | Dependencies/licenses/sensitive logs | M8         | cargo deny green     |
+| M9-T06 | Changelog/version         | `CHANGELOG.md`, `0.1.0`              | M8         | Versions match       |
+| M9-T07 | Publish                   | `cargo publish --workspace`          | M9-T06     | Visible on crates.io |
+| M9-T08 | Post-release verification | docs.rs, install example             | M9-T07     | Users can install    |
 
 **M9 completion criteria**:
 
@@ -3755,23 +3782,23 @@ zero-intensity B0, disconnect.
 
 ## 13. Risks and Mitigations
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| BLE platform differences (Linux/BlueZ, macOS, Windows) | Unstable connect/Notify | Transport port + btleplug isolation; three-platform CI; hardware matrix; second-pass filtering |
-| B0 ACK loss/late | Unknown intensity state | `Observed::Unknown`; no automatic retry of relative changes; late B1 updates state; documentation |
-| Scheduler jitter/lag | Discontinuous waveform | Monotonic clock; MissedTickBehavior::Skip; frame by elapsed; pause on lag threshold |
-| Cannot guarantee stop when BLE link is down | Safety risk | Document; rely on device protection; BF soft limit; emergency-stop flow |
-| V4 protocol evolution | Parse failures/field loss | Preserve open fields; `#[serde(other)]`; protocol crate versioning; test vectors |
-| V4 reconnect targetId change | User may think old pairing still works | No silent reconnect; documentation; new connection returns new targetId |
-| Doing BLE + WS together expands scope | 0.1 delay | Two parallel tracks; independent crates can release first; BLE is the critical path |
-| Hardware unavailable | Cannot validate real behavior | Mock + community testing; hardware tests `#[ignore]`; document verified platforms |
-| crates.io names taken | Publish failure | Check before release; fallback `pulselink-rs-*` |
-| MSRV current stable too high | User upgrade pressure | Document; adjust in 0.x; avoid unnecessary new APIs |
-| Official protocol commercial authorization | Legal risk | README notice; no doc copying; commercial users confirm themselves |
-| `SetIntensity` only 0 is misused | API design error | BLE/WS separation; WS only exposes reset/add/reduce/temp |
-| Device soft-limit clamping | Requested vs actual mismatch | `set_intensity` returns actual; B1 updates observed; events explain |
-| Unbounded command queue | Memory/latency | Bounded mpsc; Busy when full; waveform frames are not queued |
-| Async cleanup in Drop | Resource leak | Explicit `shutdown().await`; Drop only signals cancellation |
+| Risk                                                   | Impact                                 | Mitigation                                                                                        |
+|--------------------------------------------------------|----------------------------------------|---------------------------------------------------------------------------------------------------|
+| BLE platform differences (Linux/BlueZ, macOS, Windows) | Unstable connect/Notify                | Transport port + btleplug isolation; three-platform CI; hardware matrix; second-pass filtering    |
+| B0 ACK loss/late                                       | Unknown intensity state                | `Observed::Unknown`; no automatic retry of relative changes; late B1 updates state; documentation |
+| Scheduler jitter/lag                                   | Discontinuous waveform                 | Monotonic clock; MissedTickBehavior::Skip; frame by elapsed; pause on lag threshold               |
+| Cannot guarantee stop when BLE link is down            | Safety risk                            | Document; rely on device protection; BF soft limit; emergency-stop flow                           |
+| V4 protocol evolution                                  | Parse failures/field loss              | Preserve open fields; `#[serde(other)]`; protocol crate versioning; test vectors                  |
+| V4 reconnect targetId change                           | User may think old pairing still works | No silent reconnect; documentation; new connection returns new targetId                           |
+| Doing BLE + WS together expands scope                  | 0.1 delay                              | Two parallel tracks; independent crates can release first; BLE is the critical path               |
+| Hardware unavailable                                   | Cannot validate real behavior          | Mock + community testing; hardware tests `#[ignore]`; document verified platforms                 |
+| crates.io names taken                                  | Publish failure                        | Check before release; fallback `pulselink-rs-*`                                                   |
+| MSRV current stable too high                           | User upgrade pressure                  | Document; adjust in 0.x; avoid unnecessary new APIs                                               |
+| Official protocol commercial authorization             | Legal risk                             | README notice; no doc copying; commercial users confirm themselves                                |
+| `SetIntensity` only 0 is misused                       | API design error                       | BLE/WS separation; WS only exposes reset/add/reduce/temp                                          |
+| Device soft-limit clamping                             | Requested vs actual mismatch           | `set_intensity` returns actual; B1 updates observed; events explain                               |
+| Unbounded command queue                                | Memory/latency                         | Bounded mpsc; Busy when full; waveform frames are not queued                                      |
+| Async cleanup in Drop                                  | Resource leak                          | Explicit `shutdown().await`; Drop only signals cancellation                                       |
 
 ---
 
@@ -3779,22 +3806,19 @@ zero-intensity B0, disconnect.
 
 Priority order:
 
-1. **Coyote V2 BLE**: separate protocol module + separate driver; do not force
-   V3's B0 onto it.
-2. **Legacy V3 WebSocket**: compatibility with old projects; separate module,
-   not mixed into V4 types.
-3. **PawPrints / Civet / Opossum**: extract a `DeviceDriver` trait based on real
-   device models; only then evaluate a `pulselink-device` crate.
-4. **Pattern/HWL**: HWL file parsing, Pattern serialization, more compiler
-   targets.
+1. **Coyote V2 BLE**: separate protocol module + separate driver; do not force V3's B0 onto it.
+2. **Legacy V3 WebSocket**: compatibility with old projects; separate module, not mixed into V4
+   types.
+3. **PawPrints / Civet / Opossum**: extract a `DeviceDriver` trait based on real device models; only
+   then evaluate a `pulselink-device` crate.
+4. **Pattern/HWL**: HWL file parsing, Pattern serialization, more compiler targets.
 5. **Audio analysis**: `pulselink-audio` (independent crate, not core).
 6. **Visualization**: `pulselink-graph` (independent crate).
 7. **CLI**: `pulselink-cli` (independent binary).
 8. **FFI/WASM**: `pulselink-ffi`; re-evaluate transport/async boundaries.
-9. **Android/iOS**: implement platform backends on top of transport; do not
-   change the protocol layer.
-10. **JVM alignment**: share `spec/` and test vectors; do not force identical
-    directory structure.
+9. **Android/iOS**: implement platform backends on top of transport; do not change the protocol
+   layer.
+10. **JVM alignment**: share `spec/` and test vectors; do not force identical directory structure.
 
 ---
 
@@ -3802,21 +3826,21 @@ Priority order:
 
 ### 15.1 Glossary
 
-| Term | Meaning |
-|---|---|
-| targetId | The clientId a controller receives after connecting to the V4 server; apps use it to pair |
-| clientId | The ID of an app connection in V4; may also be the controller's own ID depending on context |
-| slotId | The ID of a device inside an app; device operations must specify it |
-| B0 | Coyote V3 20-byte control command, every 100 ms |
-| BF | Coyote V3 7-byte parameter command, no response |
-| B1 | Coyote V3 4-byte intensity response |
-| Sequence | B0's 4-bit request number; non-zero waits for B1 |
-| soft limit | Device-side intensity soft limit, set by BF, persisted |
-| Pulse interval | Duration of one output unit in ms; 10 ms = 100 Hz |
-| Pulse intensity | Relative intensity 0..=100, unitless |
-| Observed | State wrapper distinguishing "unknown" from "known value" |
-| Port | An interface defined by a higher layer and implemented by a lower layer, e.g. transport |
-| Adapter | A concrete platform/library implementation, e.g. btleplug backend |
+| Term            | Meaning                                                                                     |
+|-----------------|---------------------------------------------------------------------------------------------|
+| targetId        | The clientId a controller receives after connecting to the V4 server; apps use it to pair   |
+| clientId        | The ID of an app connection in V4; may also be the controller's own ID depending on context |
+| slotId          | The ID of a device inside an app; device operations must specify it                         |
+| B0              | Coyote V3 20-byte control command, every 100 ms                                             |
+| BF              | Coyote V3 7-byte parameter command, no response                                             |
+| B1              | Coyote V3 4-byte intensity response                                                         |
+| Sequence        | B0's 4-bit request number; non-zero waits for B1                                            |
+| soft limit      | Device-side intensity soft limit, set by BF, persisted                                      |
+| Pulse interval  | Duration of one output unit in ms; 10 ms = 100 Hz                                           |
+| Pulse intensity | Relative intensity 0..=100, unitless                                                        |
+| Observed        | State wrapper distinguishing "unknown" from "known value"                                   |
+| Port            | An interface defined by a higher layer and implemented by a lower layer, e.g. transport     |
+| Adapter         | A concrete platform/library implementation, e.g. btleplug backend                           |
 
 ### 15.2 References
 
@@ -3841,8 +3865,7 @@ Priority order:
 ### 15.4 Roadmap Maintenance
 
 - Check off tasks and record actual differences after each milestone;
-- If implementation finds a better split, update this document's ADR/tasks
-  before changing code;
+- If implementation finds a better split, update this document's ADR/tasks before changing code;
 - Put work outside 0.1 under "After 0.1";
 - Re-evaluate the risk table and DoD before every release.
 
@@ -3865,6 +3888,3 @@ Priority order:
 ---
 
 **End of Roadmap.**
-
-
-

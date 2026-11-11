@@ -9,10 +9,27 @@ readme = "README.md"
 
 [dependencies]
 pulselink-transport = { workspace = true }
+async-trait = { workspace = true }
+btleplug = { workspace = true, optional = true }
+futures-channel = { workspace = true }
+futures-util = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["rt", "sync", "time"] }
+tracing = { workspace = true }
+uuid = { workspace = true }
 
 [features]
 default = ["btleplug"]
-btleplug = []
+btleplug = ["dep:btleplug"]
+
+[dev-dependencies]
+pulselink-core = { workspace = true }
+pulselink-protocol = { workspace = true, features = ["coyote-v3"] }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time"] }
 
 [lints]
 workspace = true
+
+[[example]]
+name = "coyote_v3_probe"
+required-features = ["btleplug"]
