@@ -63,3 +63,4 @@ the protocol notice.
 - `docs/testing.md` — test strategy
 - `docs/security.md` — pairing, output-safety, and dependency notes
 - `docs/hardware-matrix.md` — real-device verification procedure and results
+- `docs/release.md` — crates.io release procedure and rate-limit notes
