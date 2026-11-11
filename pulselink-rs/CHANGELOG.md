@@ -37,4 +37,4 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - M8: `pulselink` facade with `PulseLink`, unified `Error`, curated re-exports, `protocol` feature, and BLE/WebSocket/protocol examples.
 - M8: feature matrix script, package metadata, README/roadmap updates, and publish dry-run support.
 - M9: three-platform CI checks, scheduled cargo-fuzz targets, hardware-matrix procedure, security documentation, and version-metadata checks.
-- CI: install Linux D-Bus development packages before BLE compilation.
+- CI: vendor libdbus for Linux builds and pin Linux jobs to ubuntu-24.04.
