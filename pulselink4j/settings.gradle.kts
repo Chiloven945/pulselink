@@ -1,0 +1,7 @@
+include(":pulselink-core")
+include(":pulselink-protocol")
+include(":pulselink-transport")
+include(":pulselink-ble")
+include(":pulselink-ws")
+include(":pulselink-runtime")
+include(":pulselink-java")
