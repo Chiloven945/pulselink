@@ -1,0 +1,29 @@
+[package]
+name = "pulselink-lab"
+description = "Interactive terminal lab for pulselink device testing"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme = "README.md"
+publish = false
+
+[dependencies]
+pulselink = { workspace = true, features = ["full"] }
+pulselink-ws = { workspace = true }
+pulselink-relay = { workspace = true }
+crossterm = "0.29"
+ratatui = "0.30"
+tokio = { workspace = true, features = ["rt-multi-thread", "sync", "time"] }
+
+[dev-dependencies]
+pulselink-transport = { workspace = true, features = ["mock"] }
+futures-util = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time", "net"] }
+tokio-tungstenite = { workspace = true }
+
+[lints]
+workspace = true

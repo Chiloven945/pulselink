@@ -7,6 +7,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- `pulselink-relay`: non-published local DG-LAB V4 WebSocket relay with controller/app pairing,
+  message forwarding, multi-app support, heartbeat, idle timeout, and close codes.
+- `pulselink-lab`: real local relay mode (`ws local`, `relay start|stop|status`), replacing the
+  former mock-app path; controller pairing is now asynchronous so the TUI remains responsive.
+- Rust device drivers for Coyote V2, Civet, Opossum, and PawPrints, with typed V4 snapshots.
+- Discovery fallback for Coyote V3 privacy-broadcast firmware: service-UUID retry and unnamed
+  `0x180C` candidate handling, plus lab warnings and documentation.
+
 ## [0.1.0] - 2026-11-11
 
 ### Added
@@ -34,7 +44,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   pattern playback, safety policy, reconnect, shutdown, and mock session tests.
 - M7: `pulselink-ws` live `RemoteDeviceHandle`/snapshot API, operation options/handles/results,
   version-3 pulse frames, typed props accessors, and multi-app integration tests.
-- M8: `pulselink` facade with `PulseLink`, unified `Error`, curated re-exports, `protocol` feature, and BLE/WebSocket/protocol examples.
+- M8: `pulselink` facade with `PulseLink`, unified `Error`, curated re-exports, `protocol` feature,
+  and BLE/WebSocket/protocol examples.
 - M8: feature matrix script, package metadata, README/roadmap updates, and publish dry-run support.
-- M9: three-platform CI checks, scheduled cargo-fuzz targets, hardware-matrix procedure, security documentation, and version-metadata checks.
+- M9: three-platform CI checks, scheduled cargo-fuzz targets, hardware-matrix procedure, security
+  documentation, and version-metadata checks.
 - CI: vendor libdbus for Linux builds and pin Linux jobs to ubuntu-24.04.

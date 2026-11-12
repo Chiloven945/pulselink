@@ -15,6 +15,8 @@ cargo check -p pulselink --no-default-features --features protocol --example pro
 echo "== compile-only checks =="
 cargo test --workspace --no-default-features
 cargo test -p pulselink-device
+cargo test -p pulselink-lab
+cargo test -p pulselink-relay
 cargo test -p pulselink-protocol --no-default-features --features socket-v4
 cargo check -p pulselink-protocol --no-default-features --features coyote-v2,opossum,civet,paw-prints
 

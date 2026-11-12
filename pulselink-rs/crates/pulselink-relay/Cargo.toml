@@ -1,0 +1,27 @@
+[package]
+name = "pulselink-relay"
+description = "Local DG-LAB V4 WebSocket relay for testing"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+pulselink-protocol = { workspace = true, default-features = false, features = ["socket-v4"] }
+futures-util = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["rt-multi-thread", "net", "sync", "time", "macros", "signal"] }
+tokio-tungstenite = { workspace = true }
+tracing = { workspace = true }
+url = { workspace = true }
+uuid = { workspace = true, features = ["v4"] }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time", "net"] }
+
+[lints]
+workspace = true

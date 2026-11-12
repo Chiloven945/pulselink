@@ -2,7 +2,8 @@
 
 ## Scope
 
-`pulselink` is a client SDK. It does not implement a relay, account system, or network
+The published `pulselink` SDK is a client library. The non-published `pulselink-relay` crate is a
+local test relay for development; it is not a production relay, account system, or network
 authentication service. Security properties depend on the DG-LAB app, relay, and Bluetooth stack in
 use.
 
@@ -17,6 +18,17 @@ A V4 `targetId` is a pairing credential. Treat it like a short-lived secret:
 
 The SDK does not silently reconnect or reuse an old target id. A new controller connection receives
 a new id and requires a new app pairing.
+
+## Local relay
+
+`pulselink-relay` listens on the LAN with no authentication or TLS by default.
+
+- Use it only on a trusted network.
+- The controller target id is a pairing secret; do not publish or log it outside the local pairing
+  UI.
+- Do not expose the relay directly to the internet. Put it behind a TLS tunnel or reverse proxy if a
+  remote app must connect.
+- Stop the relay when testing is finished.
 
 ## BLE output safety
 

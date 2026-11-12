@@ -26,6 +26,14 @@ Coyote V3, PawPrints, Civet, and Opossum all use service
 
 `DeviceProfile::scan_filter()` produces the matching name-prefix/service filter.
 
+## Coyote V3 privacy broadcast
+
+Recent firmware can omit the `47L121000` name while keeping the `0x180C` GATT service.
+`DeviceClient::scan_profile` first scans by name and then retries with the profile service UUID, so
+an unnamed `0x180C` device is offered as a Coyote V3 candidate. This is a fallback, not a
+replacement for the official public-broadcast switch procedure. See [
+`coyote-v3-privacy-broadcast.md`](coyote-v3-privacy-broadcast.md).
+
 ## Coyote V2
 
 - Service `0x180B`; intensity `0x1504`; pulses `0x1505`/`0x1506`.

@@ -6,6 +6,7 @@ use std::time::Duration;
 use pulselink_core::DeviceKind;
 use pulselink_runtime::{Client as RuntimeClient, CoyoteV3Config};
 use pulselink_transport::{Backend, DiscoveredDevice, ScanFilter};
+use tracing::debug;
 
 use crate::civet::CivetSession;
 use crate::coyote_v2::CoyoteV2Session;
@@ -40,12 +41,33 @@ impl DeviceClient {
     }
 
     /// Scans using a built-in profile.
+    ///
+    /// Name advertisements are tried first. If none match, the scan retries
+    /// with the profile service UUIDs so firmware privacy-broadcast devices
+    /// that omit `LocalName` can still be discovered.
     pub async fn scan_profile(
         &self,
         profile: &profile::DeviceProfile,
         timeout: Duration,
     ) -> Result<Vec<DiscoveredDevice>, DeviceError> {
-        self.scan(profile.scan_filter(), timeout).await
+        let named = self.scan(profile.scan_filter(), timeout).await?;
+        let named: Vec<_> = named
+            .into_iter()
+            .filter(|device| profile.matches(device))
+            .collect();
+        if !named.is_empty() {
+            return Ok(named);
+        }
+
+        debug!(
+            kind = ?profile.kind,
+            "no named devices; retrying with service-UUID fallback"
+        );
+        let fallback = self.scan(profile.fallback_scan_filter(), timeout).await?;
+        Ok(fallback
+            .into_iter()
+            .filter(|device| profile.matches(device))
+            .collect())
     }
 
     /// Connects to a device, dispatching by its discovered profile.

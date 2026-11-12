@@ -27,3 +27,8 @@ Ready/battery → shutdown.
 
 Do not mark a platform as verified based only on compilation. Record the adapter, device name,
 firmware if available, and whether the zero-output checks passed.
+
+Coyote V3 units updated by the DG-LAB 4.x app may use privacy broadcast and omit
+`47L121000` from advertising. Switch the device to public broadcast before a name-based hardware
+run, or record that the service-UUID fallback was used. See
+[`coyote-v3-privacy-broadcast.md`](coyote-v3-privacy-broadcast.md).

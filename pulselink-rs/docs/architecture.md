@@ -1,8 +1,8 @@
 # Architecture
 
-`pulselink-rs` is the Rust workspace for `pulselink`. It contains nine library crates and one
-non-published integration-test package. The full task breakdown is in
-[`ROADMAP.md`](ROADMAP.md).
+`pulselink-rs` is the Rust workspace for `pulselink`. It contains the published SDK crates, a
+non-published local relay, a non-published terminal lab, and an integration-test package. The full
+task breakdown is in [`ROADMAP.md`](ROADMAP.md).
 
 ## Crate graph
 
@@ -16,12 +16,12 @@ flowchart TD
     runtime[pulselink-runtime]
     device[pulselink-device]
     ws[pulselink-ws]
+    relay[pulselink-relay]
     facade[pulselink]
-
+    lab[pulselink-lab]
     pattern --> core
     protocol --> core
     protocol --> pattern
-
     ble --> transport
     runtime --> core
     runtime --> pattern
@@ -34,7 +34,7 @@ flowchart TD
     ws --> core
     ws --> pattern
     ws --> protocol
-
+    relay --> protocol
     facade --> core
     facade --> pattern
     facade --> protocol
@@ -43,6 +43,9 @@ flowchart TD
     facade -.-> ble
     facade -.-> device
     facade -.-> ws
+    lab --> facade
+    lab --> ws
+    lab --> relay
 ```
 
 ## Boundaries
@@ -54,12 +57,16 @@ flowchart TD
   a universal network transport; WebSocket is separate.
 - `pulselink-ble` is an adapter. It implements transport traits and keeps btleplug types out of the
   public API.
-- `pulselink-runtime` owns Coyote V3 sessions, ACK, scheduling, safety, and reconnection. It
-  depends on transport, not btleplug.
+- `pulselink-runtime` owns Coyote V3 sessions, ACK, scheduling, safety, and reconnection. It depends
+  on transport, not btleplug.
 - `pulselink-device` owns local drivers for Coyote V2, PawPrints, Civet, and Opossum. It wraps the
   Coyote V3 runtime rather than reimplementing it.
 - `pulselink-ws` owns V4 RPC, multi-app state, typed remote-device snapshots, and remote operations.
   It does not depend on BLE or the runtime.
+- `pulselink-relay` is a non-published local V4 WebSocket relay. It depends on the V4 protocol types
+  and Tokio only.
+- `pulselink-lab` is a non-published terminal test bench. It composes the facade, V4 client, and
+  local relay.
 - `pulselink` is the composition root and facade. It must not contain a second implementation of
   session logic.
 
@@ -81,3 +88,5 @@ flowchart TD
   model exists. With one Coyote V3 driver, a universal driver trait would be premature.
 - A separate WebSocket protocol crate is deferred. `pulselink-protocol` uses feature flags
   (`coyote-v3`, `socket-v4`) so BLE-only users do not compile JSON/RPC dependencies.
+- `pulselink-relay` is separate from `pulselink-ws` because the relay is a server with pairing and
+  routing state, while `pulselink-ws` is a controller client.

@@ -14,7 +14,9 @@ The Rust workspace for `pulselink`, a reliable, asynchronous SDK for DG-LAB devi
 | `pulselink-runtime`   | Coyote V3 session actor, ACK, scheduler, safety, reconnect |
 | `pulselink-device`    | Coyote V2, Opossum, Civet, PawPrints drivers               |
 | `pulselink-ws`        | DG-LAB V4 WebSocket controller                             |
+| `pulselink-relay`     | Non-published local V4 WebSocket relay                     |
 | `pulselink`           | Facade                                                     |
+| `pulselink-lab`       | Non-published terminal test bench                          |
 
 ## Status
 
@@ -35,10 +37,12 @@ cargo test --workspace
 cargo doc --workspace --no-deps
 cargo run -p pulselink --example ble_scan
 cargo run -p pulselink --no-default-features --features protocol --example protocol_only
+cargo run -p pulselink-lab
 ```
 
-The facade is `pulselink`; use `PulseLink` for local BLE sessions and
-`pulselink::ws::Socket` for DG-LAB V4 WebSocket control.
+The facade is `pulselink`; use `PulseLink` for local BLE sessions and `pulselink::ws::Socket` for
+DG-LAB V4 WebSocket control. The lab can start a real local relay with
+`ws local` and show a pairing URL for a real DG-LAB app.
 
 ## Device support
 
@@ -70,6 +74,8 @@ the protocol notice.
 
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — full implementation roadmap and task list
 - `docs/architecture.md` — crate graph and boundaries
+- `docs/local-relay.md` — local V4 relay and app pairing
+- `docs/coyote-v3-privacy-broadcast.md` — V3 unnamed-advertisement fallback
 - `docs/runtime-contracts.md` — session/ACK/scheduler contracts
 - `docs/testing.md` — test strategy
 - `docs/security.md` — pairing, output-safety, and dependency notes

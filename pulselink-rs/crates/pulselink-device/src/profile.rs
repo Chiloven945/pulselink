@@ -20,7 +20,12 @@ pub struct DeviceProfile {
 }
 
 impl DeviceProfile {
-    /// Returns a scan filter for this profile.
+    /// Returns the primary name-based scan filter for this profile.
+    ///
+    /// Name prefixes are used as the primary filter. Passing service UUIDs to
+    /// the platform BLE scanner can hide devices that do not advertise the
+    /// service UUID in every advertising packet. `DeviceClient` still uses the
+    /// service UUIDs for classification.
     #[must_use]
     pub fn scan_filter(&self) -> ScanFilter {
         ScanFilter {
@@ -29,8 +34,38 @@ impl DeviceProfile {
                 .iter()
                 .map(|prefix| (*prefix).to_owned())
                 .collect(),
+            service_uuids: Vec::new(),
+        }
+    }
+
+    /// Returns a service-UUID fallback for devices that no longer advertise a
+    /// local name.
+    ///
+    /// Recent Coyote V3 firmware can use a privacy-broadcast mode that omits
+    /// the `47L121000` local name while keeping the `0x180C` GATT service. This
+    /// filter finds such devices; callers should still verify the profile after
+    /// connecting.
+    #[must_use]
+    pub fn fallback_scan_filter(&self) -> ScanFilter {
+        ScanFilter {
+            name_prefixes: Vec::new(),
             service_uuids: self.service_uuids.to_vec(),
         }
+    }
+
+    /// Returns whether a discovered device belongs to this profile.
+    ///
+    /// Name matches take priority. An unnamed device advertising the shared
+    /// `0x180C` service is treated as a Coyote V3 candidate because V3 is the
+    /// currently documented device with a privacy-broadcast mode.
+    #[must_use]
+    pub fn matches(&self, device: &DiscoveredDevice) -> bool {
+        classify(device) == self.kind
+            || (self.kind == DeviceKind::CoyoteV3
+                && device.name.is_none()
+                && device
+                    .service_uuids
+                    .contains(&coyote_v3_protocol::SERVICE_CONTROL))
     }
 
     /// Returns a fresh common state for this device.
@@ -159,5 +194,38 @@ mod tests {
             classify(&device("D-LAB ESTIM01", coyote_v2_protocol::SERVICE_PWM)),
             DeviceKind::CoyoteV2
         );
+    }
+
+    fn unnamed_v3() -> DiscoveredDevice {
+        DiscoveredDevice {
+            id: TransportDeviceId::new("aa:bb:cc:dd:ee:ff"),
+            name: None,
+            rssi: Some(-50),
+            service_uuids: vec![coyote_v3_protocol::SERVICE_CONTROL],
+            manufacturer_data: Vec::new(),
+        }
+    }
+
+    #[test]
+    fn fallback_filter_uses_service_uuid() {
+        let filter = COYOTE_V3.fallback_scan_filter();
+        assert_eq!(filter.name_prefixes, Vec::<String>::new());
+        assert_eq!(
+            filter.service_uuids,
+            vec![coyote_v3_protocol::SERVICE_CONTROL]
+        );
+    }
+
+    #[test]
+    fn matches_unnamed_v3_privacy_broadcast() {
+        assert!(COYOTE_V3.matches(&unnamed_v3()));
+        assert_eq!(classify(&unnamed_v3()), DeviceKind::CoyoteV3);
+    }
+
+    #[test]
+    fn named_shared_service_is_not_a_v3_match() {
+        let opossum = device("47L127000", coyote_v3_protocol::SERVICE_CONTROL);
+        assert!(!COYOTE_V3.matches(&opossum));
+        assert!(OPOSSUM.matches(&opossum));
     }
 }
