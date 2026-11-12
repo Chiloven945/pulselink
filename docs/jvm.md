@@ -8,7 +8,7 @@
 - Kotlin 2.4.21
 - Java 21 bytecode; CI on JDK 21 and 25
 - Kotlin nullability; JSpecify 1.0.1 `@NullMarked` packages in `pulselink-java`
-- Kable 0.45.0 for BLE
+- Kable 0.45.0 for BLE; its JVM target uses btleplug FFI/JNI
 - Ktor 3.6.1 (CIO + WebSockets) for DG-LAB V4
 
 ## Modules
@@ -24,6 +24,11 @@
 - `pulselink-java` (optional Java 21 extension)
 - `pulselink-testing` (non-published)
 
+Transport/BLE currently expose `Central`, `GattLink`, `Connector`, and `Backend` with coroutine
+`Flow<ByteArray>` notifications. Kable JVM reports an ATT MTU of 23, so Opossum B2 display sync must
+be skipped on JVM. Native Kable libraries and real-hardware validation are still required on each
+platform.
+
 ## Links
 
 - [`pulselink4j/README.md`](../pulselink4j/README.md)
@@ -33,3 +38,5 @@
 
 Shared device/platform/security documentation is in [`docs/`](README.md). Protocol facts and vectors
 are in [`spec/`](../spec/).
+
+- [`pulselink4j/docs/ble.md`](../pulselink4j/docs/ble.md)

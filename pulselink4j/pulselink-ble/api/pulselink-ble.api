@@ -1,0 +1,10 @@
+public final class top/chiloven/pulselink/ble/KableBackend : java/lang/AutoCloseable, top/chiloven/pulselink/transport/Backend {
+	public fun <init> ()V
+	public synthetic fun <init> (Lkotlinx/coroutines/CoroutineScope;JJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlinx/coroutines/CoroutineScope;JJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public fun connect (Ltop/chiloven/pulselink/transport/DiscoveredDevice;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun reconnect (Ltop/chiloven/pulselink/transport/ReconnectTarget;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun scan-8Mi8wO0 (Ltop/chiloven/pulselink/transport/ScanFilter;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

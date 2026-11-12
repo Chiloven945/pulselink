@@ -12,49 +12,97 @@
             "slotId": "slot-a",
             "name": "Device A",
             "type": "COYOTE_030",
-            "props": { "power": 80, "intensityA": 10 },
-            "slotState": { "markLight": "yellow", "hasDevice": true }
+            "props": {
+              "power": 80,
+              "intensityA": 10
+            },
+            "slotState": {
+              "markLight": "yellow",
+              "hasDevice": true
+            }
           }
         ]
       },
-      "expect": { "variant": "devices_snapshot", "valid": true }
+      "expect": {
+        "variant": "devices_snapshot",
+        "valid": true
+      }
     },
     {
       "id": "device-patch",
       "kind": "app_event",
       "input": {
         "ev": "devices.patch",
-        "added": [{ "slotId": "slot-b", "name": "B", "type": "COYOTE_030" }],
-        "removed": ["slot-a"]
+        "added": [
+          {
+            "slotId": "slot-b",
+            "name": "B",
+            "type": "COYOTE_030"
+          }
+        ],
+        "removed": [
+          "slot-a"
+        ]
       },
-      "expect": { "variant": "devices_patch", "valid": true }
+      "expect": {
+        "variant": "devices_patch",
+        "valid": true
+      }
     },
     {
       "id": "slot-patch",
       "kind": "app_event",
       "input": {
         "ev": "slots.patch",
-        "slots": [{ "slotId": "slot-a", "props": { "strength": 10 } }]
+        "slots": [
+          {
+            "slotId": "slot-a",
+            "props": {
+              "strength": 10
+            }
+          }
+        ]
       },
-      "expect": { "variant": "slots_patch", "valid": true }
+      "expect": {
+        "variant": "slots_patch",
+        "valid": true
+      }
     },
     {
       "id": "custom-action",
       "kind": "app_event",
-      "input": { "ev": "custom.action", "action": 7 },
-      "expect": { "variant": "custom_action", "valid": true }
+      "input": {
+        "ev": "custom.action",
+        "action": 7
+      },
+      "expect": {
+        "variant": "custom_action",
+        "valid": true
+      }
     },
     {
       "id": "custom-action-invalid",
       "kind": "app_event",
-      "input": { "ev": "custom.action", "action": 10 },
-      "expect": { "variant": "custom_action", "valid": false }
+      "input": {
+        "ev": "custom.action",
+        "action": 10
+      },
+      "expect": {
+        "variant": "custom_action",
+        "valid": false
+      }
     },
     {
       "id": "unknown-event",
       "kind": "app_event",
-      "input": { "ev": "future.event", "data": 1 },
-      "expect": { "variant": "unknown", "valid": true }
+      "input": {
+        "ev": "future.event",
+        "data": 1
+      },
+      "expect": {
+        "variant": "unknown",
+        "valid": true
+      }
     }
   ]
 }

@@ -12,7 +12,9 @@
         "intensity_balance_a": 130,
         "intensity_balance_b": 131
       },
-      "expect": { "hex": "BF323C80818283" }
+      "expect": {
+        "hex": "BF323C80818283"
+      }
     },
     {
       "id": "boundaries",
@@ -25,7 +27,9 @@
         "intensity_balance_a": 0,
         "intensity_balance_b": 255
       },
-      "expect": { "hex": "BF00C800FF00FF" }
+      "expect": {
+        "hex": "BF00C800FF00FF"
+      }
     }
   ]
 }

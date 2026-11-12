@@ -17,7 +17,8 @@ and per-device sessions.
 | Opossum V1     | `47L127000`     | `OpossumSession`   | codec + mock tests |
 
 Status values describe the Rust implementation. JVM parity is tracked in
-[`pulselink4j/ROADMAP.md`](../pulselink4j/ROADMAP.md).
+[`pulselink4j/ROADMAP.md`](../pulselink4j/ROADMAP.md); JVM transport/BLE are implemented, while
+device sessions and runtime integration are J5.
 
 Real-device verification is tracked in [`hardware-matrix.md`](hardware-matrix.md). Until a row is
 verified there, the support level is codec/mock only.

@@ -9,9 +9,14 @@
         "t": 0,
         "c": 0,
         "d": 1000,
-        "v": ["0A0A0A0A00000000"]
+        "v": [
+          "0A0A0A0A00000000"
+        ]
       },
-      "expect": { "valid": true, "action": "append_pulse_data" }
+      "expect": {
+        "valid": true,
+        "action": "append_pulse_data"
+      }
     },
     {
       "id": "append-v2",
@@ -20,88 +25,187 @@
         "s": "slot-a",
         "t": 0,
         "c": 1,
-        "v": [[1, 2, 3]],
+        "v": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
         "ver": 2
       },
-      "expect": { "valid": true, "action": "append_pulse_data" }
+      "expect": {
+        "valid": true,
+        "action": "append_pulse_data"
+      }
     },
     {
       "id": "add-intensity",
       "kind": "device_operate",
-      "input": { "s": "slot-a", "t": 3, "c": 0, "p": 1, "v": 5 },
-      "expect": { "valid": true, "action": "add_intensity" }
+      "input": {
+        "s": "slot-a",
+        "t": 3,
+        "c": 0,
+        "p": 1,
+        "v": 5
+      },
+      "expect": {
+        "valid": true,
+        "action": "add_intensity"
+      }
     },
     {
       "id": "reduce-intensity",
       "kind": "device_operate",
-      "input": { "s": "slot-a", "t": 3, "c": 1, "v": -7 },
-      "expect": { "valid": true, "action": "add_intensity" }
+      "input": {
+        "s": "slot-a",
+        "t": 3,
+        "c": 1,
+        "v": -7
+      },
+      "expect": {
+        "valid": true,
+        "action": "add_intensity"
+      }
     },
     {
       "id": "temp-intensity",
       "kind": "device_operate",
-      "input": { "s": "slot-a", "t": 4, "c": 0, "d": 3000, "v": 30 },
-      "expect": { "valid": true, "action": "set_temp_intensity" }
+      "input": {
+        "s": "slot-a",
+        "t": 4,
+        "c": 0,
+        "d": 3000,
+        "v": 30
+      },
+      "expect": {
+        "valid": true,
+        "action": "set_temp_intensity"
+      }
     },
     {
       "id": "reset-intensity",
       "kind": "device_operate",
-      "input": { "s": "slot-a", "t": 7, "c": 1, "v": 0 },
-      "expect": { "valid": true, "action": "set_intensity" }
+      "input": {
+        "s": "slot-a",
+        "t": 7,
+        "c": 1,
+        "v": 0
+      },
+      "expect": {
+        "valid": true,
+        "action": "set_intensity"
+      }
     },
     {
       "id": "set-intensity-non-zero",
       "kind": "device_operate",
-      "input": { "s": "slot-a", "t": 7, "c": 0, "v": 5 },
-      "expect": { "valid": false, "action": "set_intensity" }
+      "input": {
+        "s": "slot-a",
+        "t": 7,
+        "c": 0,
+        "v": 5
+      },
+      "expect": {
+        "valid": false,
+        "action": "set_intensity"
+      }
     },
     {
       "id": "invalid-channel",
       "kind": "device_operate",
-      "input": { "s": "slot-a", "t": 7, "c": 2, "v": 0 },
-      "expect": { "valid": false, "action": "set_intensity" }
+      "input": {
+        "s": "slot-a",
+        "t": 7,
+        "c": 2,
+        "v": 0
+      },
+      "expect": {
+        "valid": false,
+        "action": "set_intensity"
+      }
     },
     {
       "id": "invalid-priority",
       "kind": "device_operate",
-      "input": { "s": "slot-a", "t": 7, "c": 0, "p": 3, "v": 0 },
-      "expect": { "valid": false, "action": "set_intensity" }
+      "input": {
+        "s": "slot-a",
+        "t": 7,
+        "c": 0,
+        "p": 3,
+        "v": 0
+      },
+      "expect": {
+        "valid": false,
+        "action": "set_intensity"
+      }
     },
     {
       "id": "clear-all",
       "kind": "clear_operate",
       "input": {},
-      "expect": { "valid": true }
+      "expect": {
+        "valid": true
+      }
     },
     {
       "id": "clear-device",
       "kind": "clear_operate",
-      "input": { "s": "slot-a" },
-      "expect": { "valid": true }
+      "input": {
+        "s": "slot-a"
+      },
+      "expect": {
+        "valid": true
+      }
     },
     {
       "id": "clear-channel",
       "kind": "clear_operate",
-      "input": { "s": "slot-a", "c": 0 },
-      "expect": { "valid": true }
+      "input": {
+        "s": "slot-a",
+        "c": 0
+      },
+      "expect": {
+        "valid": true
+      }
     },
     {
       "id": "clear-channel-without-device",
       "kind": "clear_operate",
-      "input": { "c": 0 },
-      "expect": { "valid": false }
+      "input": {
+        "c": 0
+      },
+      "expect": {
+        "valid": false
+      }
     },
     {
       "id": "result-completed",
       "kind": "device_operate_result",
-      "input": { "type": 7, "reason": "completed", "slotId": "slot-a", "channel": 1 },
-      "expect": { "action": "set_intensity", "reason": "completed" }
+      "input": {
+        "type": 7,
+        "reason": "completed",
+        "slotId": "slot-a",
+        "channel": 1
+      },
+      "expect": {
+        "action": "set_intensity",
+        "reason": "completed"
+      }
     },
     {
       "id": "result-cleared",
       "kind": "device_operate_result",
-      "input": { "type": 0, "reason": "cleared", "slotId": "slot-a", "channel": 0 },
-      "expect": { "action": "append_pulse_data", "reason": "cleared" }
+      "input": {
+        "type": 0,
+        "reason": "cleared",
+        "slotId": "slot-a",
+        "channel": 0
+      },
+      "expect": {
+        "action": "append_pulse_data",
+        "reason": "cleared"
+      }
     }
   ]
 }

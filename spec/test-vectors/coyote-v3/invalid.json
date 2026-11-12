@@ -4,26 +4,42 @@
     {
       "id": "b1-empty",
       "kind": "b1.decode",
-      "input": { "hex": "" },
-      "expect": { "error": true }
+      "input": {
+        "hex": ""
+      },
+      "expect": {
+        "error": true
+      }
     },
     {
       "id": "battery-too-long",
       "kind": "battery.decode",
-      "input": { "hex": "0001" },
-      "expect": { "error": true }
+      "input": {
+        "hex": "0001"
+      },
+      "expect": {
+        "error": true
+      }
     },
     {
       "id": "frequency-wire-too-low",
       "kind": "frequency.decode",
-      "input": { "wire": 9 },
-      "expect": { "error": true }
+      "input": {
+        "wire": 9
+      },
+      "expect": {
+        "error": true
+      }
     },
     {
       "id": "frequency-wire-too-high",
       "kind": "frequency.decode",
-      "input": { "wire": 241 },
-      "expect": { "error": true }
+      "input": {
+        "wire": 241
+      },
+      "expect": {
+        "error": true
+      }
     }
   ]
 }

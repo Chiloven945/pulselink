@@ -1,0 +1,44 @@
+public final class top/chiloven/pulselink/testing/MockBackend : top/chiloven/pulselink/transport/Backend {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun connect (Ltop/chiloven/pulselink/transport/DiscoveredDevice;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getReconnects ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun getScans ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun lastLink ()Ltop/chiloven/pulselink/testing/MockGattLink;
+	public final fun pushLink (Ltop/chiloven/pulselink/testing/MockGattLink;)V
+	public fun reconnect (Ltop/chiloven/pulselink/transport/ReconnectTarget;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun scan-8Mi8wO0 (Ltop/chiloven/pulselink/transport/ScanFilter;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/testing/MockGattLink : top/chiloven/pulselink/transport/GattLink {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun characteristic (Ltop/chiloven/pulselink/transport/GattCharacteristic;)Ltop/chiloven/pulselink/transport/CharacteristicInfo;
+	public fun characteristics ()Ljava/util/Map;
+	public fun disconnect (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun failNextWrite (Ltop/chiloven/pulselink/transport/TransportException;)V
+	public fun getDeviceId-iMU1y4k ()Ljava/lang/String;
+	public final fun injectNotification (Ltop/chiloven/pulselink/transport/GattCharacteristic;[B)V
+	public fun isConnected ()Z
+	public fun mtu ()Ljava/lang/Integer;
+	public fun read (Ltop/chiloven/pulselink/transport/GattCharacteristic;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setCharacteristics (Ljava/util/Map;)V
+	public final fun setConnected (Z)V
+	public final fun setMtu (Ljava/lang/Integer;)V
+	public final fun setReadData (Ltop/chiloven/pulselink/transport/GattCharacteristic;[B)V
+	public fun subscribe (Ltop/chiloven/pulselink/transport/GattCharacteristic;)Lkotlinx/coroutines/flow/Flow;
+	public fun write (Ltop/chiloven/pulselink/transport/GattCharacteristic;[BLtop/chiloven/pulselink/transport/WriteMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun writes ()Ljava/util/List;
+}
+
+public final class top/chiloven/pulselink/testing/WriteRecord {
+	public fun <init> (Ltop/chiloven/pulselink/transport/GattCharacteristic;[BLtop/chiloven/pulselink/transport/WriteMode;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCharacteristic ()Ltop/chiloven/pulselink/transport/GattCharacteristic;
+	public final fun getData ()[B
+	public final fun getMode ()Ltop/chiloven/pulselink/transport/WriteMode;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

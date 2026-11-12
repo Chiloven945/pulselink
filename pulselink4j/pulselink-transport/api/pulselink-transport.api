@@ -1,0 +1,255 @@
+public abstract interface class top/chiloven/pulselink/transport/Backend : top/chiloven/pulselink/transport/Central, top/chiloven/pulselink/transport/Connector {
+}
+
+public abstract interface class top/chiloven/pulselink/transport/Central {
+	public abstract fun connect (Ltop/chiloven/pulselink/transport/DiscoveredDevice;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun scan-8Mi8wO0 (Ltop/chiloven/pulselink/transport/ScanFilter;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun scan-8Mi8wO0$default (Ltop/chiloven/pulselink/transport/Central;Ltop/chiloven/pulselink/transport/ScanFilter;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/transport/Central$DefaultImpls {
+	public static synthetic fun scan-8Mi8wO0$default (Ltop/chiloven/pulselink/transport/Central;Ltop/chiloven/pulselink/transport/ScanFilter;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/transport/CharacteristicInfo {
+	public fun <init> (Ltop/chiloven/pulselink/transport/GattCharacteristic;ZZZZZ)V
+	public final fun component1 ()Ltop/chiloven/pulselink/transport/GattCharacteristic;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun copy (Ltop/chiloven/pulselink/transport/GattCharacteristic;ZZZZZ)Ltop/chiloven/pulselink/transport/CharacteristicInfo;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/transport/CharacteristicInfo;Ltop/chiloven/pulselink/transport/GattCharacteristic;ZZZZZILjava/lang/Object;)Ltop/chiloven/pulselink/transport/CharacteristicInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId ()Ltop/chiloven/pulselink/transport/GattCharacteristic;
+	public final fun getIndicatable ()Z
+	public final fun getNotifiable ()Z
+	public final fun getReadable ()Z
+	public final fun getWritable ()Z
+	public final fun getWritableWithoutResponse ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/transport/Connector {
+	public abstract fun reconnect (Ltop/chiloven/pulselink/transport/ReconnectTarget;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/transport/DiscoveredDevice {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/util/List;Ljava/util/List;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/util/List;Ljava/util/List;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-iMU1y4k ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/Boolean;
+	public final fun copy-xOtxhe4 (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/util/List;Ljava/util/List;Ljava/lang/Boolean;)Ltop/chiloven/pulselink/transport/DiscoveredDevice;
+	public static synthetic fun copy-xOtxhe4$default (Ltop/chiloven/pulselink/transport/DiscoveredDevice;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/util/List;Ljava/util/List;Ljava/lang/Boolean;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/DiscoveredDevice;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConnectable ()Ljava/lang/Boolean;
+	public final fun getId-iMU1y4k ()Ljava/lang/String;
+	public final fun getManufacturerData ()Ljava/util/List;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getRssi ()Ljava/lang/Integer;
+	public final fun getServiceUuids ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/GattCharacteristic {
+	public fun <init> (Ljava/util/UUID;Ljava/util/UUID;)V
+	public final fun component1 ()Ljava/util/UUID;
+	public final fun component2 ()Ljava/util/UUID;
+	public final fun copy (Ljava/util/UUID;Ljava/util/UUID;)Ltop/chiloven/pulselink/transport/GattCharacteristic;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/transport/GattCharacteristic;Ljava/util/UUID;Ljava/util/UUID;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/GattCharacteristic;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCharacteristic ()Ljava/util/UUID;
+	public final fun getService ()Ljava/util/UUID;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/transport/GattLink {
+	public abstract fun characteristic (Ltop/chiloven/pulselink/transport/GattCharacteristic;)Ltop/chiloven/pulselink/transport/CharacteristicInfo;
+	public abstract fun characteristics ()Ljava/util/Map;
+	public abstract fun disconnect (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getDeviceId-iMU1y4k ()Ljava/lang/String;
+	public abstract fun isConnected ()Z
+	public abstract fun mtu ()Ljava/lang/Integer;
+	public abstract fun read (Ltop/chiloven/pulselink/transport/GattCharacteristic;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun subscribe (Ltop/chiloven/pulselink/transport/GattCharacteristic;)Lkotlinx/coroutines/flow/Flow;
+	public abstract fun write (Ltop/chiloven/pulselink/transport/GattCharacteristic;[BLtop/chiloven/pulselink/transport/WriteMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun write$default (Ltop/chiloven/pulselink/transport/GattLink;Ltop/chiloven/pulselink/transport/GattCharacteristic;[BLtop/chiloven/pulselink/transport/WriteMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/transport/GattLink$DefaultImpls {
+	public static synthetic fun write$default (Ltop/chiloven/pulselink/transport/GattLink;Ltop/chiloven/pulselink/transport/GattCharacteristic;[BLtop/chiloven/pulselink/transport/WriteMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/transport/ManufacturerData {
+	public fun <init> (I[B)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCompanyId ()I
+	public final fun getData ()[B
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/ReconnectTarget {
+	public synthetic fun <init> (Ljava/lang/String;Ltop/chiloven/pulselink/transport/ScanFilter;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ltop/chiloven/pulselink/transport/ScanFilter;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-iMU1y4k ()Ljava/lang/String;
+	public final fun component2 ()Ltop/chiloven/pulselink/transport/ScanFilter;
+	public final fun copy-Dyp9JAk (Ljava/lang/String;Ltop/chiloven/pulselink/transport/ScanFilter;)Ltop/chiloven/pulselink/transport/ReconnectTarget;
+	public static synthetic fun copy-Dyp9JAk$default (Ltop/chiloven/pulselink/transport/ReconnectTarget;Ljava/lang/String;Ltop/chiloven/pulselink/transport/ScanFilter;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/ReconnectTarget;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDeviceId-iMU1y4k ()Ljava/lang/String;
+	public final fun getFilter ()Ltop/chiloven/pulselink/transport/ScanFilter;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/ScanFilter {
+	public static final field Companion Ltop/chiloven/pulselink/transport/ScanFilter$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Ltop/chiloven/pulselink/transport/ScanFilter;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/transport/ScanFilter;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/ScanFilter;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getNamePrefixes ()Ljava/util/List;
+	public final fun getServiceUuids ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun matches (Ltop/chiloven/pulselink/transport/DiscoveredDevice;)Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/ScanFilter$Companion {
+	public final fun all ()Ltop/chiloven/pulselink/transport/ScanFilter;
+}
+
+public final class top/chiloven/pulselink/transport/TransportDeviceId {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Ltop/chiloven/pulselink/transport/TransportDeviceId;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public abstract class top/chiloven/pulselink/transport/TransportException : top/chiloven/pulselink/core/PulseLinkException {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$Backend : top/chiloven/pulselink/transport/TransportException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Throwable;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Throwable;)Ltop/chiloven/pulselink/transport/TransportException$Backend;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/transport/TransportException$Backend;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/TransportException$Backend;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCause ()Ljava/lang/Throwable;
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$ConnectFailed : top/chiloven/pulselink/transport/TransportException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Throwable;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Throwable;)Ltop/chiloven/pulselink/transport/TransportException$ConnectFailed;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/transport/TransportException$ConnectFailed;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/TransportException$ConnectFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCause ()Ljava/lang/Throwable;
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$DeviceNotFound : top/chiloven/pulselink/transport/TransportException {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-iMU1y4k ()Ljava/lang/String;
+	public final fun copy-S9MuQoM (Ljava/lang/String;)Ltop/chiloven/pulselink/transport/TransportException$DeviceNotFound;
+	public static synthetic fun copy-S9MuQoM$default (Ltop/chiloven/pulselink/transport/TransportException$DeviceNotFound;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/TransportException$DeviceNotFound;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId-iMU1y4k ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$Disconnected : top/chiloven/pulselink/transport/TransportException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$GattFailed : top/chiloven/pulselink/transport/TransportException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Throwable;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Throwable;)Ltop/chiloven/pulselink/transport/TransportException$GattFailed;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/transport/TransportException$GattFailed;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/TransportException$GattFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCause ()Ljava/lang/Throwable;
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$NoAdapter : top/chiloven/pulselink/transport/TransportException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$NotifyFailed : top/chiloven/pulselink/transport/TransportException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Throwable;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Throwable;)Ltop/chiloven/pulselink/transport/TransportException$NotifyFailed;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/transport/TransportException$NotifyFailed;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/TransportException$NotifyFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCause ()Ljava/lang/Throwable;
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$ScanFailed : top/chiloven/pulselink/transport/TransportException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Throwable;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Throwable;)Ltop/chiloven/pulselink/transport/TransportException$ScanFailed;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/transport/TransportException$ScanFailed;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)Ltop/chiloven/pulselink/transport/TransportException$ScanFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCause ()Ljava/lang/Throwable;
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/transport/TransportException$Timeout : top/chiloven/pulselink/transport/TransportException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/transport/WriteMode : java/lang/Enum {
+	public static final field Auto Ltop/chiloven/pulselink/transport/WriteMode;
+	public static final field WithResponse Ltop/chiloven/pulselink/transport/WriteMode;
+	public static final field WithoutResponse Ltop/chiloven/pulselink/transport/WriteMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/transport/WriteMode;
+	public static fun values ()[Ltop/chiloven/pulselink/transport/WriteMode;
+}
+

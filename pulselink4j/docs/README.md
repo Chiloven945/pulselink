@@ -7,3 +7,4 @@ Language-specific documentation for the JVM implementation.
 - [`../../docs/`](../../docs/) — language-neutral device, platform, security, and test docs
 - [`../../spec/`](../../spec/) — protocol specification and shared vectors
 - [`../ROADMAP.md`](../ROADMAP.md) — implementation milestones
+- [`ble.md`](ble.md) — Kable JVM backend, native libraries, permissions, and MTU

@@ -4,32 +4,57 @@
     {
       "id": "hello",
       "kind": "relay_frame",
-      "input": { "type": "hello", "clientId": "controller-1" },
-      "expect": { "variant": "hello" }
+      "input": {
+        "type": "hello",
+        "clientId": "controller-1"
+      },
+      "expect": {
+        "variant": "hello"
+      }
     },
     {
       "id": "client-attached",
       "kind": "relay_frame",
-      "input": { "type": "client_attached", "clientId": "app-1" },
-      "expect": { "variant": "client_attached" }
+      "input": {
+        "type": "client_attached",
+        "clientId": "app-1"
+      },
+      "expect": {
+        "variant": "client_attached"
+      }
     },
     {
       "id": "client-disconnected",
       "kind": "relay_frame",
-      "input": { "type": "client_disconnected", "clientId": "app-1" },
-      "expect": { "variant": "client_disconnected" }
+      "input": {
+        "type": "client_disconnected",
+        "clientId": "app-1"
+      },
+      "expect": {
+        "variant": "client_disconnected"
+      }
     },
     {
       "id": "controller-attached",
       "kind": "relay_frame",
-      "input": { "type": "controller_attached", "clientId": "controller-1" },
-      "expect": { "variant": "controller_attached" }
+      "input": {
+        "type": "controller_attached",
+        "clientId": "controller-1"
+      },
+      "expect": {
+        "variant": "controller_attached"
+      }
     },
     {
       "id": "controller-disconnected",
       "kind": "relay_frame",
-      "input": { "type": "controller_disconnected", "clientId": "controller-1" },
-      "expect": { "variant": "controller_disconnected" }
+      "input": {
+        "type": "controller_disconnected",
+        "clientId": "controller-1"
+      },
+      "expect": {
+        "variant": "controller_disconnected"
+      }
     },
     {
       "id": "message-outbound",
@@ -37,48 +62,84 @@
       "input": {
         "type": "message",
         "clientId": "app-1",
-        "data": { "t": "req", "reqId": "req-1", "m": "devices.get" }
+        "data": {
+          "t": "req",
+          "reqId": "req-1",
+          "m": "devices.get"
+        }
       },
-      "expect": { "variant": "message" }
+      "expect": {
+        "variant": "message"
+      }
     },
     {
       "id": "message-inbound",
       "kind": "relay_frame",
       "input": {
         "type": "message",
-        "data": { "t": "ev", "ev": "devices.snapshot", "devices": [] }
+        "data": {
+          "t": "ev",
+          "ev": "devices.snapshot",
+          "devices": []
+        }
       },
-      "expect": { "variant": "message" }
+      "expect": {
+        "variant": "message"
+      }
     },
     {
       "id": "heartbeat",
       "kind": "relay_frame",
-      "input": { "type": "heartbeat" },
-      "expect": { "variant": "heartbeat" }
+      "input": {
+        "type": "heartbeat"
+      },
+      "expect": {
+        "variant": "heartbeat"
+      }
     },
     {
       "id": "pong",
       "kind": "relay_frame",
-      "input": { "type": "pong", "ts": 1710000000123 },
-      "expect": { "variant": "pong" }
+      "input": {
+        "type": "pong",
+        "ts": 1710000000123
+      },
+      "expect": {
+        "variant": "pong"
+      }
     },
     {
       "id": "idle-timeout",
       "kind": "relay_frame",
-      "input": { "type": "idle_timeout" },
-      "expect": { "variant": "idle_timeout" }
+      "input": {
+        "type": "idle_timeout"
+      },
+      "expect": {
+        "variant": "idle_timeout"
+      }
     },
     {
       "id": "error",
       "kind": "relay_frame",
-      "input": { "type": "error", "code": "controller_not_found", "message": "missing" },
-      "expect": { "variant": "error" }
+      "input": {
+        "type": "error",
+        "code": "controller_not_found",
+        "message": "missing"
+      },
+      "expect": {
+        "variant": "error"
+      }
     },
     {
       "id": "unknown-frame",
       "kind": "relay_frame",
-      "input": { "type": "future_frame", "x": 1 },
-      "expect": { "variant": "unknown" }
+      "input": {
+        "type": "future_frame",
+        "x": 1
+      },
+      "expect": {
+        "variant": "unknown"
+      }
     }
   ]
 }

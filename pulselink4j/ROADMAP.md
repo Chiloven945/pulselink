@@ -51,7 +51,7 @@ Every `pulselink-java` package must contain a `package-info.java` with:
 @NullMarked
 package top.chiloven.pulselink.<module>.<package>;
 
-import org.jspecify.annotations.NullMarked;
+        import org.jspecify.annotations.NullMarked;
 ```
 
 Rules:
@@ -432,12 +432,24 @@ Dedicated V2/sensor vector JSON remains a follow-up.
 - `Flow<ByteArray>` notifications, `WriteMode`, MTU.
 - Fake transport and test fixtures.
 
+**J3 completion notes**: the transport SPI is implemented with coroutine `Flow` notifications,
+`GattCharacteristic`, `CharacteristicInfo`, `TransportException`, and a protocol-agnostic `Backend`.
+`pulselink-testing` provides `MockGattLink` and `MockBackend`, including notification injection,
+write capture, read data, failure injection, MTU, and connection state.
+
 ### J4 — BLE
 
 - Kable adapter and profile classifier.
 - Scan second pass and V3 privacy fallback.
 - Notification fan-out, write serialization, reconnect.
 - Platform permission docs.
+
+**J4 completion notes**: `KableBackend`/`KableGattLink` implement the transport SPI with Kable
+0.45.0. Kable's JVM target uses btleplug FFI/JNI, so it shares the same desktop platform family as
+the Rust backend. Scans use Kable filters plus a second-pass `ScanFilter`,
+connection/discovery/write/read/disconnect have timeouts, writes are serialized, and reconnect falls
+back to a filtered scan. Kable JVM currently reports an ATT MTU of 23, so Opossum `0xB2` display
+sync must be skipped on JVM unless a platform-specific MTU path is added.
 
 ### J5 — Device/runtime
 
