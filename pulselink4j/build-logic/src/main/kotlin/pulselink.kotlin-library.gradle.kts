@@ -24,7 +24,7 @@ kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_21)
         allWarningsAsErrors.set(true)
-        freeCompilerArgs.add("-Xjvm-default=all")
+        freeCompilerArgs.add("-jvm-default=enable")
     }
 }
 

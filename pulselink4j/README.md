@@ -2,8 +2,8 @@
 
 JVM implementation of `pulselink`: a Kotlin core with an optional Java extension.
 
-Status: **J0 build foundation and J8 shared docs/spec are complete**; J1-J7 and J9 follow
-[`ROADMAP.md`](ROADMAP.md).
+Status: **J0 build foundation, J8 shared docs/spec, and J1-J2 core/pattern/protocol are complete**;
+J3-J7 and J9 follow [`ROADMAP.md`](ROADMAP.md).
 
 ## Toolchain
 
@@ -22,6 +22,7 @@ Status: **J0 build foundation and J8 shared docs/spec are complete**; J1-J7 and 
 | Module                | Purpose                                          |
 |-----------------------|--------------------------------------------------|
 | `pulselink-core`      | Domain types, state, capabilities, events        |
+| `pulselink-pattern`   | Waveform timeline types                          |
 | `pulselink-protocol`  | Sans-io Coyote/Civet/Opossum/PawPrints/V4 codecs |
 | `pulselink-transport` | Local-device SPI and test fake                   |
 | `pulselink-ble`       | Kable adapter; hides Kable types                 |

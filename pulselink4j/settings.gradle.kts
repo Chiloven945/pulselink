@@ -17,6 +17,7 @@ rootProject.name = "pulselink4j"
 
 include(
     ":pulselink-core",
+    ":pulselink-pattern",
     ":pulselink-protocol",
     ":pulselink-transport",
     ":pulselink-ble",

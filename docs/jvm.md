@@ -7,13 +7,14 @@
 - Gradle 9.9.0
 - Kotlin 2.4.21
 - Java 21 bytecode; CI on JDK 21 and 25
-- JSpecify 1.0.1 with `@NullMarked` package-by-package
+- Kotlin nullability; JSpecify 1.0.1 `@NullMarked` packages in `pulselink-java`
 - Kable 0.45.0 for BLE
 - Ktor 3.6.1 (CIO + WebSockets) for DG-LAB V4
 
 ## Modules
 
 - `pulselink-core`
+- `pulselink-pattern`
 - `pulselink-protocol`
 - `pulselink-transport`
 - `pulselink-ble`

@@ -1,0 +1,682 @@
+public final class top/chiloven/pulselink/core/BatteryLevel : java/lang/Comparable {
+	public static final field Companion Ltop/chiloven/pulselink/core/BatteryLevel$Companion;
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/core/BatteryLevel;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-kc5cu2s (I)I
+	public static fun compareTo-kc5cu2s (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/core/BatteryLevel$Companion {
+	public final fun getMAX-up3EQXo ()I
+	public final fun getMIN-up3EQXo ()I
+	public final fun of-mrzHc34 (I)I
+}
+
+public final class top/chiloven/pulselink/core/BatteryState {
+	public synthetic fun <init> (ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-up3EQXo ()I
+	public final fun copy-kc5cu2s (I)Ltop/chiloven/pulselink/core/BatteryState;
+	public static synthetic fun copy-kc5cu2s$default (Ltop/chiloven/pulselink/core/BatteryState;IILjava/lang/Object;)Ltop/chiloven/pulselink/core/BatteryState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLevel-up3EQXo ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/BleDeviceId {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/core/BleDeviceId;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/BleDeviceId;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/BleDeviceId;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/ButtonMask {
+	public static final field Companion Ltop/chiloven/pulselink/core/ButtonMask$Companion;
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/core/ButtonMask;
+	public static final fun contains-vyRHT2o (II)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getBits ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun isEmpty-impl (I)Z
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/core/ButtonMask$Companion {
+	public final fun fromBits-6BI_LZI (I)I
+	public final fun getNONE-i0IcCLA ()I
+}
+
+public final class top/chiloven/pulselink/core/Channel : java/lang/Enum {
+	public static final field A Ltop/chiloven/pulselink/core/Channel;
+	public static final field B Ltop/chiloven/pulselink/core/Channel;
+	public static final field Companion Ltop/chiloven/pulselink/core/Channel$Companion;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getIndex ()I
+	public final fun getWireValue ()I
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/core/Channel;
+	public static fun values ()[Ltop/chiloven/pulselink/core/Channel;
+}
+
+public final class top/chiloven/pulselink/core/Channel$Companion {
+	public final fun fromWire (I)Ltop/chiloven/pulselink/core/Channel;
+	public final fun getALL ()Ljava/util/List;
+}
+
+public final class top/chiloven/pulselink/core/ChannelMap {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;Ljava/lang/Object;)Ltop/chiloven/pulselink/core/ChannelMap;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/ChannelMap;Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun entries ()Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get (Ltop/chiloven/pulselink/core/Channel;)Ljava/lang/Object;
+	public final fun getA ()Ljava/lang/Object;
+	public final fun getB ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public final fun map (Lkotlin/jvm/functions/Function1;)Ltop/chiloven/pulselink/core/ChannelMap;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/ChannelSet {
+	public static final field Companion Ltop/chiloven/pulselink/core/ChannelSet$Companion;
+	public fun <init> (ZZ)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun contains (Ltop/chiloven/pulselink/core/Channel;)Z
+	public final fun copy (ZZ)Ltop/chiloven/pulselink/core/ChannelSet;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/ChannelSet;ZZILjava/lang/Object;)Ltop/chiloven/pulselink/core/ChannelSet;
+	public final fun count ()I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()Z
+	public final fun getB ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/ChannelSet$Companion {
+	public final fun getA ()Ltop/chiloven/pulselink/core/ChannelSet;
+	public final fun getAB ()Ltop/chiloven/pulselink/core/ChannelSet;
+	public final fun getB ()Ltop/chiloven/pulselink/core/ChannelSet;
+	public final fun getNONE ()Ltop/chiloven/pulselink/core/ChannelSet;
+}
+
+public final class top/chiloven/pulselink/core/ChannelState {
+	public fun <init> ()V
+	public fun <init> (Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/Observed;)V
+	public synthetic fun <init> (Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/Observed;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun copy (Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/Observed;)Ltop/chiloven/pulselink/core/ChannelState;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/ChannelState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/Observed;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/ChannelState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIntensity ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun getSoftLimit ()Ltop/chiloven/pulselink/core/Observed;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/ConnectionState : java/lang/Enum {
+	public static final field Closing Ltop/chiloven/pulselink/core/ConnectionState;
+	public static final field Connecting Ltop/chiloven/pulselink/core/ConnectionState;
+	public static final field Degraded Ltop/chiloven/pulselink/core/ConnectionState;
+	public static final field Disconnected Ltop/chiloven/pulselink/core/ConnectionState;
+	public static final field Initializing Ltop/chiloven/pulselink/core/ConnectionState;
+	public static final field Ready Ltop/chiloven/pulselink/core/ConnectionState;
+	public static final field Reconnecting Ltop/chiloven/pulselink/core/ConnectionState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/core/ConnectionState;
+	public static fun values ()[Ltop/chiloven/pulselink/core/ConnectionState;
+}
+
+public abstract class top/chiloven/pulselink/core/CoreException : top/chiloven/pulselink/core/PulseLinkException {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class top/chiloven/pulselink/core/CoreException$InvalidBatteryLevel : top/chiloven/pulselink/core/CoreException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/core/CoreException$InvalidBatteryLevel;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/CoreException$InvalidBatteryLevel;IILjava/lang/Object;)Ltop/chiloven/pulselink/core/CoreException$InvalidBatteryLevel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/CoreException$InvalidButtonMask : top/chiloven/pulselink/core/CoreException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/core/CoreException$InvalidButtonMask;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/CoreException$InvalidButtonMask;IILjava/lang/Object;)Ltop/chiloven/pulselink/core/CoreException$InvalidButtonMask;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/CoreException$InvalidChannel : top/chiloven/pulselink/core/CoreException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/core/CoreException$InvalidChannel;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/CoreException$InvalidChannel;IILjava/lang/Object;)Ltop/chiloven/pulselink/core/CoreException$InvalidChannel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/CoreException$InvalidIntensity : top/chiloven/pulselink/core/CoreException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/core/CoreException$InvalidIntensity;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/CoreException$InvalidIntensity;IILjava/lang/Object;)Ltop/chiloven/pulselink/core/CoreException$InvalidIntensity;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/CoreException$InvalidIntensityDelta : top/chiloven/pulselink/core/CoreException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/core/CoreException$InvalidIntensityDelta;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/CoreException$InvalidIntensityDelta;IILjava/lang/Object;)Ltop/chiloven/pulselink/core/CoreException$InvalidIntensityDelta;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/CoreException$InvalidTrigger : top/chiloven/pulselink/core/CoreException {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Ltop/chiloven/pulselink/core/CoreException$InvalidTrigger;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/CoreException$InvalidTrigger;IIILjava/lang/Object;)Ltop/chiloven/pulselink/core/CoreException$InvalidTrigger;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEventId ()I
+	public final fun getParameter ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceCapabilities {
+	public fun <init> ()V
+	public fun <init> (Ltop/chiloven/pulselink/core/ChannelSet;ZLtop/chiloven/pulselink/core/IntensityCapabilities;Ltop/chiloven/pulselink/core/WaveformCapabilities;ZZZZ)V
+	public synthetic fun <init> (Ltop/chiloven/pulselink/core/ChannelSet;ZLtop/chiloven/pulselink/core/IntensityCapabilities;Ltop/chiloven/pulselink/core/WaveformCapabilities;ZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/ChannelSet;
+	public final fun component2 ()Z
+	public final fun component3 ()Ltop/chiloven/pulselink/core/IntensityCapabilities;
+	public final fun component4 ()Ltop/chiloven/pulselink/core/WaveformCapabilities;
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Z
+	public final fun component8 ()Z
+	public final fun copy (Ltop/chiloven/pulselink/core/ChannelSet;ZLtop/chiloven/pulselink/core/IntensityCapabilities;Ltop/chiloven/pulselink/core/WaveformCapabilities;ZZZZ)Ltop/chiloven/pulselink/core/DeviceCapabilities;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceCapabilities;Ltop/chiloven/pulselink/core/ChannelSet;ZLtop/chiloven/pulselink/core/IntensityCapabilities;Ltop/chiloven/pulselink/core/WaveformCapabilities;ZZZZILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceCapabilities;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBattery ()Z
+	public final fun getButtons ()Z
+	public final fun getChannels ()Ltop/chiloven/pulselink/core/ChannelSet;
+	public final fun getIntensity ()Ltop/chiloven/pulselink/core/IntensityCapabilities;
+	public final fun getPressure ()Z
+	public final fun getSettings ()Z
+	public final fun getVibration ()Z
+	public final fun getWaveform ()Ltop/chiloven/pulselink/core/WaveformCapabilities;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/core/DeviceEvent {
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$BatteryChanged : top/chiloven/pulselink/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/core/BatteryState;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/BatteryState;
+	public final fun copy (Ltop/chiloven/pulselink/core/BatteryState;)Ltop/chiloven/pulselink/core/DeviceEvent$BatteryChanged;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceEvent$BatteryChanged;Ltop/chiloven/pulselink/core/BatteryState;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceEvent$BatteryChanged;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBattery ()Ltop/chiloven/pulselink/core/BatteryState;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$ButtonChanged : top/chiloven/pulselink/core/DeviceEvent {
+	public synthetic fun <init> (ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-i0IcCLA ()I
+	public final fun copy-vyRHT2o (I)Ltop/chiloven/pulselink/core/DeviceEvent$ButtonChanged;
+	public static synthetic fun copy-vyRHT2o$default (Ltop/chiloven/pulselink/core/DeviceEvent$ButtonChanged;IILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceEvent$ButtonChanged;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getButtons-i0IcCLA ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$ConnectionChanged : top/chiloven/pulselink/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/core/ConnectionState;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/ConnectionState;
+	public final fun copy (Ltop/chiloven/pulselink/core/ConnectionState;)Ltop/chiloven/pulselink/core/DeviceEvent$ConnectionChanged;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceEvent$ConnectionChanged;Ltop/chiloven/pulselink/core/ConnectionState;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceEvent$ConnectionChanged;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getState ()Ltop/chiloven/pulselink/core/ConnectionState;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$Error : top/chiloven/pulselink/core/DeviceEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/core/DeviceEvent$Error;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceEvent$Error;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceEvent$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$IntensityChanged : top/chiloven/pulselink/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/core/Channel;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/IntensitySource;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/Channel;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun component3 ()Ltop/chiloven/pulselink/core/IntensitySource;
+	public final fun copy (Ltop/chiloven/pulselink/core/Channel;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/IntensitySource;)Ltop/chiloven/pulselink/core/DeviceEvent$IntensityChanged;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceEvent$IntensityChanged;Ltop/chiloven/pulselink/core/Channel;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/IntensitySource;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceEvent$IntensityChanged;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChannel ()Ltop/chiloven/pulselink/core/Channel;
+	public final fun getIntensity ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun getSource ()Ltop/chiloven/pulselink/core/IntensitySource;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$PressureChanged : top/chiloven/pulselink/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/core/Observed;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun copy (Ltop/chiloven/pulselink/core/Observed;)Ltop/chiloven/pulselink/core/DeviceEvent$PressureChanged;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceEvent$PressureChanged;Ltop/chiloven/pulselink/core/Observed;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceEvent$PressureChanged;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPressure ()Ltop/chiloven/pulselink/core/Observed;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$SensorData : top/chiloven/pulselink/core/DeviceEvent {
+	public static final field INSTANCE Ltop/chiloven/pulselink/core/DeviceEvent$SensorData;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$SettingsChanged : top/chiloven/pulselink/core/DeviceEvent {
+	public static final field INSTANCE Ltop/chiloven/pulselink/core/DeviceEvent$SettingsChanged;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceEvent$Triggered : top/chiloven/pulselink/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/core/Trigger;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/Trigger;
+	public final fun copy (Ltop/chiloven/pulselink/core/Trigger;)Ltop/chiloven/pulselink/core/DeviceEvent$Triggered;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceEvent$Triggered;Ltop/chiloven/pulselink/core/Trigger;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceEvent$Triggered;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTrigger ()Ltop/chiloven/pulselink/core/Trigger;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/core/DeviceId {
+}
+
+public final class top/chiloven/pulselink/core/DeviceId$Ble : top/chiloven/pulselink/core/DeviceId {
+	public fun <init> (Ltop/chiloven/pulselink/core/BleDeviceId;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/BleDeviceId;
+	public final fun copy (Ltop/chiloven/pulselink/core/BleDeviceId;)Ltop/chiloven/pulselink/core/DeviceId$Ble;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceId$Ble;Ltop/chiloven/pulselink/core/BleDeviceId;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceId$Ble;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ltop/chiloven/pulselink/core/BleDeviceId;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceId$Remote : top/chiloven/pulselink/core/DeviceId {
+	public fun <init> (Ltop/chiloven/pulselink/core/RemoteDeviceId;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/RemoteDeviceId;
+	public final fun copy (Ltop/chiloven/pulselink/core/RemoteDeviceId;)Ltop/chiloven/pulselink/core/DeviceId$Remote;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceId$Remote;Ltop/chiloven/pulselink/core/RemoteDeviceId;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceId$Remote;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ltop/chiloven/pulselink/core/RemoteDeviceId;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceInfo {
+	public fun <init> (Ltop/chiloven/pulselink/core/DeviceId;Ltop/chiloven/pulselink/core/DeviceKind;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ltop/chiloven/pulselink/core/DeviceId;Ltop/chiloven/pulselink/core/DeviceKind;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/DeviceId;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/DeviceKind;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun copy (Ltop/chiloven/pulselink/core/DeviceId;Ltop/chiloven/pulselink/core/DeviceKind;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ltop/chiloven/pulselink/core/DeviceInfo;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceInfo;Ltop/chiloven/pulselink/core/DeviceId;Ltop/chiloven/pulselink/core/DeviceKind;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFirmware ()Ljava/lang/String;
+	public final fun getId ()Ltop/chiloven/pulselink/core/DeviceId;
+	public final fun getKind ()Ltop/chiloven/pulselink/core/DeviceKind;
+	public final fun getManufacturer ()Ljava/lang/String;
+	public final fun getModel ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/core/DeviceKind {
+	public static final field Companion Ltop/chiloven/pulselink/core/DeviceKind$Companion;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getRemoteType ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceKind$Civet : top/chiloven/pulselink/core/DeviceKind {
+	public static final field INSTANCE Ltop/chiloven/pulselink/core/DeviceKind$Civet;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getRemoteType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceKind$Companion {
+	public final fun fromRemoteType (Ljava/lang/String;)Ltop/chiloven/pulselink/core/DeviceKind;
+}
+
+public final class top/chiloven/pulselink/core/DeviceKind$CoyoteV2 : top/chiloven/pulselink/core/DeviceKind {
+	public static final field INSTANCE Ltop/chiloven/pulselink/core/DeviceKind$CoyoteV2;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getRemoteType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceKind$CoyoteV3 : top/chiloven/pulselink/core/DeviceKind {
+	public static final field INSTANCE Ltop/chiloven/pulselink/core/DeviceKind$CoyoteV3;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getRemoteType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceKind$DefaultImpls {
+	public static fun getDisplayName (Ltop/chiloven/pulselink/core/DeviceKind;)Ljava/lang/String;
+	public static fun getRemoteType (Ltop/chiloven/pulselink/core/DeviceKind;)Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceKind$Opossum : top/chiloven/pulselink/core/DeviceKind {
+	public static final field INSTANCE Ltop/chiloven/pulselink/core/DeviceKind$Opossum;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getRemoteType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceKind$PawPrints : top/chiloven/pulselink/core/DeviceKind {
+	public static final field INSTANCE Ltop/chiloven/pulselink/core/DeviceKind$PawPrints;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getRemoteType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceKind$Unknown : top/chiloven/pulselink/core/DeviceKind {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/core/DeviceKind$Unknown;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceKind$Unknown;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceKind$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getRemoteType ()Ljava/lang/String;
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/DeviceState {
+	public static final field Companion Ltop/chiloven/pulselink/core/DeviceState$Companion;
+	public fun <init> (JLtop/chiloven/pulselink/core/ConnectionState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/ChannelMap;)V
+	public synthetic fun <init> (JLtop/chiloven/pulselink/core/ConnectionState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/ChannelMap;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun channel (Ltop/chiloven/pulselink/core/Channel;)Ltop/chiloven/pulselink/core/ChannelState;
+	public final fun component1 ()J
+	public final fun component2 ()Ltop/chiloven/pulselink/core/ConnectionState;
+	public final fun component3 ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun component4 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun copy (JLtop/chiloven/pulselink/core/ConnectionState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/ChannelMap;)Ltop/chiloven/pulselink/core/DeviceState;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/DeviceState;JLtop/chiloven/pulselink/core/ConnectionState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/core/ChannelMap;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/DeviceState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBattery ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun getChannels ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getConnection ()Ltop/chiloven/pulselink/core/ConnectionState;
+	public final fun getRevision ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun touch ()Ltop/chiloven/pulselink/core/DeviceState;
+}
+
+public final class top/chiloven/pulselink/core/DeviceState$Companion {
+	public final fun empty (Ltop/chiloven/pulselink/core/ConnectionState;)Ltop/chiloven/pulselink/core/DeviceState;
+}
+
+public final class top/chiloven/pulselink/core/Intensity : java/lang/Comparable {
+	public static final field Companion Ltop/chiloven/pulselink/core/Intensity$Companion;
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/core/Intensity;
+	public static final fun checkedAdd-X0zS7g8 (II)Ltop/chiloven/pulselink/core/Intensity;
+	public static final fun checkedSub-X0zS7g8 (II)Ltop/chiloven/pulselink/core/Intensity;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-uHIMOV4 (I)I
+	public static fun compareTo-uHIMOV4 (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun saturatingAdd-SOngnU0 (II)I
+	public static final fun saturatingSub-SOngnU0 (II)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/core/Intensity$Companion {
+	public final fun getMAX-RSn5AP4 ()I
+	public final fun getMIN-RSn5AP4 ()I
+	public final fun of-SOngnU0 (I)I
+}
+
+public final class top/chiloven/pulselink/core/IntensityCapabilities {
+	public fun <init> ()V
+	public synthetic fun <init> (ZZZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4-RSn5AP4 ()I
+	public final fun copy-K1cidV4 (ZZZI)Ltop/chiloven/pulselink/core/IntensityCapabilities;
+	public static synthetic fun copy-K1cidV4$default (Ltop/chiloven/pulselink/core/IntensityCapabilities;ZZZIILjava/lang/Object;)Ltop/chiloven/pulselink/core/IntensityCapabilities;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAbsolute ()Z
+	public final fun getMax-RSn5AP4 ()I
+	public final fun getRelative ()Z
+	public final fun getTemporary ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/IntensityDelta : java/lang/Comparable {
+	public static final field Companion Ltop/chiloven/pulselink/core/IntensityDelta$Companion;
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/core/IntensityDelta;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-i-XA5ZM (I)I
+	public static fun compareTo-i-XA5ZM (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun magnitude-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/core/IntensityDelta$Companion {
+	public final fun getMAX-NY29ZYk ()I
+	public final fun getMIN-NY29ZYk ()I
+	public final fun of-_xA7z1g (I)I
+}
+
+public final class top/chiloven/pulselink/core/IntensitySource : java/lang/Enum {
+	public static final field Device Ltop/chiloven/pulselink/core/IntensitySource;
+	public static final field PhysicalControl Ltop/chiloven/pulselink/core/IntensitySource;
+	public static final field Sdk Ltop/chiloven/pulselink/core/IntensitySource;
+	public static final field Unknown Ltop/chiloven/pulselink/core/IntensitySource;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/core/IntensitySource;
+	public static fun values ()[Ltop/chiloven/pulselink/core/IntensitySource;
+}
+
+public abstract interface class top/chiloven/pulselink/core/Observed {
+	public static final field Companion Ltop/chiloven/pulselink/core/Observed$Companion;
+	public fun valueOrNull ()Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/core/Observed$Companion {
+	public final fun known (Ljava/lang/Object;)Ltop/chiloven/pulselink/core/Observed;
+	public final fun unknown ()Ltop/chiloven/pulselink/core/Observed;
+}
+
+public final class top/chiloven/pulselink/core/Observed$DefaultImpls {
+	public static fun valueOrNull (Ltop/chiloven/pulselink/core/Observed;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/core/Observed$Known : top/chiloven/pulselink/core/Observed {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Ltop/chiloven/pulselink/core/Observed$Known;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/Observed$Known;Ljava/lang/Object;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/Observed$Known;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun valueOrNull ()Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/core/Observed$Unknown : top/chiloven/pulselink/core/Observed {
+	public static final field INSTANCE Ltop/chiloven/pulselink/core/Observed$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public synthetic fun valueOrNull ()Ljava/lang/Object;
+	public fun valueOrNull ()Ljava/lang/Void;
+}
+
+public final class top/chiloven/pulselink/core/Pressure : java/lang/Comparable {
+	public static final field Companion Ltop/chiloven/pulselink/core/Pressure$Companion;
+	public static final fun asKpa-impl (I)F
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/core/Pressure;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-n9SeahY (I)I
+	public static fun compareTo-n9SeahY (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getCentiKpa ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/core/Pressure$Companion {
+	public final fun fromCentiKpa-eFUcsCE (I)I
+	public final fun fromKpa-J97p0JA (D)Ltop/chiloven/pulselink/core/Pressure;
+	public final fun fromKpa-J97p0JA (F)Ltop/chiloven/pulselink/core/Pressure;
+}
+
+public abstract class top/chiloven/pulselink/core/PulseLinkException : java/lang/Exception {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class top/chiloven/pulselink/core/RemoteDeviceId {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ltop/chiloven/pulselink/core/RemoteDeviceId;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/RemoteDeviceId;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/RemoteDeviceId;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public final fun getSlotId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/StateKt {
+	public static final fun mapObserved (Ltop/chiloven/pulselink/core/Observed;Lkotlin/jvm/functions/Function1;)Ltop/chiloven/pulselink/core/Observed;
+}
+
+public final class top/chiloven/pulselink/core/Trigger {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Ltop/chiloven/pulselink/core/Trigger;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/core/Trigger;IIILjava/lang/Object;)Ltop/chiloven/pulselink/core/Trigger;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEventId ()I
+	public final fun getParameter ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/core/WaveformCapabilities {
+	public fun <init> ()V
+	public synthetic fun <init> (ZZLkotlin/time/Duration;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ZZLkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-moChb0s (ZZLkotlin/time/Duration;)Ltop/chiloven/pulselink/core/WaveformCapabilities;
+	public static synthetic fun copy-moChb0s$default (Ltop/chiloven/pulselink/core/WaveformCapabilities;ZZLkotlin/time/Duration;ILjava/lang/Object;)Ltop/chiloven/pulselink/core/WaveformCapabilities;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaxDuration-FghU774 ()Lkotlin/time/Duration;
+	public final fun getV2Frames ()Z
+	public final fun getV3Frames ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

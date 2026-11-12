@@ -1,0 +1,1463 @@
+public abstract class top/chiloven/pulselink/protocol/ProtocolException : top/chiloven/pulselink/core/PulseLinkException {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class top/chiloven/pulselink/protocol/ProtocolException$InvalidHeader : top/chiloven/pulselink/protocol/ProtocolException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidHeader;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidHeader;IILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidHeader;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/ProtocolException$InvalidLength : top/chiloven/pulselink/protocol/ProtocolException {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidLength;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidLength;IIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidLength;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getActual ()I
+	public final fun getExpected ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/ProtocolException$InvalidParameters : top/chiloven/pulselink/protocol/ProtocolException {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidParameters;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidParameters;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidParameters;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/ProtocolException$InvalidPulseFrame : top/chiloven/pulselink/protocol/ProtocolException {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidPulseFrame;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidPulseFrame;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidPulseFrame;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/ProtocolException$InvalidSequence : top/chiloven/pulselink/protocol/ProtocolException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidSequence;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidSequence;IILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/ProtocolException$InvalidSequence;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/ProtocolException$Json : top/chiloven/pulselink/protocol/ProtocolException {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/ProtocolException$Json;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/ProtocolException$Json;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/ProtocolException$Json;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/ProtocolException$UnsupportedActionType : top/chiloven/pulselink/protocol/ProtocolException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/protocol/ProtocolException$UnsupportedActionType;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/ProtocolException$UnsupportedActionType;IILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/ProtocolException$UnsupportedActionType;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/ProtocolException$ValueOutOfRange : top/chiloven/pulselink/protocol/ProtocolException {
+	public fun <init> (Ljava/lang/String;JJJ)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun copy (Ljava/lang/String;JJJ)Ltop/chiloven/pulselink/protocol/ProtocolException$ValueOutOfRange;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/ProtocolException$ValueOutOfRange;Ljava/lang/String;JJJILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/ProtocolException$ValueOutOfRange;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getField ()Ljava/lang/String;
+	public final fun getMax ()J
+	public final fun getMin ()J
+	public final fun getValue ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/civet/CivetKt {
+	public static final field DEVICE_NAME Ljava/lang/String;
+	public static final fun getCHAR_BATTERY ()Ljava/util/UUID;
+	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
+	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
+	public static final fun getSERVICE_BATTERY ()Ljava/util/UUID;
+	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
+}
+
+public final class top/chiloven/pulselink/protocol/civet/Command50 {
+	public fun <init> (IZ)V
+	public final fun component1 ()I
+	public final fun component2 ()Z
+	public final fun copy (IZ)Ltop/chiloven/pulselink/protocol/civet/Command50;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/civet/Command50;IZILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/civet/Command50;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()I
+	public final fun getStart ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/civet/Command66 {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Integer;Z)V
+	public synthetic fun <init> (Ljava/lang/Integer;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/Integer;Z)Ltop/chiloven/pulselink/protocol/civet/Command66;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/civet/Command66;Ljava/lang/Integer;ZILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/civet/Command66;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOrientation ()Ljava/lang/Integer;
+	public final fun getReset ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/civet/D0Message {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/civet/D0Message$Companion;
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2-o4pFEj4 ()I
+	public final fun copy-rF4PJ10 (II)Ltop/chiloven/pulselink/protocol/civet/D0Message;
+	public static synthetic fun copy-rF4PJ10$default (Ltop/chiloven/pulselink/protocol/civet/D0Message;IIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/civet/D0Message;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()I
+	public final fun getPressure-o4pFEj4 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/civet/D0Message$Companion {
+	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/civet/D0Message;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v2/CoyoteV2Intensity : java/lang/Comparable {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/coyote/v2/CoyoteV2Intensity$Companion;
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/protocol/coyote/v2/CoyoteV2Intensity;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-mUfdC-A (I)I
+	public static fun compareTo-mUfdC-A (II)I
+	public static final fun display-impl (I)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v2/CoyoteV2Intensity$Companion {
+	public final fun fromDisplay-v2VIJUc (I)I
+	public final fun getMAX-AXusY2k ()I
+	public final fun getMIN-AXusY2k ()I
+	public final fun of-v2VIJUc (I)I
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v2/FrequencyKt {
+	public static final field DEFAULT_PULSE_WIDTH I
+	public static final fun decodeInterval (Ltop/chiloven/pulselink/protocol/coyote/v2/PwmPulse;)I
+	public static final fun encodeInterval--FpfvHA (II)Ltop/chiloven/pulselink/protocol/coyote/v2/PwmPulse;
+	public static synthetic fun encodeInterval--FpfvHA$default (IIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v2/PwmPulse;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v2/GattKt {
+	public static final field CHAR_BATTERY_ID Ljava/lang/String;
+	public static final field CHAR_PWM_A34_ID Ljava/lang/String;
+	public static final field CHAR_PWM_AB2_ID Ljava/lang/String;
+	public static final field CHAR_PWM_B34_ID Ljava/lang/String;
+	public static final field DEVICE_NAME Ljava/lang/String;
+	public static final field SERVICE_BATTERY_ID Ljava/lang/String;
+	public static final field SERVICE_PWM_ID Ljava/lang/String;
+	public static final fun getCHAR_BATTERY ()Ljava/util/UUID;
+	public static final fun getCHAR_PWM_A34 ()Ljava/util/UUID;
+	public static final fun getCHAR_PWM_AB2 ()Ljava/util/UUID;
+	public static final fun getCHAR_PWM_B34 ()Ljava/util/UUID;
+	public static final fun getSERVICE_BATTERY ()Ljava/util/UUID;
+	public static final fun getSERVICE_PWM ()Ljava/util/UUID;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v2/PwmAb2 {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/coyote/v2/PwmAb2$Companion;
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-AXusY2k ()I
+	public final fun component2-AXusY2k ()I
+	public final fun copy-uDyVp-g (II)Ltop/chiloven/pulselink/protocol/coyote/v2/PwmAb2;
+	public static synthetic fun copy-uDyVp-g$default (Ltop/chiloven/pulselink/protocol/coyote/v2/PwmAb2;IIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v2/PwmAb2;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA-AXusY2k ()I
+	public final fun getB-AXusY2k ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v2/PwmAb2$Companion {
+	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/coyote/v2/PwmAb2;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v2/PwmPulse {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/coyote/v2/PwmPulse$Companion;
+	public fun <init> (III)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun copy (III)Ltop/chiloven/pulselink/protocol/coyote/v2/PwmPulse;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/coyote/v2/PwmPulse;IIIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v2/PwmPulse;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getX ()I
+	public final fun getY ()I
+	public final fun getZ ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v2/PwmPulse$Companion {
+	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/coyote/v2/PwmPulse;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/B0Command {
+	public synthetic fun <init> (ILtop/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp;Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-w32iQC4 ()I
+	public final fun component2 ()Ltop/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp;
+	public final fun component3 ()Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;
+	public final fun copy-IvNf8uI (ILtop/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp;Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;)Ltop/chiloven/pulselink/protocol/coyote/v3/B0Command;
+	public static synthetic fun copy-IvNf8uI$default (Ltop/chiloven/pulselink/protocol/coyote/v3/B0Command;ILtop/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp;Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/B0Command;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIntensity ()Ltop/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp;
+	public final fun getSequence-w32iQC4 ()I
+	public final fun getWaveform ()Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/B1Message {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message$Companion;
+	public synthetic fun <init> (ILtop/chiloven/pulselink/core/ChannelMap;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-w32iQC4 ()I
+	public final fun component2 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun copy-LGjlUEk (ILtop/chiloven/pulselink/core/ChannelMap;)Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;
+	public static synthetic fun copy-LGjlUEk$default (Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;ILtop/chiloven/pulselink/core/ChannelMap;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIntensity ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getSequence-w32iQC4 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/B1Message$Companion {
+	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/BatteryKt {
+	public static final fun decodeBattery ([B)I
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/BfCommand {
+	public fun <init> (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun component3 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun copy (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;)Ltop/chiloven/pulselink/protocol/coyote/v3/BfCommand;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/coyote/v3/BfCommand;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/BfCommand;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFrequencyBalance ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getIntensityBalance ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getSoftLimit ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform$Companion;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform$Active : top/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform$Active;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform$Active;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform$Active;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSamples ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform$Companion {
+	public final fun active (Ltop/chiloven/pulselink/pattern/PulseSample;Ltop/chiloven/pulselink/pattern/PulseSample;Ltop/chiloven/pulselink/pattern/PulseSample;Ltop/chiloven/pulselink/pattern/PulseSample;)Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform$Silent : top/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform$Silent;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/FrequencyKt {
+	public static final fun decodeWireFrequency (I)I
+	public static final fun encodeInterval-xn2TldI (I)I
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/GattKt {
+	public static final field CHAR_BATTERY_ID Ljava/lang/String;
+	public static final field CHAR_NOTIFY_ID Ljava/lang/String;
+	public static final field CHAR_WRITE_ID Ljava/lang/String;
+	public static final field DEVICE_NAME Ljava/lang/String;
+	public static final field SENSOR_NAME Ljava/lang/String;
+	public static final field SERVICE_BATTERY_ID Ljava/lang/String;
+	public static final field SERVICE_CONTROL_ID Ljava/lang/String;
+	public static final fun getCHAR_BATTERY ()Ljava/util/UUID;
+	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
+	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
+	public static final fun getSERVICE_BATTERY ()Ljava/util/UUID;
+	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/coyote/v3/IntensityOp {
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Decrease : top/chiloven/pulselink/protocol/coyote/v3/IntensityOp {
+	public synthetic fun <init> (ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-RSn5AP4 ()I
+	public final fun copy-uHIMOV4 (I)Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Decrease;
+	public static synthetic fun copy-uHIMOV4$default (Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Decrease;IILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Decrease;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue-RSn5AP4 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Increase : top/chiloven/pulselink/protocol/coyote/v3/IntensityOp {
+	public synthetic fun <init> (ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-RSn5AP4 ()I
+	public final fun copy-uHIMOV4 (I)Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Increase;
+	public static synthetic fun copy-uHIMOV4$default (Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Increase;IILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Increase;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue-RSn5AP4 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Keep : top/chiloven/pulselink/protocol/coyote/v3/IntensityOp {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Keep;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Set : top/chiloven/pulselink/protocol/coyote/v3/IntensityOp {
+	public synthetic fun <init> (ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-RSn5AP4 ()I
+	public final fun copy-uHIMOV4 (I)Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Set;
+	public static synthetic fun copy-uHIMOV4$default (Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Set;IILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp$Set;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue-RSn5AP4 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/Sequence {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/coyote/v3/Sequence$Companion;
+	public static final field MAX I
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/protocol/coyote/v3/Sequence;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/Sequence$Companion {
+	public final fun getZERO-w32iQC4 ()I
+	public final fun of-tS9i_nM (I)I
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;
+	public final fun component2 ()Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;)Ltop/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp;Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/StereoIntensityOp;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;
+	public final fun getB ()Ltop/chiloven/pulselink/protocol/coyote/v3/IntensityOp;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/StereoWaveform {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform$Companion;
+	public fun <init> (Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;
+	public final fun component2 ()Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;)Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;
+	public final fun getB ()Ltop/chiloven/pulselink/protocol/coyote/v3/ChannelWaveform;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/coyote/v3/StereoWaveform$Companion {
+	public final fun silent ()Ltop/chiloven/pulselink/protocol/coyote/v3/StereoWaveform;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/B0 {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Ltop/chiloven/pulselink/protocol/opossum/B0;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/opossum/B0;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/opossum/B0;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()Ljava/util/List;
+	public final fun getB ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/B2 {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Ltop/chiloven/pulselink/protocol/opossum/B2;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/opossum/B2;IIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/opossum/B2;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()I
+	public final fun getB ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/B3 {
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/Integer;)Ltop/chiloven/pulselink/protocol/opossum/B3;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/opossum/B3;Ljava/lang/Integer;Ljava/lang/Integer;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/opossum/B3;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()Ljava/lang/Integer;
+	public final fun getB ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/B3Message {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/opossum/B3Message$Companion;
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Ltop/chiloven/pulselink/protocol/opossum/B3Message;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/opossum/B3Message;IIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/opossum/B3Message;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()I
+	public final fun getB ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/B3Message$Companion {
+	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/opossum/B3Message;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/Command50 {
+	public fun <init> (IZ)V
+	public final fun component1 ()I
+	public final fun component2 ()Z
+	public final fun copy (IZ)Ltop/chiloven/pulselink/protocol/opossum/Command50;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/opossum/Command50;IZILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/opossum/Command50;
+	public final fun encode ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getButtonReport ()Z
+	public final fun getColor ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/D0Message {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/opossum/D0Message$Companion;
+	public synthetic fun <init> (II[BLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2-i0IcCLA ()I
+	public final fun component3 ()[B
+	public final fun copy-qAM2gJY (II[B)Ltop/chiloven/pulselink/protocol/opossum/D0Message;
+	public static synthetic fun copy-qAM2gJY$default (Ltop/chiloven/pulselink/protocol/opossum/D0Message;II[BILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/opossum/D0Message;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getButtons-i0IcCLA ()I
+	public final fun getRaw ()[B
+	public final fun getSequence ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/D0Message$Companion {
+	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/opossum/D0Message;
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/opossum/Message {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/opossum/Message$Companion;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/Message$B3Value : top/chiloven/pulselink/protocol/opossum/Message {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/opossum/B3Message;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/opossum/B3Message;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/opossum/B3Message;)Ltop/chiloven/pulselink/protocol/opossum/Message$B3Value;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/opossum/Message$B3Value;Ltop/chiloven/pulselink/protocol/opossum/B3Message;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/opossum/Message$B3Value;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ltop/chiloven/pulselink/protocol/opossum/B3Message;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/Message$Companion {
+	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/opossum/Message;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/Message$D0Value : top/chiloven/pulselink/protocol/opossum/Message {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/opossum/D0Message;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/opossum/D0Message;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/opossum/D0Message;)Ltop/chiloven/pulselink/protocol/opossum/Message$D0Value;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/opossum/Message$D0Value;Ltop/chiloven/pulselink/protocol/opossum/D0Message;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/opossum/Message$D0Value;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ltop/chiloven/pulselink/protocol/opossum/D0Message;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/opossum/OpossumKt {
+	public static final field DEVICE_NAME Ljava/lang/String;
+	public static final fun getCHAR_BATTERY ()Ljava/util/UUID;
+	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
+	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
+	public static final fun getSERVICE_BATTERY ()Ljava/util/UUID;
+	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Command50 {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/pawprints/Command50$Companion;
+	public synthetic fun <init> ([BLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun asBytes ()[B
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Command50$Companion {
+	public final fun externalVoltage (IIZLkotlin/Pair;I)Ltop/chiloven/pulselink/protocol/pawprints/Command50;
+	public final fun noTrigger (I)Ltop/chiloven/pulselink/protocol/pawprints/Command50;
+	public final fun probability (ILjava/util/List;I)Ltop/chiloven/pulselink/protocol/pawprints/Command50;
+	public final fun randomReaction (IILkotlin/ranges/IntRange;IIIII)Ltop/chiloven/pulselink/protocol/pawprints/Command50;
+	public final fun rawSensor (I)Ltop/chiloven/pulselink/protocol/pawprints/Command50;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/D0Message {
+	public fun <init> (IIIIIIII)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()I
+	public final fun component8 ()I
+	public final fun copy (IIIIIIII)Ltop/chiloven/pulselink/protocol/pawprints/D0Message;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/D0Message;IIIIIIIIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/D0Message;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAcceleration ()I
+	public final fun getButton ()I
+	public final fun getColor ()I
+	public final fun getSequence ()I
+	public final fun getVoltage ()I
+	public final fun getX ()I
+	public final fun getY ()I
+	public final fun getZ ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/F1Message {
+	public fun <init> (Lkotlin/Pair;Lkotlin/Pair;Lkotlin/Pair;)V
+	public final fun component1 ()Lkotlin/Pair;
+	public final fun component2 ()Lkotlin/Pair;
+	public final fun component3 ()Lkotlin/Pair;
+	public final fun copy (Lkotlin/Pair;Lkotlin/Pair;Lkotlin/Pair;)Ltop/chiloven/pulselink/protocol/pawprints/F1Message;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/F1Message;Lkotlin/Pair;Lkotlin/Pair;Lkotlin/Pair;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/F1Message;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getX ()Lkotlin/Pair;
+	public final fun getY ()Lkotlin/Pair;
+	public final fun getZ ()Lkotlin/Pair;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/pawprints/Message {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/pawprints/Message$Companion;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message$Activated : top/chiloven/pulselink/protocol/pawprints/Message {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/pawprints/Message5a;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/pawprints/Message5a;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/pawprints/Message5a;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Activated;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message$Activated;Ltop/chiloven/pulselink/protocol/pawprints/Message5a;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Activated;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ltop/chiloven/pulselink/protocol/pawprints/Message5a;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message$Angles : top/chiloven/pulselink/protocol/pawprints/Message {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/pawprints/F1Message;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/pawprints/F1Message;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/pawprints/F1Message;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Angles;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message$Angles;Ltop/chiloven/pulselink/protocol/pawprints/F1Message;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Angles;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ltop/chiloven/pulselink/protocol/pawprints/F1Message;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message$Companion {
+	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/pawprints/Message;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message$Deactivated : top/chiloven/pulselink/protocol/pawprints/Message {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/pawprints/Message5b;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/pawprints/Message5b;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/pawprints/Message5b;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Deactivated;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message$Deactivated;Ltop/chiloven/pulselink/protocol/pawprints/Message5b;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Deactivated;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ltop/chiloven/pulselink/protocol/pawprints/Message5b;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message$Info : top/chiloven/pulselink/protocol/pawprints/Message {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/pawprints/Message51;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/pawprints/Message51;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/pawprints/Message51;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Info;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message$Info;Ltop/chiloven/pulselink/protocol/pawprints/Message51;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Info;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ltop/chiloven/pulselink/protocol/pawprints/Message51;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message$Parameter : top/chiloven/pulselink/protocol/pawprints/Message {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/pawprints/Message5c;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/pawprints/Message5c;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/pawprints/Message5c;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Parameter;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message$Parameter;Ltop/chiloven/pulselink/protocol/pawprints/Message5c;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Parameter;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ltop/chiloven/pulselink/protocol/pawprints/Message5c;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message$Sensor : top/chiloven/pulselink/protocol/pawprints/Message {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/pawprints/D0Message;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/pawprints/D0Message;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/pawprints/D0Message;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Sensor;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message$Sensor;Ltop/chiloven/pulselink/protocol/pawprints/D0Message;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message$Sensor;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ltop/chiloven/pulselink/protocol/pawprints/D0Message;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message51 {
+	public fun <init> (III)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun copy (III)Ltop/chiloven/pulselink/protocol/pawprints/Message51;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message51;IIIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message51;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBattery ()I
+	public final fun getColor ()I
+	public final fun getDeviceType ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message5a {
+	public fun <init> (III)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun copy (III)Ltop/chiloven/pulselink/protocol/pawprints/Message5a;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message5a;IIIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message5a;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()I
+	public final fun getEventId ()I
+	public final fun getParameter ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message5b {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Ltop/chiloven/pulselink/protocol/pawprints/Message5b;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message5b;IIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message5b;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()I
+	public final fun getEventId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/Message5c {
+	public fun <init> (III)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun copy (III)Ltop/chiloven/pulselink/protocol/pawprints/Message5c;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/pawprints/Message5c;IIIILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/pawprints/Message5c;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()I
+	public final fun getEventId ()I
+	public final fun getParameter ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/PawPrintsKt {
+	public static final field DEVICE_NAME_V1_0 Ljava/lang/String;
+	public static final field DEVICE_NAME_V1_1 Ljava/lang/String;
+	public static final fun commandShoulderLight (I)[B
+	public static final fun commandShoulderLightFlash (III)[B
+	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
+	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
+	public static final fun getCOMMAND_AUTO_DETECT_ANGLES ()[B
+	public static final fun getCOMMAND_RESET_PARAMETER ()[B
+	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/ActionType : java/lang/Enum {
+	public static final field AddIntensity Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public static final field AppendPulseData Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType$Companion;
+	public static final field SetIntensity Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public static final field SetTempIntensity Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getWireValue ()I
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public static fun values ()[Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/ActionType$Companion {
+	public final fun fromWire (I)Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/ActionTypeSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/ActionTypeSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;)V
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/websocket/v4/AppEvent {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$Companion;
+	public fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEvent$Companion {
+	public final fun fromJson (Lkotlinx/serialization/json/JsonObject;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+	public final fun toJson (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;)Lkotlinx/serialization/json/JsonObject;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEvent$CustomAction : top/chiloven/pulselink/protocol/websocket/v4/AppEvent {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$CustomAction;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$CustomAction;IILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$CustomAction;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAction ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEvent$DefaultImpls {
+	public static fun validate (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEvent$DevicesPatch : top/chiloven/pulselink/protocol/websocket/v4/AppEvent {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$DevicesPatch;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$DevicesPatch;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$DevicesPatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdded ()Ljava/util/List;
+	public final fun getRemoved ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEvent$DevicesSnapshot : top/chiloven/pulselink/protocol/websocket/v4/AppEvent {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$DevicesSnapshot;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$DevicesSnapshot;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$DevicesSnapshot;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDevices ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEvent$SlotsPatch : top/chiloven/pulselink/protocol/websocket/v4/AppEvent {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$SlotsPatch;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$SlotsPatch;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$SlotsPatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSlots ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEvent$Unknown : top/chiloven/pulselink/protocol/websocket/v4/AppEvent {
+	public fun <init> (Lkotlinx/serialization/json/JsonObject;)V
+	public final fun component1 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun copy (Lkotlinx/serialization/json/JsonObject;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$Unknown;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$Unknown;Lkotlinx/serialization/json/JsonObject;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRaw ()Lkotlinx/serialization/json/JsonObject;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEventSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/AppEventSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;)V
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/websocket/v4/AppMessage {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Companion;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppMessage$Companion {
+	public final fun fromJson (Lkotlinx/serialization/json/JsonObject;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;
+	public final fun toJson (Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;)Lkotlinx/serialization/json/JsonObject;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppMessage$Ev : top/chiloven/pulselink/protocol/websocket/v4/AppMessage {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Ev;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Ev;Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Ev;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEvent ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppMessage$Req : top/chiloven/pulselink/protocol/websocket/v4/AppMessage {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/websocket/v4/RpcRequest;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/websocket/v4/RpcRequest;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/websocket/v4/RpcRequest;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Req;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Req;Ltop/chiloven/pulselink/protocol/websocket/v4/RpcRequest;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Req;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRequest ()Ltop/chiloven/pulselink/protocol/websocket/v4/RpcRequest;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppMessage$Resp : top/chiloven/pulselink/protocol/websocket/v4/AppMessage {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Resp;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Resp;Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage$Resp;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getResponse ()Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppMessageSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessageSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;)V
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/ClearOperate {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/ClearOperate$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Integer;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Integer;)Ltop/chiloven/pulselink/protocol/websocket/v4/ClearOperate;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/ClearOperate;Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/ClearOperate;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChannel ()Ljava/lang/Integer;
+	public final fun getSlotId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/ClearOperate;
+}
+
+public final synthetic class top/chiloven/pulselink/protocol/websocket/v4/ClearOperate$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/ClearOperate$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/ClearOperate;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/ClearOperate;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/ClearOperate$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/DeviceOperate {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate$Companion;
+	public fun <init> (Ljava/lang/String;Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;ILjava/lang/Integer;Ljava/lang/Long;Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Long;)V
+	public synthetic fun <init> (Ljava/lang/String;Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;ILjava/lang/Integer;Ljava/lang/Long;Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public final fun component3 ()I
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Ljava/lang/Long;
+	public final fun component6 ()Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue;
+	public final fun component7 ()Ljava/lang/Boolean;
+	public final fun component8 ()Ljava/lang/Integer;
+	public final fun component9 ()Ljava/lang/Long;
+	public final fun copy (Ljava/lang/String;Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;ILjava/lang/Integer;Ljava/lang/Long;Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Long;)Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate;Ljava/lang/String;Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;ILjava/lang/Integer;Ljava/lang/Long;Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Long;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAction ()Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public final fun getChannel ()I
+	public final fun getDurationMs ()Ljava/lang/Long;
+	public final fun getImmediate ()Ljava/lang/Boolean;
+	public final fun getPriority ()Ljava/lang/Integer;
+	public final fun getSeq ()Ljava/lang/Long;
+	public final fun getSlotId ()Ljava/lang/String;
+	public final fun getValue ()Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue;
+	public final fun getVer ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate;
+}
+
+public final synthetic class top/chiloven/pulselink/protocol/websocket/v4/DeviceOperate$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/DeviceOperate$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult$Companion;
+	public fun <init> (Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;Ljava/lang/String;Ljava/lang/Integer;)V
+	public synthetic fun <init> (Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;Ljava/lang/String;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public final fun component2 ()Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;Ljava/lang/String;Ljava/lang/Integer;)Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult;Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAction ()Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public final fun getChannel ()Ljava/lang/Integer;
+	public final fun getReason ()Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public final fun getSlotId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class top/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/DeviceOperateResult$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/DevicePatch {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/DevicePatch$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Ltop/chiloven/pulselink/protocol/websocket/v4/DevicePatch;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/DevicePatch;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/DevicePatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdded ()Ljava/util/List;
+	public final fun getRemoved ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class top/chiloven/pulselink/protocol/websocket/v4/DevicePatch$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/DevicePatch$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/DevicePatch;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/DevicePatch;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/DevicePatch$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/EventKt {
+	public static final fun decodeAppEvent (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+	public static final fun encodeAppEvent (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;)Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/FrameKt {
+	public static final fun decodeRelayFrame (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;
+	public static final fun encodeRelayFrame (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;)Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/JsonKt {
+	public static final fun getPulselinkJson ()Lkotlinx/serialization/json/Json;
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/websocket/v4/OperateValue {
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/OperateValue$Intensity : top/chiloven/pulselink/protocol/websocket/v4/OperateValue {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue$Intensity;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue$Intensity;IILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue$Intensity;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/OperateValue$PulseFrames : top/chiloven/pulselink/protocol/websocket/v4/OperateValue {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue$PulseFrames;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue$PulseFrames;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue$PulseFrames;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFrames ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/OperateValueSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValueSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/OperateValue;)V
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/OperationEndReason : java/lang/Enum {
+	public static final field Cancelled Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public static final field Cleared Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason$Companion;
+	public static final field Completed Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public static final field Replaced Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public static fun values ()[Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/OperationEndReason$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire {
+	public fun validate (I)V
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$DefaultImpls {
+	public static fun validate (Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire;I)V
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$Hex : top/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$Hex;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$Hex;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$Hex;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun validate (I)V
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$Numbers : top/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$Numbers;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$Numbers;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire$Numbers;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValues ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun validate (I)V
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/PulseFrameWireSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWireSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire;)V
+}
+
+public abstract interface class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Companion;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ClientAttached : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ClientAttached;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ClientAttached;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ClientAttached;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ClientDisconnected : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ClientDisconnected;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ClientDisconnected;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ClientDisconnected;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Companion {
+	public final fun fromJson (Lkotlinx/serialization/json/JsonObject;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;
+	public final fun toJson (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;)Lkotlinx/serialization/json/JsonObject;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ControllerAttached : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ControllerAttached;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ControllerAttached;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ControllerAttached;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ControllerDisconnected : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ControllerDisconnected;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ControllerDisconnected;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$ControllerDisconnected;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Error : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Error;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Error;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Ljava/lang/String;
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Heartbeat : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Heartbeat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Hello : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Hello;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Hello;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Hello;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$IdleTimeout : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$IdleTimeout;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Message : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> (Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlinx/serialization/json/JsonElement;
+	public final fun copy (Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Message;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Message;Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Message;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public final fun getData ()Lkotlinx/serialization/json/JsonElement;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Ping : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Long;)V
+	public synthetic fun <init> (Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Long;
+	public final fun copy (Ljava/lang/Long;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Ping;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Ping;Ljava/lang/Long;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Ping;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTs ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Pong : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Long;)V
+	public synthetic fun <init> (Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Long;
+	public final fun copy (Ljava/lang/Long;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Pong;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Pong;Ljava/lang/Long;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Pong;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTs ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Unknown : top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
+	public fun <init> (Lkotlinx/serialization/json/JsonObject;)V
+	public final fun component1 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun copy (Lkotlinx/serialization/json/JsonObject;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Unknown;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Unknown;Lkotlinx/serialization/json/JsonObject;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRaw ()Lkotlinx/serialization/json/JsonObject;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrameSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrameSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;)V
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RemoteDevice {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/RemoteDevice$Companion;
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;)V
+	public synthetic fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun component6 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;)Ltop/chiloven/pulselink/protocol/websocket/v4/RemoteDevice;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RemoteDevice;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RemoteDevice;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDeviceType ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/Integer;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getProps ()Lkotlinx/serialization/json/JsonObject;
+	public final fun getSlotId ()Ljava/lang/String;
+	public final fun getSlotState ()Lkotlinx/serialization/json/JsonObject;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class top/chiloven/pulselink/protocol/websocket/v4/RemoteDevice$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/RemoteDevice$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/RemoteDevice;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/RemoteDevice;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RemoteDevice$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RpcKt {
+	public static final fun decodeAppMessage (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;
+	public static final fun encodeAppMessage (Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;)Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RpcRequest {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lkotlinx/serialization/json/JsonElement;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;)Ltop/chiloven/pulselink/protocol/websocket/v4/RpcRequest;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RpcRequest;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RpcRequest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getData ()Lkotlinx/serialization/json/JsonElement;
+	public final fun getMethod ()Ljava/lang/String;
+	public final fun getReqId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/RpcResponse {
+	public fun <init> (Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlinx/serialization/json/JsonElement;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Ljava/lang/String;
+	public final fun getReqId ()Ljava/lang/String;
+	public final fun getResult ()Lkotlinx/serialization/json/JsonElement;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/SlotPatch {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatch$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatch;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatch;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSlots ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class top/chiloven/pulselink/protocol/websocket/v4/SlotPatch$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatch$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatch;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatch;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/SlotPatch$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry {
+	public static final field Companion Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry$Companion;
+	public fun <init> (Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun component3 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun copy (Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;)Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;ILjava/lang/Object;)Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProps ()Lkotlinx/serialization/json/JsonObject;
+	public final fun getSlotId ()Ljava/lang/String;
+	public final fun getSlotState ()Lkotlinx/serialization/json/JsonObject;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class top/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/SlotPatchEntry$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+

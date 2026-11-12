@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     testImplementation(platform("org.junit:junit-bom:6.1.3"))
+    testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.11.0")

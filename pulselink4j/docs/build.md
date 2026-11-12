@@ -17,6 +17,7 @@ pulselink4j/
 ├── build-logic/          # convention plugins
 ├── gradle/libs.versions.toml
 ├── pulselink-core/
+├── pulselink-pattern/
 ├── pulselink-protocol/
 ├── pulselink-transport/
 ├── pulselink-ble/

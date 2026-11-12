@@ -25,6 +25,7 @@ flowchart TD
 
     subgraph JVM[pulselink4j]
         jcore[pulselink-core]
+        jpattern[pulselink-pattern]
         jprotocol[pulselink-protocol]
         jtransport[pulselink-transport]
         jble[pulselink-ble]
@@ -58,8 +59,9 @@ flowchart TD
     rlab --> rfacade
     rlab --> rrelay
     rlab --> rws
-
+    jpattern --> jcore
     jprotocol --> jcore
+    jprotocol --> jpattern
     jtransport --> jcore
     jble --> jtransport
     jdevice --> jcore
@@ -77,7 +79,6 @@ flowchart TD
     jtesting --> jcore
     jtesting --> jprotocol
     jtesting --> jtransport
-
     rprotocol -. test vectors .-> spec
     jprotocol -. test vectors .-> spec
     Rust -. shared docs .-> docs

@@ -1,0 +1,187 @@
+public abstract interface class top/chiloven/pulselink/pattern/ChannelFrame {
+	public static final field Companion Ltop/chiloven/pulselink/pattern/ChannelFrame$Companion;
+}
+
+public final class top/chiloven/pulselink/pattern/ChannelFrame$Active : top/chiloven/pulselink/pattern/ChannelFrame {
+	public static final field Companion Ltop/chiloven/pulselink/pattern/ChannelFrame$Active$Companion;
+	public static final field SAMPLES_PER_FRAME I
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/pattern/ChannelFrame$Active;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/pattern/ChannelFrame$Active;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/pattern/ChannelFrame$Active;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSamples ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/pattern/ChannelFrame$Active$Companion {
+}
+
+public final class top/chiloven/pulselink/pattern/ChannelFrame$Companion {
+	public final fun active (Ltop/chiloven/pulselink/pattern/PulseSample;Ltop/chiloven/pulselink/pattern/PulseSample;Ltop/chiloven/pulselink/pattern/PulseSample;Ltop/chiloven/pulselink/pattern/PulseSample;)Ltop/chiloven/pulselink/pattern/ChannelFrame;
+}
+
+public final class top/chiloven/pulselink/pattern/ChannelFrame$Silent : top/chiloven/pulselink/pattern/ChannelFrame {
+	public static final field INSTANCE Ltop/chiloven/pulselink/pattern/ChannelFrame$Silent;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class top/chiloven/pulselink/pattern/PatternException : top/chiloven/pulselink/core/PulseLinkException {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class top/chiloven/pulselink/pattern/PatternException$EmptyTimeline : top/chiloven/pulselink/pattern/PatternException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/pattern/PatternException$InvalidFrequency : top/chiloven/pulselink/pattern/PatternException {
+	public fun <init> (D)V
+	public final fun component1 ()D
+	public final fun copy (D)Ltop/chiloven/pulselink/pattern/PatternException$InvalidFrequency;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/pattern/PatternException$InvalidFrequency;DILjava/lang/Object;)Ltop/chiloven/pulselink/pattern/PatternException$InvalidFrequency;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHz ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/pattern/PatternException$InvalidInterval : top/chiloven/pulselink/pattern/PatternException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/pattern/PatternException$InvalidInterval;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/pattern/PatternException$InvalidInterval;IILjava/lang/Object;)Ltop/chiloven/pulselink/pattern/PatternException$InvalidInterval;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMilliseconds ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/pattern/PatternException$InvalidPulseIntensity : top/chiloven/pulselink/pattern/PatternException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/pattern/PatternException$InvalidPulseIntensity;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/pattern/PatternException$InvalidPulseIntensity;IILjava/lang/Object;)Ltop/chiloven/pulselink/pattern/PatternException$InvalidPulseIntensity;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/pattern/PatternException$InvalidSampleCount : top/chiloven/pulselink/pattern/PatternException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/pattern/PatternException$InvalidSampleCount;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/pattern/PatternException$InvalidSampleCount;IILjava/lang/Object;)Ltop/chiloven/pulselink/pattern/PatternException$InvalidSampleCount;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/pattern/PulseIntensity : java/lang/Comparable {
+	public static final field Companion Ltop/chiloven/pulselink/pattern/PulseIntensity$Companion;
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/pattern/PulseIntensity;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-JguGhqo (I)I
+	public static fun compareTo-JguGhqo (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getValue ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/pattern/PulseIntensity$Companion {
+	public final fun getMAX-HmFVNGo ()I
+	public final fun getMIN-HmFVNGo ()I
+	public final fun of-jwdffow (I)I
+}
+
+public final class top/chiloven/pulselink/pattern/PulseInterval : java/lang/Comparable {
+	public static final field Companion Ltop/chiloven/pulselink/pattern/PulseInterval$Companion;
+	public static final field MAX_MS I
+	public static final field MIN_MS I
+	public static final fun asDuration-UwyO8pc (I)J
+	public static final synthetic fun box-impl (I)Ltop/chiloven/pulselink/pattern/PulseInterval;
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun compareTo-xn2TldI (I)I
+	public static fun compareTo-xn2TldI (II)I
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (ILjava/lang/Object;)Z
+	public static final fun equals-impl0 (II)Z
+	public final fun getMilliseconds ()I
+	public fun hashCode ()I
+	public static fun hashCode-impl (I)I
+	public static final fun toHz-impl (I)D
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (I)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()I
+}
+
+public final class top/chiloven/pulselink/pattern/PulseInterval$Companion {
+	public final fun fromHz-2T27SBs (D)I
+	public final fun getMAX-nPsU8h8 ()I
+	public final fun getMIN-nPsU8h8 ()I
+	public final fun of-2T27SBs (I)I
+}
+
+public final class top/chiloven/pulselink/pattern/PulseSample {
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-nPsU8h8 ()I
+	public final fun component2-HmFVNGo ()I
+	public final fun copy-SyqQ_oo (II)Ltop/chiloven/pulselink/pattern/PulseSample;
+	public static synthetic fun copy-SyqQ_oo$default (Ltop/chiloven/pulselink/pattern/PulseSample;IIILjava/lang/Object;)Ltop/chiloven/pulselink/pattern/PulseSample;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIntensity-HmFVNGo ()I
+	public final fun getInterval-nPsU8h8 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/pattern/StereoFrame {
+	public static final field Companion Ltop/chiloven/pulselink/pattern/StereoFrame$Companion;
+	public fun <init> (Ltop/chiloven/pulselink/pattern/ChannelFrame;Ltop/chiloven/pulselink/pattern/ChannelFrame;)V
+	public final fun channel (Ltop/chiloven/pulselink/core/Channel;)Ltop/chiloven/pulselink/pattern/ChannelFrame;
+	public final fun component1 ()Ltop/chiloven/pulselink/pattern/ChannelFrame;
+	public final fun component2 ()Ltop/chiloven/pulselink/pattern/ChannelFrame;
+	public final fun copy (Ltop/chiloven/pulselink/pattern/ChannelFrame;Ltop/chiloven/pulselink/pattern/ChannelFrame;)Ltop/chiloven/pulselink/pattern/StereoFrame;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/pattern/StereoFrame;Ltop/chiloven/pulselink/pattern/ChannelFrame;Ltop/chiloven/pulselink/pattern/ChannelFrame;ILjava/lang/Object;)Ltop/chiloven/pulselink/pattern/StereoFrame;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getA ()Ltop/chiloven/pulselink/pattern/ChannelFrame;
+	public final fun getB ()Ltop/chiloven/pulselink/pattern/ChannelFrame;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/pattern/StereoFrame$Companion {
+	public final fun silent ()Ltop/chiloven/pulselink/pattern/StereoFrame;
+}
+
+public final class top/chiloven/pulselink/pattern/Timeline {
+	public static final field Companion Ltop/chiloven/pulselink/pattern/Timeline$Companion;
+	public synthetic fun <init> (Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun frame (I)Ltop/chiloven/pulselink/pattern/StereoFrame;
+	public final fun frameAtElapsed-LRDsOJo (J)Ltop/chiloven/pulselink/pattern/StereoFrame;
+	public final fun frames ()Ljava/util/List;
+	public final fun getSize ()I
+	public fun hashCode ()I
+	public final fun isEmpty ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/pattern/Timeline$Companion {
+	public final fun of (Ljava/util/List;)Ltop/chiloven/pulselink/pattern/Timeline;
+}
+
+public final class top/chiloven/pulselink/pattern/TimelineKt {
+	public static final field FRAME_DURATION_MS J
+}
+

@@ -1,7 +1,7 @@
 # pulselink4j Implementation Roadmap
 
-> Status: J0 build foundation and J8 shared documentation/spec are complete.
-> J1-J7 and J9 follow.
+> Status: J0 build foundation, J1-J2 core/pattern/protocol, and J8 shared
+> documentation/spec are complete. J3-J7 and J9 follow.
 >
 > Scope: JVM implementation of `pulselink`: Kotlin core plus an optional Java
 > extension. Rust (`pulselink-rs`) remains the reference implementation for
@@ -18,7 +18,7 @@
 | Build         | Gradle **9.9.0**, Kotlin **2.4.21**                          |
 | JVM bytecode  | Java **21**                                                  |
 | CI JDK        | **21** and **25**                                            |
-| Nullness      | JSpecify **1.0.1**, `@NullMarked` package by package         |
+| Nullness      | Kotlin nullability; JSpecify **1.0.1** at the Java boundary  |
 | BLE           | Kable **0.45.0** behind a `pulselink-transport` SPI          |
 | WebSocket     | Ktor **3.6.1** client + CIO engine + WebSockets + coroutines |
 | JSON          | kotlinx.serialization **1.12.0**                             |
@@ -45,7 +45,7 @@ releases; CI validates the actual combination.
 
 ### JSpecify package rule
 
-Every Java-visible package must contain a `package-info.java` with:
+Every `pulselink-java` package must contain a `package-info.java` with:
 
 ```java
 @NullMarked
@@ -84,6 +84,7 @@ same checks must also run on JDK 25.
 ```text
 pulselink4j/
 ├── pulselink-core          # domain types, no I/O
+├── pulselink-pattern       # waveform timeline types
 ├── pulselink-protocol      # sans-io codecs and V4 types
 ├── pulselink-transport     # local-device SPI + test fake
 ├── pulselink-ble           # Kable adapter; hides Kable types
@@ -99,7 +100,8 @@ Dependency direction:
 
 ```text
 core
-protocol -> core
+pattern -> core
+protocol -> core + pattern
 transport -> core
 ble -> transport
 device -> core + protocol + transport + runtime
@@ -262,7 +264,7 @@ API rules:
 - Events use `java.util.concurrent.Flow.Publisher`.
 - Nullable values use `@Nullable`; optional values use `Optional<T>`.
 - No Kotlin coroutines, `Flow`, default arguments, or value classes in public Java signatures.
-- Every package has `package-info.java` with `@NullMarked`.
+- Every `pulselink-java` package has `package-info.java` with `@NullMarked`.
 - Run NullAway in JSpecify mode on `pulselink-java`.
 
 Example:
@@ -398,23 +400,31 @@ slf4j = "2.0.17"
 
 Acceptance: `./gradlew projects`, `./gradlew check` on empty modules.
 
-Completion notes: Gradle 9.9.0 + Kotlin 2.4.21, convention plugins, version
-catalog, BCV API dumps, JSpecify package-info in `pulselink-java`, and a green
-`./gradlew check`.
+Completion notes: Gradle 9.9.0 + Kotlin 2.4.21, convention plugins, version catalog, BCV API dumps,
+JSpecify package-info in `pulselink-java`, and a green `./gradlew check`.
 
-### J1 — Core
+### J1 — Core/pattern (complete)
 
 - `DeviceId`, `DeviceKind`, `Channel`, `Intensity`, `Pressure`,
   `ButtonMask`, `Trigger`.
 - `DeviceState`, `Observed`, `DeviceCapabilities`, `DeviceEvent`.
+- `pulselink-pattern`: pulse samples, channel frames, non-empty timelines.
 - Kotlin tests for bounds and state revisions.
 
-### J2 — Protocol
+### J2 — Protocol (complete)
 
 - Coyote V2/V3, Civet, Opossum, PawPrints codecs.
 - V4 relay frames, RPC, device model, events, operations.
 - kotlinx.serialization configuration.
 - Shared test-vector reader and tests.
+
+**J1 completion notes**: core and pattern are implemented with validated value types and unit tests;
+Kotlin nullability is used directly.
+
+**J2 completion notes**: Coyote V2/V3, Civet, Opossum, PawPrints, and V4 codecs are implemented. V4
+unknown frames/events preserve raw JSON; operations validate cross-field constraints. V3/V4 tests
+consume the shared `spec/test-vectors` resources; V2/sensor tests use documented wire cases.
+Dedicated V2/sensor vector JSON remains a follow-up.
 
 ### J3 — Transport
 
@@ -447,7 +457,7 @@ catalog, BCV API dumps, JSpecify package-info in `pulselink-java`, and a green
 
 - Java 21 `PulseLinkClient` and sessions.
 - `CompletableFuture`, `Flow.Publisher`, `AutoCloseable`.
-- `package-info.java` with `@NullMarked` for every package.
+- `package-info.java` with `@NullMarked` for every `pulselink-java` package.
 - NullAway JSpecify checks on JDK 21/25.
 
 ### J8 — Docs/spec (complete)
@@ -457,11 +467,10 @@ catalog, BCV API dumps, JSpecify package-info in `pulselink-java`, and a green
 - Add JVM docs and update Rust links.
 - Add monorepo implementation matrix to `spec/README.md`.
 
-Completion notes: moved device/platform/security/testing/local-relay/V3 privacy
-docs to root `docs/`; added root README, docs index, monorepo architecture, JVM
-build/nullness docs, protocol summaries for Coyote V2/Civet/Opossum/PawPrints,
-and placeholder vector directories. Local Markdown links were checked; no
-guessed vectors were added.
+Completion notes: moved device/platform/security/testing/local-relay/V3 privacy docs to root
+`docs/`; added root README, docs index, monorepo architecture, JVM build/nullness docs, protocol
+summaries for Coyote V2/Civet/Opossum/PawPrints, and placeholder vector directories. Local Markdown
+links were checked; no guessed vectors were added.
 
 ### J9 — CI/publish
 
@@ -505,7 +514,7 @@ Hardware/V4:
 
 - Kable JVM Windows/macOS behavior needs real hardware validation.
 - Ktor CIO WebSocket behavior and close-code handling must be covered by tests.
-- JSpecify `package-info.java` must be added for every Java-visible package.
+- JSpecify `package-info.java` must be added for every `pulselink-java` package.
 - NullAway JSpecify mode on JDK 21 needs the type-annotation compiler flag.
 - Gradle 9.9.0 is newer than the KGP compatibility table; CI is the source of truth.
 - BLE native dependencies must stay isolated in `pulselink-ble`; do not leak them into

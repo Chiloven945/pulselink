@@ -8,5 +8,12 @@ description = "pulselink4j sans-io protocol codecs"
 
 dependencies {
     api(project(":pulselink-core"))
+    api(project(":pulselink-pattern"))
     api(libs.kotlinx.serialization.json)
+}
+
+sourceSets {
+    test {
+        resources.srcDir(rootProject.file("../spec/test-vectors"))
+    }
 }
