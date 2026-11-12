@@ -9,12 +9,25 @@ pulselink = "0.1"
 
 Features:
 
-- `ble` (default) — local BLE control via `PulseLink` and the Coyote V3 runtime;
+- `ble` (default) — local BLE control for Coyote V2/V3, PawPrints, Civet, and Opossum;
 - `websocket` — DG-LAB V4 controller via `Socket` and `AppClient`;
-- `protocol` — both sans-io protocol families without a transport;
+- `protocol` — sans-io protocol families without a transport;
 - `full` — `ble` + `websocket`.
 
+Supported local devices:
+
+| Device                | BLE name                  |
+|-----------------------|---------------------------|
+| Coyote V2             | `D-LAB ESTIM01`           |
+| Coyote V3             | `47L121000`               |
+| PawPrints V1.1 / V1.0 | `47L120300` / `47L120100` |
+| Civet V1              | `47L124000`               |
+| Opossum V1            | `47L127000`               |
+
 ## BLE
+
+`PulseLink::connect_device` auto-detects the device profile and returns a
+`LocalSession`. `connect_coyote_v3` remains available for the V3 runtime API.
 
 ```rust,no_run
 use std::time::Duration;
@@ -44,8 +57,9 @@ link.shutdown().await;
 # }
 ```
 
-`PulseLink::with_backend` accepts any `Arc<dyn Backend>` for tests or custom
-transports. All session behavior is delegated to `pulselink-runtime`.
+`PulseLink::with_backend` accepts any `Arc<dyn Backend>` for tests or custom transports. All session
+behavior is delegated to `pulselink-device` and
+`pulselink-runtime`.
 
 ## WebSocket
 
@@ -65,16 +79,20 @@ socket.shutdown().await?;
 
 ## Error
 
-[`Error`] wraps core, protocol, transport, BLE, runtime, and WebSocket errors
-behind one facade type. Advanced users can still use the submodules and the
-individual crates directly.
+[`Error`] wraps core, protocol, transport, BLE, runtime, and WebSocket errors behind one facade
+type. Advanced users can still use the submodules and the individual crates directly.
 
 ## Examples
 
 - `ble_scan` — discover Coyote V3 devices;
 - `coyote_v3_control` — safe low-intensity hardware example (`PULSELINK_HW=1`);
+- `coyote_v2_control` — low-intensity Coyote V2 example;
+- `opossum_control` — Opossum vibration example;
+- `civet_pressure` — Civet pressure example;
+- `paw_prints_events` — PawPrints event example;
 - `ws_pairing` — connect a V4 relay and display the target id;
 - `ws_control` — list devices and submit safe operations;
+- `v4_typed_devices` — print typed V4 snapshots;
 - `protocol_only` — encode a B0 command without BLE or WebSocket.
 
 See [the roadmap](https://github.com/Chiloven945/pulselink/blob/main/pulselink-rs/docs/ROADMAP.md).

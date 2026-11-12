@@ -1,0 +1,46 @@
+[package]
+name = "pulselink-device"
+description = "Local DG-LAB device drivers for pulselink-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme = "README.md"
+
+[dependencies]
+pulselink-core = { workspace = true }
+pulselink-protocol = {
+    workspace = true,
+    default-features = false,
+    features = [
+        "coyote-v2",
+        "coyote-v3",
+        "opossum",
+        "civet",
+        "paw-prints",
+    ]
+}
+pulselink-runtime = { workspace = true }
+pulselink-transport = { workspace = true }
+futures-util = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["rt", "sync", "time"] }
+tracing = { workspace = true }
+uuid = { workspace = true }
+
+[dev-dependencies]
+pulselink-transport = { workspace = true, features = ["mock"] }
+tokio = {
+    workspace = true,
+    features = [
+        "macros",
+        "rt-multi-thread",
+        "time",
+        "test-util"
+    ]
+}
+
+[lints]
+workspace = true

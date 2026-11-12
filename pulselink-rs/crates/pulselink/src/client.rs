@@ -4,6 +4,7 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use pulselink_ble::BtleplugCentral;
+use pulselink_device::{DeviceClient, DeviceProfile, LocalSession};
 use pulselink_runtime::{Client, ClientConfig, CoyoteV3Config, CoyoteV3Session};
 use pulselink_transport::{Backend, DiscoveredDevice, ScanFilter};
 
@@ -15,6 +16,7 @@ use crate::error::Error;
 /// implementation. It is available with the `ble` feature.
 pub struct PulseLink {
     client: Client,
+    devices: DeviceClient,
 }
 
 impl PulseLink {
@@ -28,7 +30,8 @@ impl PulseLink {
     #[must_use]
     pub fn with_backend(backend: Arc<dyn Backend>) -> Self {
         Self {
-            client: Client::new(backend),
+            client: Client::new(Arc::clone(&backend)),
+            devices: DeviceClient::new(backend),
         }
     }
 
@@ -36,7 +39,8 @@ impl PulseLink {
     #[must_use]
     pub fn with_backend_and_config(backend: Arc<dyn Backend>, config: ClientConfig) -> Self {
         Self {
-            client: Client::with_config(backend, config),
+            client: Client::with_config(Arc::clone(&backend), config),
+            devices: DeviceClient::new(backend),
         }
     }
 
@@ -47,6 +51,23 @@ impl PulseLink {
         timeout: Duration,
     ) -> Result<Vec<DiscoveredDevice>, Error> {
         self.client.scan(filter, timeout).await.map_err(Into::into)
+    }
+
+    /// Scans using a built-in device profile.
+    pub async fn scan_profile(
+        &self,
+        profile: &DeviceProfile,
+        timeout: Duration,
+    ) -> Result<Vec<DiscoveredDevice>, Error> {
+        self.devices
+            .scan_profile(profile, timeout)
+            .await
+            .map_err(Into::into)
+    }
+
+    /// Connects any supported local device and returns its typed session.
+    pub async fn connect_device(&self, device: &DiscoveredDevice) -> Result<LocalSession, Error> {
+        self.devices.connect(device).await.map_err(Into::into)
     }
 
     /// Connects a discovered Coyote V3 device with default session settings.

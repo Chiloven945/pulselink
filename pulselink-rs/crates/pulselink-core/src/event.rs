@@ -1,7 +1,9 @@
 //! Device events emitted by sessions.
 
+use crate::button::{ButtonMask, Trigger};
 use crate::channel::Channel;
 use crate::intensity::Intensity;
+use crate::pressure::Pressure;
 use crate::state::{BatteryState, ConnectionState, Observed};
 
 /// The source of an intensity change.
@@ -44,6 +46,23 @@ pub enum DeviceEvent {
     },
     /// Device settings changed or were written.
     SettingsChanged,
+    /// A pressure sensor value changed.
+    PressureChanged {
+        /// Observed pressure.
+        pressure: Observed<Pressure>,
+    },
+    /// Physical button state changed.
+    ButtonChanged {
+        /// Pressed-button mask.
+        buttons: ButtonMask,
+    },
+    /// A sensor trigger event fired.
+    Trigger {
+        /// Trigger details.
+        trigger: Trigger,
+    },
+    /// Raw sensor data was received.
+    SensorData,
     /// A non-fatal or fatal error occurred.
     Error {
         /// Human-readable error message.

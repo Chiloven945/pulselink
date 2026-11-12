@@ -16,7 +16,18 @@ path = "src/lib.rs"
 pulselink-ble = { workspace = true }
 pulselink-core = { workspace = true }
 pulselink-pattern = { workspace = true }
-pulselink-protocol = { workspace = true, default-features = false, features = ["coyote-v3"] }
+pulselink-protocol = {
+    workspace = true,
+    default-features = false,
+    features = [
+        "coyote-v2",
+        "coyote-v3",
+        "opossum",
+        "civet",
+        "paw-prints"
+    ]
+}
+pulselink-device = { workspace = true }
 pulselink-runtime = { workspace = true }
 pulselink-transport = { workspace = true, features = ["mock"] }
 pulselink-ws = { workspace = true, default-features = false, features = ["mock"] }

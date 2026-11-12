@@ -17,6 +17,10 @@ pub enum Error {
     #[cfg(feature = "ble")]
     #[error(transparent)]
     Ble(#[from] pulselink_ble::BleError),
+    /// A local device driver failed.
+    #[cfg(feature = "ble")]
+    #[error(transparent)]
+    Device(#[from] pulselink_device::DeviceError),
     /// A Coyote V3 runtime operation failed.
     #[cfg(feature = "ble")]
     #[error(transparent)]

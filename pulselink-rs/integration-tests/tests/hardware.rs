@@ -100,3 +100,42 @@ async fn hardware_raw_gatt_battery_notify_bf_zero_b0() {
         .expect("zero B0 write");
     link.disconnect().await.expect("disconnect");
 }
+
+#[tokio::test]
+#[ignore = "requires PULSELINK_HW=1 and real Coyote V2/PawPrints/Civet/Opossum devices"]
+async fn hardware_new_device_sessions_initialize() {
+    use pulselink_device::{
+        CIVET, COYOTE_V2, DeviceClient, DeviceProfile, LocalSession, OPOSSUM, PAW_PRINTS,
+    };
+
+    if std::env::var("PULSELINK_HW").as_deref() != Ok("1") {
+        return;
+    }
+
+    let backend = Arc::new(BtleplugCentral::new().await.expect("adapter"));
+    let client = DeviceClient::new(backend);
+    for profile in [&COYOTE_V2, &PAW_PRINTS, &CIVET, &OPOSSUM] {
+        let label = profile.kind.as_str();
+        let devices = client
+            .scan_profile(profile as &DeviceProfile, Duration::from_secs(3))
+            .await
+            .expect("scan");
+        let Some(device) = devices.first() else {
+            eprintln!("{label}: not found; skipped");
+            continue;
+        };
+        let session = client.connect(device).await.expect("connect");
+        assert_eq!(
+            session.state().connection,
+            ConnectionState::Ready,
+            "{label}"
+        );
+        match session {
+            LocalSession::CoyoteV2(session) => session.shutdown().await.expect("shutdown"),
+            LocalSession::PawPrints(session) => session.shutdown().await.expect("shutdown"),
+            LocalSession::Civet(session) => session.shutdown().await.expect("shutdown"),
+            LocalSession::Opossum(session) => session.shutdown().await.expect("shutdown"),
+            other => other.shutdown().await.expect("shutdown"),
+        }
+    }
+}

@@ -1,6 +1,6 @@
 # Architecture
 
-`pulselink-rs` is the Rust workspace for `pulselink`. It contains eight library crates and one
+`pulselink-rs` is the Rust workspace for `pulselink`. It contains nine library crates and one
 non-published integration-test package. The full task breakdown is in
 [`ROADMAP.md`](ROADMAP.md).
 
@@ -14,6 +14,7 @@ flowchart TD
     transport[pulselink-transport]
     ble[pulselink-ble]
     runtime[pulselink-runtime]
+    device[pulselink-device]
     ws[pulselink-ws]
     facade[pulselink]
 
@@ -26,6 +27,10 @@ flowchart TD
     runtime --> pattern
     runtime --> protocol
     runtime --> transport
+    device --> core
+    device --> protocol
+    device --> runtime
+    device --> transport
     ws --> core
     ws --> pattern
     ws --> protocol
@@ -36,6 +41,7 @@ flowchart TD
     facade --> transport
     facade -.-> runtime
     facade -.-> ble
+    facade -.-> device
     facade -.-> ws
 ```
 
@@ -48,10 +54,12 @@ flowchart TD
   a universal network transport; WebSocket is separate.
 - `pulselink-ble` is an adapter. It implements transport traits and keeps btleplug types out of the
   public API.
-- `pulselink-runtime` owns sessions, ACK, scheduling, safety, and reconnection. It depends on
-  transport, not btleplug.
-- `pulselink-ws` owns V4 RPC, multi-app state, and remote operations. It does not depend on BLE or
-  the runtime.
+- `pulselink-runtime` owns Coyote V3 sessions, ACK, scheduling, safety, and reconnection. It
+  depends on transport, not btleplug.
+- `pulselink-device` owns local drivers for Coyote V2, PawPrints, Civet, and Opossum. It wraps the
+  Coyote V3 runtime rather than reimplementing it.
+- `pulselink-ws` owns V4 RPC, multi-app state, typed remote-device snapshots, and remote operations.
+  It does not depend on BLE or the runtime.
 - `pulselink` is the composition root and facade. It must not contain a second implementation of
   session logic.
 

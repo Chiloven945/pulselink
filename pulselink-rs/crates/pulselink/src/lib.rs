@@ -41,6 +41,12 @@ pub mod runtime {
     pub use pulselink_runtime::*;
 }
 
+/// Local device drivers for all supported BLE devices.
+#[cfg(feature = "ble")]
+pub mod device {
+    pub use pulselink_device::*;
+}
+
 /// DG-LAB V4 WebSocket session API.
 #[cfg(feature = "websocket")]
 pub mod ws {
@@ -48,8 +54,11 @@ pub mod ws {
 }
 
 pub use pulselink_core::{
-    BatteryLevel, BatteryState, BleDeviceId, Channel, ChannelMap, ChannelSet, ChannelState,
-    ConnectionState, CoreError, DeviceCapabilities, DeviceEvent, DeviceId, DeviceInfo, DeviceKind,
-    DeviceState, Intensity, IntensityCapabilities, IntensityDelta, IntensitySource, Observed,
-    RemoteDeviceId, WaveformCapabilities,
+    BatteryLevel, BatteryState, BleDeviceId, ButtonMask, Channel, ChannelMap, ChannelSet,
+    ChannelState, ConnectionState, CoreError, DeviceCapabilities, DeviceEvent, DeviceId,
+    DeviceInfo, DeviceKind, DeviceState, Intensity, IntensityCapabilities, IntensityDelta,
+    IntensitySource, Observed, Pressure, RemoteDeviceId, Trigger, WaveformCapabilities,
 };
+
+#[cfg(feature = "ble")]
+pub use pulselink_device::{DeviceClient, DeviceError, LocalEvent, LocalSession};

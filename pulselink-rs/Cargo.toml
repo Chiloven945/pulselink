@@ -7,6 +7,7 @@ members = [
     "crates/pulselink-transport",
     "crates/pulselink-ble",
     "crates/pulselink-runtime",
+    "crates/pulselink-device",
     "crates/pulselink-ws",
     "crates/pulselink",
     "integration-tests",
@@ -27,6 +28,7 @@ pulselink-protocol = { path = "crates/pulselink-protocol", version = "0.1.0" }
 pulselink-transport = { path = "crates/pulselink-transport", version = "0.1.0" }
 pulselink-ble = { path = "crates/pulselink-ble", version = "0.1.0" }
 pulselink-runtime = { path = "crates/pulselink-runtime", version = "0.1.0" }
+pulselink-device = { path = "crates/pulselink-device", version = "0.1.0" }
 pulselink-ws = { path = "crates/pulselink-ws", version = "0.1.0" }
 
 serde = { version = "1", features = ["derive"] }

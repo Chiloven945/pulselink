@@ -8,6 +8,7 @@
 //! "unknown" from "known zero". A freshly connected device must not be modelled as
 //! having intensity `0` unless the device actually reported that value.
 
+mod button;
 mod capability;
 mod channel;
 mod device;
@@ -15,8 +16,10 @@ mod error;
 mod event;
 mod id;
 mod intensity;
+mod pressure;
 mod state;
 
+pub use button::{ButtonMask, Trigger};
 pub use capability::{ChannelSet, DeviceCapabilities, IntensityCapabilities, WaveformCapabilities};
 pub use channel::{Channel, ChannelMap};
 pub use device::{DeviceInfo, DeviceKind};
@@ -24,4 +27,5 @@ pub use error::CoreError;
 pub use event::{DeviceEvent, IntensitySource};
 pub use id::{BleDeviceId, DeviceId, RemoteDeviceId};
 pub use intensity::{Intensity, IntensityDelta};
+pub use pressure::Pressure;
 pub use state::{BatteryLevel, BatteryState, ChannelState, ConnectionState, DeviceState, Observed};

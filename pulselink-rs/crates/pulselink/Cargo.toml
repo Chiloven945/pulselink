@@ -16,15 +16,24 @@ pulselink-protocol = { workspace = true, default-features = false }
 pulselink-transport = { workspace = true }
 pulselink-runtime = { workspace = true, optional = true }
 pulselink-ble = { workspace = true, optional = true, default-features = false }
+pulselink-device = { workspace = true, optional = true }
 pulselink-ws = { workspace = true, optional = true, default-features = false }
 thiserror = { workspace = true }
 
 [features]
 default = ["ble"]
-protocol = ["pulselink-protocol/coyote-v3", "pulselink-protocol/socket-v4"]
+protocol = [
+    "pulselink-protocol/coyote-v2",
+    "pulselink-protocol/coyote-v3",
+    "pulselink-protocol/opossum",
+    "pulselink-protocol/civet",
+    "pulselink-protocol/paw-prints",
+    "pulselink-protocol/socket-v4",
+]
 ble = [
     "dep:pulselink-runtime",
     "dep:pulselink-ble",
+    "dep:pulselink-device",
     "pulselink-ble/btleplug",
     "pulselink-protocol/coyote-v3",
 ]
@@ -61,3 +70,23 @@ required-features = ["websocket"]
 [[example]]
 name = "protocol_only"
 required-features = ["protocol"]
+
+[[example]]
+name = "coyote_v2_control"
+required-features = ["ble"]
+
+[[example]]
+name = "opossum_control"
+required-features = ["ble"]
+
+[[example]]
+name = "civet_pressure"
+required-features = ["ble"]
+
+[[example]]
+name = "paw_prints_events"
+required-features = ["ble"]
+
+[[example]]
+name = "v4_typed_devices"
+required-features = ["websocket"]

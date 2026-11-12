@@ -18,10 +18,14 @@ mod transport;
 pub mod testing;
 
 pub use app::{AppClient, WsEvent};
-pub use device::{RemoteDeviceHandle, RemoteDeviceSnapshot};
+pub use device::{
+    CivetRemoteSnapshot, CoyoteRemoteSnapshot, OpossumRemoteSnapshot, RemoteDeviceHandle,
+    RemoteDeviceSnapshot, TypedRemoteSnapshot,
+};
 pub use error::WsError;
 pub use operation::{
     ClearTarget, OperationHandle, OperationOptions, OperationResult, PendingOperation, PulseFrame,
+    PulseFrameV2,
 };
 pub use options::SocketOptions;
 pub use socket::{Socket, SocketEvent, SocketState};

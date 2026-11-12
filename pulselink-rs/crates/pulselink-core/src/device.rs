@@ -24,6 +24,30 @@ pub enum DeviceKind {
 }
 
 impl DeviceKind {
+    /// Maps a DG-LAB V4 app device type to a kind.
+    #[must_use]
+    pub fn from_remote_type(value: &str) -> Self {
+        match value {
+            "COYOTE_020" => Self::CoyoteV2,
+            "COYOTE_030" => Self::CoyoteV3,
+            "BMTR_1" => Self::Civet,
+            "OVC_1" => Self::Opossum,
+            other => Self::Unknown(other.to_owned()),
+        }
+    }
+
+    /// Returns the DG-LAB V4 app device type, when one exists.
+    #[must_use]
+    pub const fn remote_type(&self) -> Option<&'static str> {
+        match self {
+            Self::CoyoteV2 => Some("COYOTE_020"),
+            Self::CoyoteV3 => Some("COYOTE_030"),
+            Self::Civet => Some("BMTR_1"),
+            Self::Opossum => Some("OVC_1"),
+            Self::PawPrints | Self::Unknown(_) => None,
+        }
+    }
+
     /// Returns a human-readable name for this device kind.
     #[must_use]
     pub fn as_str(&self) -> &str {
@@ -92,5 +116,21 @@ mod tests {
         let info = DeviceInfo::new(DeviceId::ble("p1"), DeviceKind::CoyoteV3, "Coyote");
         assert_eq!(info.name, "Coyote");
         assert_eq!(info.kind, DeviceKind::CoyoteV3);
+    }
+
+    #[test]
+    fn remote_type_mapping() {
+        assert_eq!(
+            DeviceKind::from_remote_type("COYOTE_020"),
+            DeviceKind::CoyoteV2
+        );
+        assert_eq!(
+            DeviceKind::from_remote_type("COYOTE_030"),
+            DeviceKind::CoyoteV3
+        );
+        assert_eq!(DeviceKind::from_remote_type("BMTR_1"), DeviceKind::Civet);
+        assert_eq!(DeviceKind::from_remote_type("OVC_1"), DeviceKind::Opossum);
+        assert_eq!(DeviceKind::CoyoteV2.remote_type(), Some("COYOTE_020"));
+        assert_eq!(DeviceKind::PawPrints.remote_type(), None);
     }
 }

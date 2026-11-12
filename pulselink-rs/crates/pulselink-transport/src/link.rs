@@ -121,6 +121,11 @@ pub trait GattLink: Send + Sync {
     /// Returns whether the link is currently believed to be connected.
     fn is_connected(&self) -> bool;
 
+    /// Returns the negotiated ATT MTU, when the backend exposes it.
+    fn mtu(&self) -> Option<u16> {
+        None
+    }
+
     /// Writes bytes to a characteristic.
     async fn write(
         &self,

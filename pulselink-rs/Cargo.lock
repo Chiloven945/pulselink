@@ -736,6 +736,7 @@ version = "0.1.0"
 dependencies = [
  "pulselink-ble",
  "pulselink-core",
+ "pulselink-device",
  "pulselink-pattern",
  "pulselink-protocol",
  "pulselink-runtime",
@@ -773,11 +774,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "pulselink-device"
+version = "0.1.0"
+dependencies = [
+ "futures-util",
+ "pulselink-core",
+ "pulselink-protocol",
+ "pulselink-runtime",
+ "pulselink-transport",
+ "thiserror",
+ "tokio",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
 name = "pulselink-integration-tests"
 version = "0.1.0"
 dependencies = [
  "pulselink-ble",
  "pulselink-core",
+ "pulselink-device",
  "pulselink-pattern",
  "pulselink-protocol",
  "pulselink-runtime",

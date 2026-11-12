@@ -1,6 +1,6 @@
 //! Live remote-device handles and device operations.
 
-use pulselink_core::Channel;
+use pulselink_core::{Channel, DeviceKind};
 
 use crate::app::AppClient;
 use crate::error::WsError;
@@ -8,6 +8,7 @@ use crate::operation::{OperationHandle, OperationOptions, PulseFrame};
 
 use super::snapshot::RemoteDeviceSnapshot;
 use super::state::SharedState;
+use super::typed::TypedRemoteSnapshot;
 
 /// A live handle to one remote device.
 #[derive(Clone)]
@@ -50,6 +51,18 @@ impl RemoteDeviceHandle {
             .expect("device state lock poisoned")
             .device_type
             .clone()
+    }
+
+    /// Returns the mapped device kind.
+    #[must_use]
+    pub fn kind(&self) -> DeviceKind {
+        self.snapshot().kind()
+    }
+
+    /// Returns a typed snapshot view.
+    #[must_use]
+    pub fn typed_snapshot(&self) -> TypedRemoteSnapshot {
+        self.snapshot().typed()
     }
 
     /// Returns a snapshot of the current device state.
@@ -116,6 +129,36 @@ impl RemoteDeviceHandle {
             i32::from(intensity.get()),
             Some(duration_to_ms(duration)?),
             None,
+            options,
+        )
+        .await
+    }
+
+    /// Sends version-2 (three-byte) pulse frames to a channel.
+    pub async fn send_pulse_v2(
+        &self,
+        channel: Channel,
+        duration: std::time::Duration,
+        frames: Vec<crate::operation::PulseFrameV2>,
+        options: OperationOptions,
+    ) -> Result<OperationHandle, WsError> {
+        if frames.is_empty() {
+            return Err(WsError::InvalidParams(
+                "send_pulse_v2 requires at least one frame".to_owned(),
+            ));
+        }
+        let frames = frames
+            .into_iter()
+            .map(|frame| {
+                pulselink_protocol::socket::v4::PulseFrameWire::Numbers(frame.as_bytes().to_vec())
+            })
+            .collect();
+        self.submit_value(
+            channel,
+            0,
+            pulselink_protocol::socket::v4::OperateValue::PulseFrames(frames),
+            Some(duration_to_ms(duration)?),
+            Some(2),
             options,
         )
         .await

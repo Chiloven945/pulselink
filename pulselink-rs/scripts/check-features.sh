@@ -14,7 +14,9 @@ cargo check -p pulselink --no-default-features --features protocol --example pro
 
 echo "== compile-only checks =="
 cargo test --workspace --no-default-features
+cargo test -p pulselink-device
 cargo test -p pulselink-protocol --no-default-features --features socket-v4
+cargo check -p pulselink-protocol --no-default-features --features coyote-v2,opossum,civet,paw-prints
 
 assert_absent() {
     local name="$1"
@@ -27,7 +29,7 @@ assert_absent() {
     echo "ok: ${name} has no ${pattern}"
 }
 
-assert_absent "facade/websocket" 'pulselink-(ble|runtime)|btleplug' \
+assert_absent "facade/websocket" 'pulselink-(ble|runtime|device)|btleplug' \
     -p pulselink --no-default-features --features websocket
 assert_absent "facade/ble" 'pulselink-ws|tokio-tungstenite' \
     -p pulselink --no-default-features --features ble
@@ -37,5 +39,6 @@ assert_absent "protocol" 'tokio|btleplug|tokio-tungstenite' \
     -p pulselink-protocol --no-default-features --features coyote-v3,socket-v4
 assert_absent "transport" 'btleplug|tokio-tungstenite' -p pulselink-transport
 assert_absent "ble" 'pulselink-(protocol|runtime|ws)' -p pulselink-ble
+assert_absent "device" 'pulselink-(ble|ws)|btleplug|tokio-tungstenite' -p pulselink-device
 
 echo "feature matrix ok"

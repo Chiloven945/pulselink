@@ -1,5 +1,5 @@
-#![cfg(feature = "mock")]
 //! Remote device handle and operation tests.
+#![cfg(feature = "mock")]
 
 use std::time::Duration;
 

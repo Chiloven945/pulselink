@@ -75,3 +75,9 @@ pulselink-ws = { version = "0.1", features = ["mock"] }
 The mock relay is a real localhost WebSocket server. It supports hello, client attach/detach, device
 snapshots and patches, RPC success/error/timeout, `device.op` completion/clear, heartbeat/pong, idle
 timeout, and close codes.
+
+## Typed V4 devices
+
+`RemoteDeviceSnapshot::typed()` maps `COYOTE_020`, `COYOTE_030`, `BMTR_1`, and
+`OVC_1` to typed snapshots. Use `RemoteDeviceHandle::send_pulse_v2` for Coyote
+V2 pulse frames and `send_pulse` for version-3 frames.

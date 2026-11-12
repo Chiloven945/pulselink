@@ -28,7 +28,12 @@ required-features = ["coyote-v3"]
 
 [features]
 default = ["coyote-v3"]
+coyote-v2 = []
 coyote-v3 = []
+civet = []
+opossum = []
+paw-prints = []
+socket-v3 = []
 socket-v4 = ["dep:serde", "dep:serde_json"]
 
 [package.metadata.docs.rs]

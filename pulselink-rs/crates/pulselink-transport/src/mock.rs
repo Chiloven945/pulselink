@@ -34,6 +34,7 @@ type Subscribers = Mutex<HashMap<Uuid, Vec<NotificationSender>>>;
 struct MockLinkInner {
     device_id: TransportDeviceId,
     connected: AtomicBool,
+    mtu: std::sync::atomic::AtomicU16,
     writes: Mutex<Vec<WriteRecord>>,
     fail_next_write: Mutex<Option<TransportError>>,
     read_data: Mutex<HashMap<Uuid, Vec<u8>>>,
@@ -54,6 +55,7 @@ impl MockLink {
             inner: Arc::new(MockLinkInner {
                 device_id,
                 connected: AtomicBool::new(true),
+                mtu: std::sync::atomic::AtomicU16::new(185),
                 writes: Mutex::new(Vec::new()),
                 fail_next_write: Mutex::new(None),
                 read_data: Mutex::new(HashMap::new()),
@@ -97,6 +99,11 @@ impl MockLink {
             .expect("mock failure mutex poisoned") = Some(error);
     }
 
+    /// Sets the reported ATT MTU.
+    pub fn set_mtu(&self, mtu: u16) {
+        self.inner.mtu.store(mtu, Ordering::SeqCst);
+    }
+
     /// Sets the data returned by [`GattLink::read`] for a characteristic.
     pub fn set_read_data(&self, characteristic: Uuid, data: Vec<u8>) {
         self.inner
@@ -132,6 +139,10 @@ impl GattLink for MockLink {
 
     fn is_connected(&self) -> bool {
         self.inner.connected.load(Ordering::SeqCst)
+    }
+
+    fn mtu(&self) -> Option<u16> {
+        Some(self.inner.mtu.load(Ordering::SeqCst))
     }
 
     async fn write(

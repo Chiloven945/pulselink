@@ -15,12 +15,14 @@
 > - [x] M6 — BLE Runtime
 > - [x] M7 — WebSocket Session
 > - [x] M8 — Facade
-> - [ ] M9 — Hardening & Release
+> - [x] M9 — Hardening & Release
+> - [x] Post-0.1 — Coyote V2 / PawPrints / Civet / Opossum device expansion
 >
-> Scope: Coyote V3 BLE + DG-LAB V4 WebSocket.
+> Scope: all documented DG-LAB BLE devices + DG-LAB V4 WebSocket.
 >
-> Out of scope for 0.1: Coyote V2 BLE, V3 WebSocket, PawPrints/Civet/Opossum drivers, audio
-> analysis, waveform visualization, CLI, FFI, first-class Android/iOS support.
+> Out of scope for 0.1: V3 WebSocket, audio analysis, waveform visualization, CLI, FFI,
+> first-class Android/iOS support. The post-0.1 device expansion adds Coyote V2,
+> PawPrints, Civet, Opossum, and typed V4 remote-device snapshots.
 
 ---
 
@@ -3739,8 +3741,8 @@ tests cover operations, clear, patches, multiple apps, heartbeats, idle timeout,
 - Docs have no warnings;
 - Publish dry-run passes.
 
-**Completion notes**: the facade adds `PulseLink`, unified `Error`, curated
-re-exports, a `protocol` feature, and five examples. `scripts/check-features.sh`
+**Completion notes**: the facade adds `PulseLink`, unified `Error`, curated re-exports, a `protocol`
+feature, and five examples. `scripts/check-features.sh`
 checks the feature matrix and dependency isolation; package metadata and
 `cargo publish --workspace --dry-run` pass.
 
@@ -3767,10 +3769,10 @@ checks the feature matrix and dependency isolation; package metadata and
 - Tag `v0.1.0`;
 - Release announcement/CHANGELOG.
 
-**Progress**: the Rust 0.1.0 crates are published on crates.io and docs.rs is
-building them. Three-platform CI, fuzz targets/workflow, security review,
-version-metadata checks, and the hardware test procedure are in place. A real
-Coyote V3 run, JVM publishing, and post-release verification remain pending.
+**Progress**: the Rust 0.1.0 crates are published on crates.io and docs.rs is building them.
+Three-platform CI, fuzz targets/workflow, security review, version-metadata checks, and the hardware
+test procedure are in place. A real Coyote V3 run, JVM publishing, and post-release verification
+remain pending.
 
 ---
 

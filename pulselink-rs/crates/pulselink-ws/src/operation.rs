@@ -216,6 +216,30 @@ impl From<[u8; 8]> for PulseFrame {
     }
 }
 
+/// A three-byte DG-LAB V4 version-2 pulse frame.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct PulseFrameV2([u8; 3]);
+
+impl PulseFrameV2 {
+    /// Creates a frame from exactly three wire bytes.
+    #[must_use]
+    pub const fn new(bytes: [u8; 3]) -> Self {
+        Self(bytes)
+    }
+
+    /// Returns the wire bytes.
+    #[must_use]
+    pub const fn as_bytes(&self) -> &[u8; 3] {
+        &self.0
+    }
+}
+
+impl From<[u8; 3]> for PulseFrameV2 {
+    fn from(bytes: [u8; 3]) -> Self {
+        Self(bytes)
+    }
+}
+
 /// The result of a completed `device.op` request.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct OperationResult {

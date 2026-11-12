@@ -133,6 +133,11 @@ impl GattLink for BtleplugLink {
         self.connected.load(Ordering::SeqCst)
     }
 
+    fn mtu(&self) -> Option<u16> {
+        let mtu = self.peripheral.mtu();
+        (mtu > 0).then_some(mtu)
+    }
+
     async fn write(
         &self,
         characteristic: Uuid,

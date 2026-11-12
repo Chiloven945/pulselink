@@ -71,6 +71,7 @@ pub struct WaveformCapabilities {
 ///
 /// Capabilities are advisory. Operations must still validate the concrete values
 /// and return an explicit unsupported/invalid error when necessary.
+#[allow(clippy::struct_excessive_bools)]
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct DeviceCapabilities {
@@ -84,6 +85,12 @@ pub struct DeviceCapabilities {
     pub waveform: WaveformCapabilities,
     /// Whether device settings can be read or written.
     pub settings: bool,
+    /// Whether the device exposes a pressure sensor.
+    pub pressure: bool,
+    /// Whether the device exposes physical buttons.
+    pub buttons: bool,
+    /// Whether the device supports vibration output.
+    pub vibration: bool,
 }
 
 #[cfg(test)]

@@ -1,5 +1,5 @@
-#![cfg(feature = "mock")]
 //! Mock-relay integration tests for the V4 socket.
+#![cfg(feature = "mock")]
 
 use std::time::Duration;
 
