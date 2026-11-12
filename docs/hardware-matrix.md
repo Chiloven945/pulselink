@@ -11,7 +11,8 @@ PULSELINK_HW=1 cargo test -p pulselink-integration-tests --test hardware -- --ig
 
 The raw GATT test covers scan → connect → battery read → notify subscribe → zero soft-limit BF →
 zero-intensity B0 → disconnect. The session test covers scan → connect → runtime initialization →
-Ready/battery → shutdown.
+Ready/battery → shutdown. JVM hardware tests, when added, must remain opt-in with the same
+`PULSELINK_HW=1` gate and must not send output unless `PULSELINK_HW_OUTPUT=1`.
 
 ## Results
 

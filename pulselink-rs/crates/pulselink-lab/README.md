@@ -26,7 +26,7 @@ Press `:` to enter command mode.
 Coyote V3 firmware updated by the DG-LAB 4.x app may hide `47L121000` from
 advertising. The lab shows such units as `(unnamed)` when they still advertise
 service `0x180C`; connect by index, or switch the device to public broadcast.
-See [`docs/coyote-v3-privacy-broadcast.md`](../../docs/coyote-v3-privacy-broadcast.md).
+See [`docs/coyote-v3-privacy-broadcast.md`](../../../docs/coyote-v3-privacy-broadcast.md).
 
 ```text
 scan [v2|v3|paw|civet|opossum]

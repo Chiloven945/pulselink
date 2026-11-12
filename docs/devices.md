@@ -1,7 +1,8 @@
 # Local device support
 
-`pulselink-device` adds local BLE drivers for every currently documented DG-LAB device.
-`pulselink-ble` remains protocol-agnostic; the device crate owns profiles, commands, notifications,
+This is the shared support matrix for every currently documented DG-LAB device. The Rust and JVM
+implementations both follow this matrix; `pulselink-ble`/`pulselink4j` keep the BLE transport layer
+protocol-agnostic, while each implementation's device layer owns profiles, commands, notifications,
 and per-device sessions.
 
 ## Support matrix
@@ -14,6 +15,9 @@ and per-device sessions.
 | PawPrints V1.0 | `47L120100`     | `PawPrintsSession` | codec + mock tests |
 | Civet V1       | `47L124000`     | `CivetSession`     | codec + mock tests |
 | Opossum V1     | `47L127000`     | `OpossumSession`   | codec + mock tests |
+
+Status values describe the Rust implementation. JVM parity is tracked in
+[`pulselink4j/ROADMAP.md`](../pulselink4j/ROADMAP.md).
 
 Real-device verification is tracked in [`hardware-matrix.md`](hardware-matrix.md). Until a row is
 verified there, the support level is codec/mock only.

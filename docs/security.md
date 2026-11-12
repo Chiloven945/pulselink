@@ -32,17 +32,17 @@ a new id and requires a new app pairing.
 
 ## BLE output safety
 
-`pulselink-runtime` applies a `SafetyPolicy` before intensity operations and sends a best-effort
-zero-intensity B0 during shutdown. A dropped BLE connection can still leave device-side state;
-callers should use conservative soft limits and provide an independent physical stop path where
-required.
+The Rust `pulselink-runtime` applies a `SafetyPolicy` before intensity operations and sends a
+best-effort zero-intensity B0 during shutdown. The JVM runtime must implement the same policy.
+A dropped BLE connection can still leave device-side state; callers should use conservative soft
+limits and provide an independent physical stop path where required.
 
 ## Memory and dependency safety
 
-- The workspace forbids `unsafe_code`.
-- `cargo deny check` runs in CI for advisories, bans, licenses, and sources.
-- TLS uses rustls with WebPKI roots; certificate verification is enabled.
-- The protocol crates are sans-io and do not perform network or BLE I/O.
+- The Rust workspace forbids `unsafe_code`; JVM code avoids `sun.*` and JDK-internal APIs.
+- `cargo deny check` runs in Rust CI for advisories, bans, licenses, and sources.
+- Rust TLS uses rustls with WebPKI roots; JVM TLS uses Ktor/CIO with the JDK trust store.
+- Protocol modules/packages are sans-io and do not perform network or BLE I/O.
 
 ## Protocol notice
 

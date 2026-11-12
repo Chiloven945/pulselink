@@ -1,7 +1,7 @@
 # Local WebSocket relay
 
-`pulselink-relay` is a non-published local relay for testing the DG-LAB V4 controller protocol with
-a real DG-LAB app. It replaces the lab's old
+`pulselink-relay` is a non-published local Rust relay for testing the DG-LAB V4 controller protocol
+with a real DG-LAB app. JVM controllers can connect to the same relay with `pulselink-ws`. It replaces the lab's old
 `MockRelay`-backed fake app.
 
 ## Topology

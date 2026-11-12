@@ -326,8 +326,6 @@ pulselink-rs/
     ├── coyote-v3.md
     ├── websocket-v4.md
     ├── runtime-contracts.md
-    ├── testing.md
-    ├── platforms.md
     └── ROADMAP.md                  # final location of this file
 ```
 
@@ -3614,7 +3612,7 @@ disconnect.
 | M4-T06 | Reconnect      | `Connector::reconnect` + rescan                               | M4-T03     | Reconnect after disconnect    |
 | M4-T07 | Error mapping  | btleplug -> TransportError                                    | M4-T01..06 | No panic; source preserved    |
 | M4-T08 | Hardware spike | `examples/coyote_v3_probe.rs`                                 | M4-T05     | Real device passes            |
-| M4-T09 | Platform docs  | `docs/platforms.md` + README                                  | M4-T08     | Linux/Windows/macOS notes     |
+| M4-T09 | Platform docs  | `docs/platforms.md` (repo root) + README                                  | M4-T08     | Linux/Windows/macOS notes     |
 | M4-T10 | Tests          | Pure function/error mapping tests                             | M4-T07     | `cargo test -p pulselink-ble` |
 
 **M4 completion criteria**:

@@ -68,4 +68,5 @@ PULSELINK_HW=1 cargo run -p pulselink-ble --example coyote_v3_probe
 The probe reads battery state, subscribes to notifications, writes a zero soft-limit BF, and sends a
 zero-intensity B0. It never sends a non-zero intensity by default.
 
-See [`docs/platforms.md`](https://github.com/Chiloven945/pulselink/blob/main/pulselink-rs/docs/platforms.md) for Linux, macOS, and Windows notes.
+See [`docs/platforms.md`](https://github.com/Chiloven945/pulselink/blob/main/docs/platforms.md) for
+Linux, macOS, and Windows notes.

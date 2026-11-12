@@ -1,6 +1,6 @@
 # Testing
 
-The full strategy is in [`ROADMAP.md`](ROADMAP.md). This page is the quick reference.
+The full Rust strategy is in [`pulselink-rs/docs/ROADMAP.md`](../pulselink-rs/docs/ROADMAP.md). This page is the cross-implementation quick reference.
 
 ## Layers
 
@@ -13,8 +13,13 @@ The full strategy is in [`ROADMAP.md`](ROADMAP.md). This page is the quick refer
 | Local relay    | `pulselink-relay` / `pulselink-lab`       | No       |
 | Terminal UI    | `pulselink-lab` (`TestBackend`, worker)   | No       |
 | Hardware       | `integration-tests/tests/hardware.rs`     | Yes      |
+| JVM unit       | `pulselink4j/*/src/test`                   | No       |
+| JVM WebSocket  | Ktor test server                           | No       |
+| JVM hardware   | `PULSELINK_HW=1` gated tests               | Yes      |
 
 ## Commands
+
+Rust:
 
 ```bash
 cargo fmt --all -- --check
@@ -26,6 +31,15 @@ cargo test -p pulselink-relay
 cargo test -p pulselink-lab
 cargo doc --workspace --no-deps
 cargo run -p pulselink-lab
+```
+
+JVM:
+
+```bash
+cd pulselink4j
+./gradlew check
+./gradlew apiCheck
+./gradlew dokkaHtml
 ```
 
 ## Test vectors

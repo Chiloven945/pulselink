@@ -58,7 +58,7 @@ support.
 
 ## License and protocol notice
 
-The source code of pulselink-rs is licensed under Apache-2.0. See [`LICENSE`](LICENSE).
+The source code of pulselink-rs is licensed under Apache-2.0. See [`LICENSE`](../LICENSE).
 
 The DG-LAB Bluetooth protocol documentation states that commercial use of the protocol content
 requires prior authorization from DG-LAB. The Apache-2.0 license covers the code of pulselink-rs
@@ -67,17 +67,17 @@ projects should confirm authorization with DG-LAB.
 
 ## Security
 
-See [`docs/security.md`](docs/security.md) for pairing-credential handling, BLE output safety, and
+See [`docs/security.md`](../docs/security.md) for pairing-credential handling, BLE output safety, and
 the protocol notice.
 
 ## Documentation
 
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — full implementation roadmap and task list
-- `docs/architecture.md` — crate graph and boundaries
-- `docs/local-relay.md` — local V4 relay and app pairing
-- `docs/coyote-v3-privacy-broadcast.md` — V3 unnamed-advertisement fallback
+- `docs/architecture.md` — Rust crate graph and boundaries
 - `docs/runtime-contracts.md` — session/ACK/scheduler contracts
-- `docs/testing.md` — test strategy
-- `docs/security.md` — pairing, output-safety, and dependency notes
-- `docs/hardware-matrix.md` — real-device verification procedure and results
 - `docs/release.md` — crates.io release procedure and rate-limit notes
+- [`../docs/local-relay.md`](../docs/local-relay.md) — local V4 relay and app pairing
+- [`../docs/coyote-v3-privacy-broadcast.md`](../docs/coyote-v3-privacy-broadcast.md) — V3 unnamed-advertisement fallback
+- [`../docs/testing.md`](../docs/testing.md) — cross-language test strategy
+- [`../docs/security.md`](../docs/security.md) — pairing, output-safety, and dependency notes
+- [`../docs/hardware-matrix.md`](../docs/hardware-matrix.md) — real-device verification procedure and results

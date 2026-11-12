@@ -9,8 +9,8 @@
   headers are required.
 - btleplug scan filtering is not fully isolated by service UUID; `pulselink` performs a second-pass
   filter in the SDK.
-- Multiple adapters are possible. `BtleplugCentral::new()` must handle an empty adapter list without
-  panicking.
+- Multiple adapters are possible. `BtleplugCentral::new()` (Rust) and the Kable-backed JVM
+  implementation must handle an empty adapter list without panicking.
 
 ## macOS
 

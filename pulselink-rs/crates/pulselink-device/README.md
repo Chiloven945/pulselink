@@ -51,7 +51,7 @@ match session {
 - `DeviceClient::scan_profile` retries with the profile service UUID when no named device is found,
   covering Coyote V3 privacy-broadcast firmware. An unnamed `0x180C` device is a V3 candidate, not a
   guaranteed identification; see [
-  `docs/coyote-v3-privacy-broadcast.md`](https://github.com/Chiloven945/pulselink/blob/main/pulselink-rs/docs/coyote-v3-privacy-broadcast.md).
+  `docs/coyote-v3-privacy-broadcast.md`](https://github.com/Chiloven945/pulselink/blob/main/docs/coyote-v3-privacy-broadcast.md).
 - Each session owns its own notification pump and state.
 - Coyote V3 delegates to `pulselink-runtime`; it is not reimplemented here.
 - Sensor sessions expose typed methods (`pressure`, `snapshot`, trigger configuration) instead of
