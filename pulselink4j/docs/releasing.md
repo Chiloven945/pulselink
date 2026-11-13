@@ -95,7 +95,7 @@ curl -fsS \
 
 Create an environment named `maven-central` under **Settings → Environments**. Add required
 reviewers and restrict deploys to
-`main` and `pulselink4j-v*`.
+`master` and `pulselink4j-v*`.
 
 Add these **environment secrets**:
 
