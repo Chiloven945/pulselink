@@ -8,7 +8,6 @@ plugins {
 }
 
 group = "top.chiloven"
-version = "0.1.0"
 
 val javaToolchainVersion = providers.gradleProperty("javaToolchainVersion")
         .map(String::toInt)
@@ -18,6 +17,8 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(javaToolchainVersion.get()))
     }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
     withSourcesJar()
     withJavadocJar()
 }

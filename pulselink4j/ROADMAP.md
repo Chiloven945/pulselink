@@ -1,7 +1,7 @@
 # pulselink4j Implementation Roadmap
 
 > Status: J0 build foundation, J1-J7 core/pattern/protocol/transport/BLE/device/runtime/
-> WebSocket/Java extension, and J8 shared documentation/spec are complete. J9 follows.
+> WebSocket/Java extension, J8 shared documentation/spec, and J9 CI/publish are complete.
 >
 > Scope: JVM implementation of `pulselink`: Kotlin core plus an optional Java
 > extension. Rust (`pulselink-rs`) remains the reference implementation for
@@ -26,6 +26,7 @@
 | Tests         | JUnit **6.1.3**, `kotlinx-coroutines-test`, MockK            |
 | Docs          | Dokka **2.3.0**                                              |
 | Java analysis | NullAway **0.14.3** (JSpecify mode)                          |
+| Publishing    | Maven Central via nmcp **1.6.2** + Gradle signing            |
 
 Gradle 9.9.0 is intentional. It is not Gradle 10, it supports Java 25, and it embeds Kotlin 2.4.21.
 Keep the current wrapper. The Kotlin Gradle plugin compatibility table may lag behind Gradle
@@ -512,6 +513,15 @@ links were checked; no guessed vectors were added.
 - `publishToMavenLocal` and Maven Central dry run.
 - CREDENTIALS/signing documentation.
 
+**J9 completion notes**: `.github/workflows/jvm-ci.yml` runs the full test suite on Linux
+(JDK 21/25), Windows (JDK 21), and macOS (JDK 21), with API dump, Dokka, and local publication
+checks on Linux. `.github/workflows/jvm-release.yml` provides a manual, approval-gated Central
+Portal release. The publishing convention uses `maven-publish` + in-memory PGP signing +
+nmcp 1.6.2 aggregation across the nine published modules; `pulselink-testing` stays unpublished.
+`USER_MANAGED` is the default deployment mode so the first Central release is inspected manually
+before publication. Credentials, signing, versioning, dry runs, and troubleshooting are documented
+in `docs/releasing.md`. The `top.chiloven` Central namespace is verified.
+
 ---
 
 ## 11. Verification
@@ -523,6 +533,7 @@ Local:
 ./gradlew apiCheck
 ./gradlew dokkaGenerateHtml
 ./gradlew publishToMavenLocal
+./gradlew publishAggregationToCentralPortal
 ```
 
 CI:
@@ -552,3 +563,5 @@ Hardware/V4:
 - BLE native dependencies must stay isolated in `pulselink-ble`; do not leak them into
   `pulselink-ws`.
 - Moving docs/spec must update all Rust and JVM links in one change.
+- Maven Central versions are immutable; always validate with `USER_MANAGED` before publishing.
+- Central Portal tokens and PGP private keys must stay in the `maven-central` GitHub environment.

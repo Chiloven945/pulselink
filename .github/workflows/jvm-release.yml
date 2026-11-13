@@ -1,0 +1,84 @@
+name: JVM Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version without the v prefix"
+        required: true
+        default: "0.1.0"
+      publish:
+        description: "Upload the deployment to the Central Portal"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jvm-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: JVM release
+    runs-on: ubuntu-24.04
+    environment: maven-central
+
+    defaults:
+      run:
+        working-directory: pulselink4j
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Validate version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if [[ -z "$VERSION" ]]; then
+            echo "version is required" >&2
+            exit 1
+          fi
+          if [[ "$VERSION" == *SNAPSHOT* ]]; then
+            echo "snapshot versions must not be released" >&2
+            exit 1
+          fi
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?$ ]]; then
+            echo "version must look like 0.1.0" >&2
+            exit 1
+          fi
+
+      - name: Preflight
+        run: >-
+          ./gradlew clean check apiCheck dokkaGenerateHtml
+          -PjavaToolchainVersion=21
+          -PpulselinkVersion=${{ inputs.version }}
+
+      - name: Publish to Maven local
+        run: >-
+          ./gradlew publishToMavenLocal
+          -PjavaToolchainVersion=21
+          -PpulselinkVersion=${{ inputs.version }}
+
+      - name: Publish to Central Portal
+        if: ${{ inputs.publish }}
+        env:
+          CENTRAL_PORTAL_USERNAME: ${{ secrets.CENTRAL_PORTAL_USERNAME }}
+          CENTRAL_PORTAL_PASSWORD: ${{ secrets.CENTRAL_PORTAL_PASSWORD }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+        run: >-
+          ./gradlew publishAggregationToCentralPortal
+          -PjavaToolchainVersion=21
+          -PpulselinkVersion=${{ inputs.version }}

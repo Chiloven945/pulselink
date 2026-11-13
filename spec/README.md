@@ -27,7 +27,7 @@ test-vectors/
 | Implementation | Language                    | Status                                                  |
 |----------------|-----------------------------|---------------------------------------------------------|
 | `pulselink-rs` | Rust                        | `0.1.0` published; device and relay support in progress |
-| `pulselink4j`  | Kotlin/JVM + Java extension | J0-J8 complete; J9 CI/publish in progress               |
+| `pulselink4j`  | Kotlin/JVM + Java extension | J0-J9 complete                                          |
 
 Both implementations:
 

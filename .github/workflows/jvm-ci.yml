@@ -1,0 +1,70 @@
+name: JVM CI
+
+on:
+  push:
+    paths:
+      - "pulselink4j/**"
+      - "spec/**"
+      - ".github/workflows/jvm-ci.yml"
+  pull_request:
+    paths:
+      - "pulselink4j/**"
+      - "spec/**"
+      - ".github/workflows/jvm-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  jvm:
+    name: JVM ${{ matrix.os }} / JDK ${{ matrix.java }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            java: "21"
+            toolchain: "21"
+          - os: ubuntu-24.04
+            java: "25"
+            toolchain: "25"
+          - os: windows-latest
+            java: "21"
+            toolchain: "21"
+          - os: macos-latest
+            java: "21"
+            toolchain: "21"
+
+    defaults:
+      run:
+        working-directory: pulselink4j
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Check
+        run: ./gradlew check -PjavaToolchainVersion=${{ matrix.toolchain }}
+
+      - name: API and documentation
+        if: runner.os == 'Linux'
+        run: ./gradlew apiCheck dokkaGenerateHtml -PjavaToolchainVersion=${{ matrix.toolchain }}
+
+      - name: Publish to Maven local
+        if: runner.os == 'Linux' && matrix.java == '21'
+        run: ./gradlew publishToMavenLocal -PjavaToolchainVersion=21 -PpulselinkVersion=0.1.0
+
+      - name: Upload test reports
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: jvm-test-reports-${{ matrix.os }}-${{ matrix.java }}
+          path: pulselink4j/**/build/reports/tests/
+          if-no-files-found: ignore

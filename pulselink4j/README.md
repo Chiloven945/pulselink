@@ -2,9 +2,8 @@
 
 JVM implementation of `pulselink`: a Kotlin core with an optional Java extension.
 
-Status: **J0 build foundation, J1-J7 core/pattern/protocol/transport/BLE/device/runtime/
-WebSocket/Java extension, and J8 shared docs/spec are complete**; J9 follows
-[`ROADMAP.md`](ROADMAP.md).
+Status: **J0 build foundation through J9 CI/publish are complete**.
+See [`ROADMAP.md`](ROADMAP.md).
 
 ## Toolchain
 
@@ -14,7 +13,7 @@ WebSocket/Java extension, and J8 shared docs/spec are complete**; J9 follows
 | Kotlin        | 2.4.21                       |
 | Java bytecode | 21                           |
 | CI JDK        | 21 and 25                    |
-| Java compile  | toolchain 25, `--release 21` |
+| Java compile  | toolchain configurable (25 default), `--release 21` |
 | JSpecify      | 1.0.1                        |
 | BLE           | Kable 0.45.0                 |
 | WebSocket     | Ktor 3.6.1 + CIO             |
@@ -43,6 +42,15 @@ WebSocket/Java extension, and J8 shared docs/spec are complete**; J9 follows
 ./gradlew publishToMavenLocal
 ```
 
+Publishing to Maven Central uses `nmcp` aggregation:
+
+```bash
+./gradlew publishAggregationToCentralPortal -PpulselinkVersion=0.1.0
+```
+
+Credentials, signing, and the release workflow are documented in
+[`docs/releasing.md`](docs/releasing.md).
+
 `apiDump` must be run after intentional public API changes:
 
 ```bash
@@ -53,6 +61,7 @@ WebSocket/Java extension, and J8 shared docs/spec are complete**; J9 follows
 
 - [`ROADMAP.md`](ROADMAP.md) — implementation plan and milestones
 - [`docs/build.md`](docs/build.md) — Gradle/build conventions
+- [`docs/releasing.md`](docs/releasing.md) — Maven Central credentials, signing, and release workflow
 - [`docs/nullness.md`](docs/nullness.md) — JSpecify and Java nullness rules
 - [`docs/java.md`](docs/java.md) — Java 21 extension quick start and async model
 - [`../docs/`](../docs/) — shared device/platform/security documentation

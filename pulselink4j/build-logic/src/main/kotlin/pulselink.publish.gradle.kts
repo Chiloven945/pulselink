@@ -1,10 +1,15 @@
 plugins {
     `maven-publish`
     signing
+    id("com.gradleup.nmcp")
 }
 
 group = "top.chiloven"
-version = "0.1.0"
+
+val signingKey = providers.environmentVariable("SIGNING_KEY")
+        .orElse(providers.gradleProperty("signingKey"))
+val signingPassword = providers.environmentVariable("SIGNING_PASSWORD")
+        .orElse(providers.gradleProperty("signingPassword"))
 
 publishing {
     publications {
@@ -12,8 +17,9 @@ publishing {
             from(components["java"])
             pom {
                 name.set(project.name)
-                description.set(project.description ?: "pulselink4j module")
+                description.set(providers.provider { project.description ?: "pulselink4j module" })
                 url.set("https://github.com/Chiloven945/pulselink")
+                inceptionYear.set("2025")
                 licenses {
                     license {
                         name.set("Apache-2.0")
@@ -37,7 +43,8 @@ publishing {
 }
 
 signing {
-    if (providers.gradleProperty("signingKey").isPresent) {
+    if (signingKey.isPresent) {
+        useInMemoryPgpKeys(signingKey.get(), signingPassword.orNull)
         sign(publishing.publications["maven"])
     }
 }
