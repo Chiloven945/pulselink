@@ -38,11 +38,20 @@ dependencies {
     nmcpAggregation(project(":pulselink-java"))
 }
 
+val isWindows = System.getProperty("os.name").startsWith("Windows", ignoreCase = true)
+val bashExecutable = if (isWindows) {
+    providers.environmentVariable("GIT_BASH")
+        .orElse("C:\\Program Files\\Git\\bin\\bash.exe")
+        .get()
+} else {
+    "bash"
+}
+
 val checkKotlinStructure by tasks.registering(Exec::class) {
     group = "verification"
     description = "Checks Kotlin file structure rules."
     commandLine(
-        "bash",
+        bashExecutable,
         layout.projectDirectory.file("scripts/check-kotlin-structure.sh")
                 .asFile
                 .absolutePath,
