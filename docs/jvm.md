@@ -21,13 +21,18 @@
 - `pulselink-device`
 - `pulselink-runtime`
 - `pulselink-ws`
-- `pulselink-java` (optional Java 21 extension)
+- `pulselink-java` (optional Java 21 extension: Java ports + Kotlin adapters)
 - `pulselink-testing` (non-published)
 
 Transport/BLE currently expose `Central`, `GattLink`, `Connector`, and `Backend` with coroutine
 `Flow<ByteArray>` notifications. Kable JVM reports an ATT MTU of 23, so Opossum B2 display sync must
 be skipped on JVM. Native Kable libraries and real-hardware validation are still required on each
 platform.
+
+The Java extension exposes Java interfaces, records, and sealed event types. All asynchronous
+operations return `CompletableFuture`, state/event streams use JDK `Flow.Publisher`, and resource
+owners implement `AutoCloseable`. Java public packages are `@NullMarked`; Kotlin adapters live in an
+internal package and are not part of the public API.
 
 ## Links
 

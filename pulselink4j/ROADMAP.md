@@ -1,7 +1,7 @@
 # pulselink4j Implementation Roadmap
 
-> Status: J0 build foundation, J1-J2 core/pattern/protocol, J3-J6 transport/BLE/device/runtime/
-> WebSocket, and J8 shared documentation/spec are complete. J7 and J9 follow.
+> Status: J0 build foundation, J1-J7 core/pattern/protocol/transport/BLE/device/runtime/
+> WebSocket/Java extension, and J8 shared documentation/spec are complete. J9 follows.
 >
 > Scope: JVM implementation of `pulselink`: Kotlin core plus an optional Java
 > extension. Rust (`pulselink-rs`) remains the reference implementation for
@@ -482,6 +482,15 @@ server tests cover hello, client attach, devices.get, ping, clear, and shutdown.
 - `CompletableFuture`, `Flow.Publisher`, `AutoCloseable`.
 - `package-info.java` with `@NullMarked` for every `pulselink-java` package.
 - NullAway JSpecify checks on JDK 21/25.
+
+**J7 completion notes**: `pulselink-java` exposes Java 21 ports, records, and sealed event types and
+implements them with Kotlin adapters. All I/O returns `CompletableFuture`; state and event streams
+use JDK `Flow.Publisher` (`SubmissionPublisher` with a virtual-thread executor); resource owners
+implement `AutoCloseable`. Every public package has `@NullMarked` `package-info.java`, NullAway runs
+in JSpecify mode, and `pulselink-java` has its own API dump. The Kotlin adapters stay under
+`pulselink-java/src/main/kotlin/top/chiloven/pulselink/java/internal` and are excluded from the
+public API. `PulseLinkClient`, five local session types, and the V4 `Socket`/`AppClient`/
+`RemoteDeviceHandle` facade are covered by Java and Kotlin tests.
 
 ### J8 — Docs/spec (complete)
 

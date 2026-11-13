@@ -5,7 +5,7 @@
 | Implementation                  | Language                              | Status                         |
 |---------------------------------|---------------------------------------|--------------------------------|
 | [`pulselink-rs`](pulselink-rs/) | Rust                                  | `0.1.0` published on crates.io |
-| [`pulselink4j`](pulselink4j/)   | Kotlin/JVM + optional Java extension  | Implementation in progress     |
+| [`pulselink4j`](pulselink4j/)   | Kotlin/JVM + optional Java extension  | J0-J8 complete; J9 in progress |
 | [`spec/`](spec/)                | Protocol specification + test vectors | Shared source of truth         |
 
 ## Repository layout

@@ -2,20 +2,22 @@
 
 JVM implementation of `pulselink`: a Kotlin core with an optional Java extension.
 
-Status: **J0 build foundation, J8 shared docs/spec, J1-J6 core/pattern/protocol/transport/BLE/
-device/runtime/WebSocket are complete**; J7 and J9 follow [`ROADMAP.md`](ROADMAP.md).
+Status: **J0 build foundation, J1-J7 core/pattern/protocol/transport/BLE/device/runtime/
+WebSocket/Java extension, and J8 shared docs/spec are complete**; J9 follows
+[`ROADMAP.md`](ROADMAP.md).
 
 ## Toolchain
 
-| Component     | Version          |
-|---------------|------------------|
-| Gradle        | 9.9.0            |
-| Kotlin        | 2.4.21           |
-| Java bytecode | 21               |
-| CI JDK        | 21 and 25        |
-| JSpecify      | 1.0.1            |
-| BLE           | Kable 0.45.0     |
-| WebSocket     | Ktor 3.6.1 + CIO |
+| Component     | Version                      |
+|---------------|------------------------------|
+| Gradle        | 9.9.0                        |
+| Kotlin        | 2.4.21                       |
+| Java bytecode | 21                           |
+| CI JDK        | 21 and 25                    |
+| Java compile  | toolchain 25, `--release 21` |
+| JSpecify      | 1.0.1                        |
+| BLE           | Kable 0.45.0                 |
+| WebSocket     | Ktor 3.6.1 + CIO             |
 
 ## Modules
 
@@ -52,6 +54,7 @@ device/runtime/WebSocket are complete**; J7 and J9 follow [`ROADMAP.md`](ROADMAP
 - [`ROADMAP.md`](ROADMAP.md) — implementation plan and milestones
 - [`docs/build.md`](docs/build.md) — Gradle/build conventions
 - [`docs/nullness.md`](docs/nullness.md) — JSpecify and Java nullness rules
+- [`docs/java.md`](docs/java.md) — Java 21 extension quick start and async model
 - [`../docs/`](../docs/) — shared device/platform/security documentation
 - [`../spec/`](../spec/) — shared protocol facts and test vectors
 

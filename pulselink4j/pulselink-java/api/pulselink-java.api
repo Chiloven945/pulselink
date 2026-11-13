@@ -1,0 +1,1115 @@
+public final class top/chiloven/pulselink/java/PulseLinkClient : java/lang/AutoCloseable {
+	public fun <init> ()V
+	public fun close ()V
+	public fun connect (Ltop/chiloven/pulselink/java/transport/DiscoveredDevice;)Ljava/util/concurrent/CompletableFuture;
+	public fun connectCoyoteV3 (Ltop/chiloven/pulselink/java/transport/DiscoveredDevice;)Ljava/util/concurrent/CompletableFuture;
+	public fun connectCoyoteV3 (Ltop/chiloven/pulselink/java/transport/DiscoveredDevice;Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config;)Ljava/util/concurrent/CompletableFuture;
+	public fun scan (Ltop/chiloven/pulselink/java/transport/ScanFilter;Ljava/time/Duration;)Ljava/util/concurrent/CompletableFuture;
+	public fun scanProfile (Ltop/chiloven/pulselink/java/transport/DeviceProfile;Ljava/time/Duration;)Ljava/util/concurrent/CompletableFuture;
+	public fun shutdown ()Ljava/util/concurrent/CompletableFuture;
+}
+
+public final class top/chiloven/pulselink/java/PulseLinkClosedException : top/chiloven/pulselink/java/PulseLinkException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/java/PulseLinkCoreException : top/chiloven/pulselink/java/PulseLinkException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class top/chiloven/pulselink/java/PulseLinkDeviceException : top/chiloven/pulselink/java/PulseLinkException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public class top/chiloven/pulselink/java/PulseLinkException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class top/chiloven/pulselink/java/PulseLinkPatternException : top/chiloven/pulselink/java/PulseLinkException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class top/chiloven/pulselink/java/PulseLinkProtocolException : top/chiloven/pulselink/java/PulseLinkException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class top/chiloven/pulselink/java/PulseLinkRuntimeException : top/chiloven/pulselink/java/PulseLinkException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class top/chiloven/pulselink/java/PulseLinkTransportException : top/chiloven/pulselink/java/PulseLinkException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class top/chiloven/pulselink/java/PulseLinkWebSocketException : top/chiloven/pulselink/java/PulseLinkException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+
+public final class top/chiloven/pulselink/java/core/BatteryState : java/lang/Record {
+	public fun <init> (I)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun level ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/ButtonMask : java/lang/Record {
+	public fun <init> (I)V
+	public fun bits ()I
+	public fun contains (Ltop/chiloven/pulselink/java/core/ButtonMask;)Z
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun isEmpty ()Z
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/Channel : java/lang/Enum {
+	public static final field A Ltop/chiloven/pulselink/java/core/Channel;
+	public static final field B Ltop/chiloven/pulselink/java/core/Channel;
+	public static fun fromWire (I)Ltop/chiloven/pulselink/java/core/Channel;
+	public fun index ()I
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/java/core/Channel;
+	public static fun values ()[Ltop/chiloven/pulselink/java/core/Channel;
+	public fun wireValue ()I
+}
+
+public final class top/chiloven/pulselink/java/core/ChannelState : java/lang/Record {
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/Integer;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun intensity ()Ljava/lang/Integer;
+	public fun softLimit ()Ljava/lang/Integer;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/ConnectionState : java/lang/Enum {
+	public static final field CLOSING Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public static final field CONNECTING Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public static final field DEGRADED Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public static final field DISCONNECTED Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public static final field INITIALIZING Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public static final field READY Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public static final field RECONNECTING Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public static fun values ()[Ltop/chiloven/pulselink/java/core/ConnectionState;
+}
+
+public abstract interface class top/chiloven/pulselink/java/core/DeviceEvent {
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$BatteryChanged : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/BatteryState;)V
+	public fun battery ()Ltop/chiloven/pulselink/java/core/BatteryState;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$ButtonChanged : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/ButtonMask;)V
+	public fun buttons ()Ltop/chiloven/pulselink/java/core/ButtonMask;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$ConnectionChanged : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/ConnectionState;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun state ()Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$Failure : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun message ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$IntensityChanged : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/Channel;Ljava/lang/Integer;Ltop/chiloven/pulselink/java/core/IntensitySource;)V
+	public fun channel ()Ltop/chiloven/pulselink/java/core/Channel;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun intensity ()Ljava/lang/Integer;
+	public fun source ()Ltop/chiloven/pulselink/java/core/IntensitySource;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$PressureChanged : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/Pressure;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun pressure ()Ltop/chiloven/pulselink/java/core/Pressure;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$SensorData : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$SettingsChanged : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceEvent$Triggered : java/lang/Record, top/chiloven/pulselink/java/core/DeviceEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/Trigger;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+	public fun trigger ()Ltop/chiloven/pulselink/java/core/Trigger;
+}
+
+public abstract interface class top/chiloven/pulselink/java/core/DeviceId {
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceId$Ble : java/lang/Record, top/chiloven/pulselink/java/core/DeviceId {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+	public fun value ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceId$Remote : java/lang/Record, top/chiloven/pulselink/java/core/DeviceId {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public fun clientId ()Ljava/lang/String;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun slotId ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceInfo : java/lang/Record {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/DeviceId;Ltop/chiloven/pulselink/java/core/DeviceKind;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun firmware ()Ljava/lang/String;
+	public final fun hashCode ()I
+	public fun id ()Ltop/chiloven/pulselink/java/core/DeviceId;
+	public fun kind ()Ltop/chiloven/pulselink/java/core/DeviceKind;
+	public fun manufacturer ()Ljava/lang/String;
+	public fun model ()Ljava/lang/String;
+	public fun name ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/java/core/DeviceKind {
+	public fun displayName ()Ljava/lang/String;
+	public static fun fromRemoteType (Ljava/lang/String;)Ltop/chiloven/pulselink/java/core/DeviceKind;
+	public fun remoteType ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceKind$Civet : java/lang/Record, top/chiloven/pulselink/java/core/DeviceKind {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceKind$CoyoteV2 : java/lang/Record, top/chiloven/pulselink/java/core/DeviceKind {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceKind$CoyoteV3 : java/lang/Record, top/chiloven/pulselink/java/core/DeviceKind {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceKind$Opossum : java/lang/Record, top/chiloven/pulselink/java/core/DeviceKind {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceKind$PawPrints : java/lang/Record, top/chiloven/pulselink/java/core/DeviceKind {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceKind$Unknown : java/lang/Record, top/chiloven/pulselink/java/core/DeviceKind {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+	public fun value ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/DeviceState : java/lang/Record {
+	public fun <init> (JLtop/chiloven/pulselink/java/core/ConnectionState;Ltop/chiloven/pulselink/java/core/BatteryState;Ltop/chiloven/pulselink/java/core/ChannelState;Ltop/chiloven/pulselink/java/core/ChannelState;)V
+	public fun battery ()Ltop/chiloven/pulselink/java/core/BatteryState;
+	public fun channel (Ltop/chiloven/pulselink/java/core/Channel;)Ltop/chiloven/pulselink/java/core/ChannelState;
+	public fun channelA ()Ltop/chiloven/pulselink/java/core/ChannelState;
+	public fun channelB ()Ltop/chiloven/pulselink/java/core/ChannelState;
+	public fun connection ()Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun revision ()J
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/IntensitySource : java/lang/Enum {
+	public static final field DEVICE Ltop/chiloven/pulselink/java/core/IntensitySource;
+	public static final field PHYSICAL_CONTROL Ltop/chiloven/pulselink/java/core/IntensitySource;
+	public static final field SDK Ltop/chiloven/pulselink/java/core/IntensitySource;
+	public static final field UNKNOWN Ltop/chiloven/pulselink/java/core/IntensitySource;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/java/core/IntensitySource;
+	public static fun values ()[Ltop/chiloven/pulselink/java/core/IntensitySource;
+}
+
+public abstract interface class top/chiloven/pulselink/java/core/LocalEvent {
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$BatteryChanged : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/BatteryState;)V
+	public fun battery ()Ltop/chiloven/pulselink/java/core/BatteryState;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$ButtonChanged : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/ButtonMask;)V
+	public fun buttons ()Ltop/chiloven/pulselink/java/core/ButtonMask;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$Closed : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$ConnectionChanged : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/ConnectionState;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun state ()Ltop/chiloven/pulselink/java/core/ConnectionState;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$Failure : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun message ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$IntensityChanged : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/Channel;Ljava/lang/Integer;)V
+	public fun channel ()Ltop/chiloven/pulselink/java/core/Channel;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun intensity ()Ljava/lang/Integer;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$PressureChanged : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/Pressure;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun pressure ()Ltop/chiloven/pulselink/java/core/Pressure;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$SensorData : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/LocalEvent$Triggered : java/lang/Record, top/chiloven/pulselink/java/core/LocalEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/Trigger;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+	public fun trigger ()Ltop/chiloven/pulselink/java/core/Trigger;
+}
+
+public final class top/chiloven/pulselink/java/core/Pressure : java/lang/Record {
+	public fun <init> (I)V
+	public fun asKpa ()F
+	public fun centiKpa ()I
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/core/Trigger : java/lang/Record {
+	public fun <init> (II)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun eventId ()I
+	public final fun hashCode ()I
+	public fun parameter ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/java/device/CivetSession : top/chiloven/pulselink/java/device/LocalSession {
+	public abstract fun resetPressure ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun setOrientation (I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun startPressure (I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun stopPressure (I)Ljava/util/concurrent/CompletableFuture;
+}
+
+public abstract interface class top/chiloven/pulselink/java/device/CoyoteV2Session : top/chiloven/pulselink/java/device/LocalSession {
+	public abstract fun setIntensity (Ltop/chiloven/pulselink/java/core/Channel;I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun setPulse (Ltop/chiloven/pulselink/java/core/Channel;III)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun setPulseInterval (Ltop/chiloven/pulselink/java/core/Channel;I)Ljava/util/concurrent/CompletableFuture;
+}
+
+public abstract interface class top/chiloven/pulselink/java/device/CoyoteV3Session : top/chiloven/pulselink/java/device/LocalSession {
+	public abstract fun adjustIntensity (Ltop/chiloven/pulselink/java/core/Channel;I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun play (Ltop/chiloven/pulselink/java/pattern/Pattern;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun play (Ltop/chiloven/pulselink/java/pattern/Pattern;Ltop/chiloven/pulselink/java/runtime/PlayOptions;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun reconnect ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun runtimeEvents ()Ljava/util/concurrent/Flow$Publisher;
+	public abstract fun runtimeState ()Ltop/chiloven/pulselink/java/runtime/CoyoteV3State;
+	public abstract fun runtimeStates ()Ljava/util/concurrent/Flow$Publisher;
+	public abstract fun setBalance (Ltop/chiloven/pulselink/java/runtime/CoyoteV3Balance;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun setIntensity (Ltop/chiloven/pulselink/java/core/Channel;I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun setSoftLimit (Ltop/chiloven/pulselink/java/core/Channel;I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun stop ()Ljava/util/concurrent/CompletableFuture;
+}
+
+public abstract interface class top/chiloven/pulselink/java/device/LocalSession : java/lang/AutoCloseable {
+	public abstract fun close ()V
+	public abstract fun events ()Ljava/util/concurrent/Flow$Publisher;
+	public abstract fun kind ()Ltop/chiloven/pulselink/java/core/DeviceKind;
+	public abstract fun shutdown ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun state ()Ltop/chiloven/pulselink/java/core/DeviceState;
+	public abstract fun states ()Ljava/util/concurrent/Flow$Publisher;
+}
+
+public abstract interface class top/chiloven/pulselink/java/device/OpossumSession : top/chiloven/pulselink/java/device/LocalSession {
+	public abstract fun display (II)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun pulse (Ltop/chiloven/pulselink/java/core/Channel;[I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun setIntensity (Ltop/chiloven/pulselink/java/core/Channel;I)Ljava/util/concurrent/CompletableFuture;
+}
+
+public final class top/chiloven/pulselink/java/device/PawPrintsProbability : java/lang/Record {
+	public fun <init> (II)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun eventId ()I
+	public final fun hashCode ()I
+	public fun probability ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/java/device/PawPrintsSession : top/chiloven/pulselink/java/device/LocalSession {
+	public abstract fun autoDetectAngles ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun configureExternalVoltage (IIZIII)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun configureProbability (ILjava/util/List;I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun configureRandomReaction (IIIIIIIII)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun configureRawSensor (I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun noTrigger (I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun resetParameter ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun shoulderLight (I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun shoulderLightFlash (III)Ljava/util/concurrent/CompletableFuture;
+}
+
+public abstract interface class top/chiloven/pulselink/java/device/PlayHandle {
+	public abstract fun completion ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun id ()J
+	public abstract fun isFinished ()Z
+	public abstract fun stop ()Ljava/util/concurrent/CompletableFuture;
+}
+
+public final class top/chiloven/pulselink/java/device/StopResult : java/lang/Record {
+	public fun <init> (ZII)V
+	public fun acknowledged ()Z
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun intensityA ()I
+	public fun intensityB ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/java/pattern/ChannelFrameSpec {
+	public static fun active ([Ltop/chiloven/pulselink/java/pattern/PulseSample;)Ltop/chiloven/pulselink/java/pattern/ChannelFrameSpec;
+	public static fun silent ()Ltop/chiloven/pulselink/java/pattern/ChannelFrameSpec;
+}
+
+public final class top/chiloven/pulselink/java/pattern/ChannelFrameSpec$Active : java/lang/Record, top/chiloven/pulselink/java/pattern/ChannelFrameSpec {
+	public fun <init> (Ljava/util/List;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun samples ()Ljava/util/List;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/pattern/ChannelFrameSpec$Silent : java/lang/Record, top/chiloven/pulselink/java/pattern/ChannelFrameSpec {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/pattern/Pattern {
+	public static fun builder ()Ltop/chiloven/pulselink/java/pattern/Pattern$Builder;
+	public fun frames ()Ljava/util/List;
+	public fun looped ()Z
+	public static fun of (Ljava/util/List;Z)Ltop/chiloven/pulselink/java/pattern/Pattern;
+	public static fun silence (I)Ltop/chiloven/pulselink/java/pattern/Pattern;
+}
+
+public final class top/chiloven/pulselink/java/pattern/Pattern$Builder {
+	public fun build ()Ltop/chiloven/pulselink/java/pattern/Pattern;
+	public fun frame (Ltop/chiloven/pulselink/java/pattern/StereoFrameSpec;)Ltop/chiloven/pulselink/java/pattern/Pattern$Builder;
+	public fun frames (Ljava/util/List;)Ltop/chiloven/pulselink/java/pattern/Pattern$Builder;
+	public fun looped (Z)Ltop/chiloven/pulselink/java/pattern/Pattern$Builder;
+	public fun silenceFrame ()Ltop/chiloven/pulselink/java/pattern/Pattern$Builder;
+}
+
+public final class top/chiloven/pulselink/java/pattern/PulseSample : java/lang/Record {
+	public fun <init> (II)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun intensity ()I
+	public fun intervalMillis ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/pattern/StereoFrameSpec : java/lang/Record {
+	public fun <init> (Ltop/chiloven/pulselink/java/pattern/ChannelFrameSpec;Ltop/chiloven/pulselink/java/pattern/ChannelFrameSpec;)V
+	public fun a ()Ltop/chiloven/pulselink/java/pattern/ChannelFrameSpec;
+	public fun b ()Ltop/chiloven/pulselink/java/pattern/ChannelFrameSpec;
+	public fun channel (Ltop/chiloven/pulselink/java/core/Channel;)Ltop/chiloven/pulselink/java/pattern/ChannelFrameSpec;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public static fun silent ()Ltop/chiloven/pulselink/java/pattern/StereoFrameSpec;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/B1Snapshot : java/lang/Record {
+	public fun <init> (III)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun intensityA ()I
+	public fun intensityB ()I
+	public fun sequence ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Balance : java/lang/Record {
+	public fun <init> (IIII)V
+	public static fun defaults ()Ltop/chiloven/pulselink/java/runtime/CoyoteV3Balance;
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun frequencyA ()I
+	public fun frequencyB ()I
+	public final fun hashCode ()I
+	public fun intensityA ()I
+	public fun intensityB ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Config {
+	public fun ackTimeout ()Ljava/time/Duration;
+	public fun balance ()Ltop/chiloven/pulselink/java/runtime/CoyoteV3Balance;
+	public static fun builder ()Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder;
+	public static fun defaults ()Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config;
+	public fun initialSoftLimitA ()I
+	public fun initialSoftLimitB ()I
+	public fun lagThreshold ()Ljava/time/Duration;
+	public fun reconnect ()Ltop/chiloven/pulselink/java/runtime/ReconnectPolicy;
+	public fun safety ()Ltop/chiloven/pulselink/java/runtime/SafetyPolicy;
+	public fun tickInterval ()Ljava/time/Duration;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder {
+	public fun ackTimeout (Ljava/time/Duration;)Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder;
+	public fun balance (Ltop/chiloven/pulselink/java/runtime/CoyoteV3Balance;)Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder;
+	public fun build ()Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config;
+	public fun initialSoftLimit (II)Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder;
+	public fun lagThreshold (Ljava/time/Duration;)Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder;
+	public fun reconnect (Ltop/chiloven/pulselink/java/runtime/ReconnectPolicy;)Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder;
+	public fun safety (Ltop/chiloven/pulselink/java/runtime/SafetyPolicy;)Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder;
+	public fun tickInterval (Ljava/time/Duration;)Ltop/chiloven/pulselink/java/runtime/CoyoteV3Config$Builder;
+}
+
+public abstract interface class top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$AckTimeout : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> (I)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun sequence ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$B1Mismatch : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> (II)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun expected ()I
+	public final fun hashCode ()I
+	public fun received ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$Closed : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$Device : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/DeviceEvent;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun event ()Ltop/chiloven/pulselink/java/core/DeviceEvent;
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$PatternFinished : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> (JLtop/chiloven/pulselink/java/runtime/PlayEndReason;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun id ()J
+	public fun reason ()Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$PatternStarted : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> (J)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun id ()J
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$ReconnectFailed : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> (ILjava/lang/Throwable;)V
+	public fun attempts ()I
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun error ()Ljava/lang/Throwable;
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$Reconnected : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$Reconnecting : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> (ILjava/time/Duration;)V
+	public fun attempt ()I
+	public fun delay ()Ljava/time/Duration;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Event$SchedulerLag : java/lang/Record, top/chiloven/pulselink/java/runtime/CoyoteV3Event {
+	public fun <init> (Ljava/time/Duration;)V
+	public fun behind ()Ljava/time/Duration;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3Settings : java/lang/Record {
+	public fun <init> (IIIIII)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun frequencyBalanceA ()I
+	public fun frequencyBalanceB ()I
+	public final fun hashCode ()I
+	public fun intensityBalanceA ()I
+	public fun intensityBalanceB ()I
+	public fun softLimitA ()I
+	public fun softLimitB ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/CoyoteV3State : java/lang/Record {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/DeviceState;Ltop/chiloven/pulselink/java/runtime/CoyoteV3Settings;Ltop/chiloven/pulselink/java/runtime/PatternPlaybackState;Ltop/chiloven/pulselink/java/runtime/B1Snapshot;)V
+	public fun common ()Ltop/chiloven/pulselink/java/core/DeviceState;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun lastB1 ()Ltop/chiloven/pulselink/java/runtime/B1Snapshot;
+	public fun pattern ()Ltop/chiloven/pulselink/java/runtime/PatternPlaybackState;
+	public fun settings ()Ltop/chiloven/pulselink/java/runtime/CoyoteV3Settings;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/PatternPlaybackState : java/lang/Record {
+	public fun <init> (JLjava/time/Duration;IZ)V
+	public fun elapsed ()Ljava/time/Duration;
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun frameIndex ()I
+	public final fun hashCode ()I
+	public fun id ()J
+	public fun looped ()Z
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/PlayEndReason : java/lang/Enum {
+	public static final field COMPLETED Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public static final field FAILED Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public static final field LINK_LOST Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public static final field REPLACED Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public static final field SCHEDULER_LAG Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public static final field SHUTDOWN Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public static final field STOPPED Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+	public static fun values ()[Ltop/chiloven/pulselink/java/runtime/PlayEndReason;
+}
+
+public final class top/chiloven/pulselink/java/runtime/PlayOptions : java/lang/Record {
+	public fun <init> (Z)V
+	public static fun defaults ()Ltop/chiloven/pulselink/java/runtime/PlayOptions;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun replace ()Z
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/ReconnectPolicy : java/lang/Record {
+	public fun <init> (ZILjava/time/Duration;Ljava/time/Duration;Z)V
+	public static fun defaults ()Ltop/chiloven/pulselink/java/runtime/ReconnectPolicy;
+	public fun enabled ()Z
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun initialBackoff ()Ljava/time/Duration;
+	public fun jitter ()Z
+	public fun maxAttempts ()I
+	public fun maxBackoff ()Ljava/time/Duration;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/runtime/SafetyPolicy : java/lang/Record {
+	public fun <init> (IILjava/lang/Integer;Ljava/lang/Integer;ZZ)V
+	public fun allowTemporary ()Z
+	public static fun defaults ()Ltop/chiloven/pulselink/java/runtime/SafetyPolicy;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun maxDeltaA ()Ljava/lang/Integer;
+	public fun maxDeltaB ()Ljava/lang/Integer;
+	public fun maxIntensityA ()I
+	public fun maxIntensityB ()I
+	public fun requireSoftLimit ()Z
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/transport/DeviceProfile : java/lang/Record {
+	public fun <init> (Ltop/chiloven/pulselink/java/core/DeviceKind;Ljava/util/List;Ljava/util/List;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun kind ()Ltop/chiloven/pulselink/java/core/DeviceKind;
+	public fun namePrefixes ()Ljava/util/List;
+	public fun serviceUuids ()Ljava/util/List;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/transport/DiscoveredDevice : java/lang/Record {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/util/List;Ljava/util/List;Ljava/lang/Boolean;)V
+	public fun connectable ()Ljava/lang/Boolean;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun id ()Ljava/lang/String;
+	public fun manufacturerData ()Ljava/util/List;
+	public fun name ()Ljava/lang/String;
+	public fun rssi ()Ljava/lang/Integer;
+	public fun serviceUuids ()Ljava/util/List;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/transport/ManufacturerData : java/lang/Record {
+	public fun <init> (I[B)V
+	public fun companyId ()I
+	public fun data ()[B
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/transport/PulseLinkProfiles {
+	public static final field CIVET Ltop/chiloven/pulselink/java/transport/DeviceProfile;
+	public static final field COYOTE_V2 Ltop/chiloven/pulselink/java/transport/DeviceProfile;
+	public static final field COYOTE_V3 Ltop/chiloven/pulselink/java/transport/DeviceProfile;
+	public static final field OPOSSUM Ltop/chiloven/pulselink/java/transport/DeviceProfile;
+	public static final field PAW_PRINTS Ltop/chiloven/pulselink/java/transport/DeviceProfile;
+	public static fun all ()Ljava/util/List;
+}
+
+public final class top/chiloven/pulselink/java/transport/ScanFilter : java/lang/Record {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public static fun all ()Ltop/chiloven/pulselink/java/transport/ScanFilter;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public static fun namePrefix ([Ljava/lang/String;)Ltop/chiloven/pulselink/java/transport/ScanFilter;
+	public fun namePrefixes ()Ljava/util/List;
+	public static fun serviceUuid ([Ljava/util/UUID;)Ltop/chiloven/pulselink/java/transport/ScanFilter;
+	public fun serviceUuids ()Ljava/util/List;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/ActionType : java/lang/Enum {
+	public static final field ADD_INTENSITY Ltop/chiloven/pulselink/java/ws/ActionType;
+	public static final field APPEND_PULSE_DATA Ltop/chiloven/pulselink/java/ws/ActionType;
+	public static final field SET_INTENSITY Ltop/chiloven/pulselink/java/ws/ActionType;
+	public static final field SET_TEMP_INTENSITY Ltop/chiloven/pulselink/java/ws/ActionType;
+	public static fun fromWire (I)Ltop/chiloven/pulselink/java/ws/ActionType;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/java/ws/ActionType;
+	public static fun values ()[Ltop/chiloven/pulselink/java/ws/ActionType;
+	public fun wireValue ()I
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/AppClient {
+	public abstract fun clearOperate (Ltop/chiloven/pulselink/java/ws/ClearTarget;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun clientId ()Ljava/lang/String;
+	public abstract fun device (Ljava/lang/String;)Ljava/util/Optional;
+	public abstract fun devices ()Ljava/util/List;
+	public abstract fun events ()Ljava/util/concurrent/Flow$Publisher;
+	public abstract fun ping ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun requestDevices ()Ljava/util/concurrent/CompletableFuture;
+	public fun submitOperate (Ltop/chiloven/pulselink/java/ws/DeviceOperation;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun submitOperate (Ltop/chiloven/pulselink/java/ws/DeviceOperation;Ltop/chiloven/pulselink/java/ws/OperationOptions;)Ljava/util/concurrent/CompletableFuture;
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/ClearTarget {
+}
+
+public final class top/chiloven/pulselink/java/ws/ClearTarget$All : java/lang/Record, top/chiloven/pulselink/java/ws/ClearTarget {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/ClearTarget$Channel : java/lang/Record, top/chiloven/pulselink/java/ws/ClearTarget {
+	public fun <init> (Ljava/lang/String;Ltop/chiloven/pulselink/java/core/Channel;)V
+	public fun channel ()Ltop/chiloven/pulselink/java/core/Channel;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun slotId ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/ClearTarget$Device : java/lang/Record, top/chiloven/pulselink/java/ws/ClearTarget {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun slotId ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/DeviceOperation : java/lang/Record {
+	public fun <init> (Ljava/lang/String;Ltop/chiloven/pulselink/java/ws/ActionType;ILjava/lang/Integer;Ljava/lang/Long;Ltop/chiloven/pulselink/java/ws/OperateValue;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Long;)V
+	public fun action ()Ltop/chiloven/pulselink/java/ws/ActionType;
+	public fun channel ()I
+	public fun durationMs ()Ljava/lang/Long;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun immediate ()Ljava/lang/Boolean;
+	public fun priority ()Ljava/lang/Integer;
+	public fun seq ()Ljava/lang/Long;
+	public fun slotId ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+	public fun value ()Ltop/chiloven/pulselink/java/ws/OperateValue;
+	public fun ver ()Ljava/lang/Integer;
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/OperateValue {
+}
+
+public final class top/chiloven/pulselink/java/ws/OperateValue$Intensity : java/lang/Record, top/chiloven/pulselink/java/ws/OperateValue {
+	public fun <init> (I)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+	public fun value ()I
+}
+
+public final class top/chiloven/pulselink/java/ws/OperateValue$PulseFrames : java/lang/Record, top/chiloven/pulselink/java/ws/OperateValue {
+	public fun <init> (Ljava/util/List;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public fun frames ()Ljava/util/List;
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/OperationEndReason : java/lang/Enum {
+	public static final field CANCELLED Ltop/chiloven/pulselink/java/ws/OperationEndReason;
+	public static final field CLEARED Ltop/chiloven/pulselink/java/ws/OperationEndReason;
+	public static final field COMPLETED Ltop/chiloven/pulselink/java/ws/OperationEndReason;
+	public static final field REPLACED Ltop/chiloven/pulselink/java/ws/OperationEndReason;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/java/ws/OperationEndReason;
+	public static fun values ()[Ltop/chiloven/pulselink/java/ws/OperationEndReason;
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/OperationHandle {
+	public abstract fun action ()Ltop/chiloven/pulselink/java/ws/ActionType;
+	public abstract fun completion ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun reqId ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/OperationOptions : java/lang/Record {
+	public fun <init> (Ljava/lang/Integer;Z)V
+	public static fun defaults ()Ltop/chiloven/pulselink/java/ws/OperationOptions;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun immediate ()Z
+	public fun priority ()Ljava/lang/Integer;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/OperationResult : java/lang/Record {
+	public fun <init> (Ltop/chiloven/pulselink/java/ws/ActionType;Ltop/chiloven/pulselink/java/ws/OperationEndReason;Ljava/lang/String;Ltop/chiloven/pulselink/java/core/Channel;)V
+	public fun action ()Ltop/chiloven/pulselink/java/ws/ActionType;
+	public fun channel ()Ltop/chiloven/pulselink/java/core/Channel;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun reason ()Ltop/chiloven/pulselink/java/ws/OperationEndReason;
+	public fun slotId ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/RemoteDevice : java/lang/Record {
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;)V
+	public fun deviceType ()Ljava/lang/String;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun id ()Ljava/lang/Integer;
+	public fun kind ()Ltop/chiloven/pulselink/java/core/DeviceKind;
+	public fun name ()Ljava/lang/String;
+	public fun props ()Ljava/util/Map;
+	public fun slotId ()Ljava/lang/String;
+	public fun slotState ()Ljava/util/Map;
+	public final fun toString ()Ljava/lang/String;
+	public fun typed ()Ltop/chiloven/pulselink/java/ws/TypedRemoteDevice;
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/RemoteDeviceHandle {
+	public fun addIntensity (Ltop/chiloven/pulselink/java/core/Channel;I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun addIntensity (Ltop/chiloven/pulselink/java/core/Channel;ILtop/chiloven/pulselink/java/ws/OperationOptions;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun kind ()Ltop/chiloven/pulselink/java/core/DeviceKind;
+	public fun reduceIntensity (Ltop/chiloven/pulselink/java/core/Channel;I)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun reduceIntensity (Ltop/chiloven/pulselink/java/core/Channel;ILtop/chiloven/pulselink/java/ws/OperationOptions;)Ljava/util/concurrent/CompletableFuture;
+	public fun resetIntensity (Ltop/chiloven/pulselink/java/core/Channel;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun resetIntensity (Ltop/chiloven/pulselink/java/core/Channel;Ltop/chiloven/pulselink/java/ws/OperationOptions;)Ljava/util/concurrent/CompletableFuture;
+	public fun sendPulse (Ltop/chiloven/pulselink/java/core/Channel;Ljava/time/Duration;Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun sendPulse (Ltop/chiloven/pulselink/java/core/Channel;Ljava/time/Duration;Ljava/util/List;Ltop/chiloven/pulselink/java/ws/OperationOptions;)Ljava/util/concurrent/CompletableFuture;
+	public fun sendPulseV2 (Ltop/chiloven/pulselink/java/core/Channel;Ljava/time/Duration;Ljava/util/List;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun sendPulseV2 (Ltop/chiloven/pulselink/java/core/Channel;Ljava/time/Duration;Ljava/util/List;Ltop/chiloven/pulselink/java/ws/OperationOptions;)Ljava/util/concurrent/CompletableFuture;
+	public fun setTempIntensity (Ltop/chiloven/pulselink/java/core/Channel;ILjava/time/Duration;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun setTempIntensity (Ltop/chiloven/pulselink/java/core/Channel;ILjava/time/Duration;Ltop/chiloven/pulselink/java/ws/OperationOptions;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun slotId ()Ljava/lang/String;
+	public abstract fun snapshot ()Ljava/util/Optional;
+	public abstract fun typed ()Ljava/util/Optional;
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/Socket : java/lang/AutoCloseable {
+	public abstract fun client (Ljava/lang/String;)Ljava/util/Optional;
+	public abstract fun clients ()Ljava/util/List;
+	public abstract fun close ()V
+	public static fun connect (Ljava/lang/String;)Ljava/util/concurrent/CompletableFuture;
+	public static fun connect (Ltop/chiloven/pulselink/java/ws/SocketOptions;)Ljava/util/concurrent/CompletableFuture;
+	public abstract fun events ()Ljava/util/concurrent/Flow$Publisher;
+	public abstract fun shutdown ()Ljava/util/concurrent/CompletableFuture;
+	public abstract fun state ()Ltop/chiloven/pulselink/java/ws/SocketState;
+	public abstract fun targetId ()Ljava/lang/String;
+	public abstract fun waitForClient ()Ljava/util/concurrent/CompletableFuture;
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/SocketEvent {
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketEvent$ClientAttached : java/lang/Record, top/chiloven/pulselink/java/ws/SocketEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public fun clientId ()Ljava/lang/String;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketEvent$ClientDisconnected : java/lang/Record, top/chiloven/pulselink/java/ws/SocketEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public fun clientId ()Ljava/lang/String;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketEvent$Closed : java/lang/Record, top/chiloven/pulselink/java/ws/SocketEvent {
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;)V
+	public fun code ()Ljava/lang/Integer;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun reason ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketEvent$Failure : java/lang/Record, top/chiloven/pulselink/java/ws/SocketEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun message ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketEvent$Heartbeat : java/lang/Record, top/chiloven/pulselink/java/ws/SocketEvent {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketEvent$IdleTimeout : java/lang/Record, top/chiloven/pulselink/java/ws/SocketEvent {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketEvent$Pong : java/lang/Record, top/chiloven/pulselink/java/ws/SocketEvent {
+	public fun <init> (Ljava/lang/Long;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+	public fun ts ()Ljava/lang/Long;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketEvent$StateChanged : java/lang/Record, top/chiloven/pulselink/java/ws/SocketEvent {
+	public fun <init> (Ltop/chiloven/pulselink/java/ws/SocketState;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun state ()Ltop/chiloven/pulselink/java/ws/SocketState;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketOptions : java/lang/Record {
+	public fun <init> (Ljava/lang/String;Ljava/time/Duration;Ljava/time/Duration;Ljava/time/Duration;J)V
+	public fun connectTimeout ()Ljava/time/Duration;
+	public static fun defaults (Ljava/lang/String;)Ltop/chiloven/pulselink/java/ws/SocketOptions;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun maxFrameSize ()J
+	public fun pingInterval ()Ljava/time/Duration;
+	public fun responseTimeout ()Ljava/time/Duration;
+	public final fun toString ()Ljava/lang/String;
+	public fun url ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/SocketState : java/lang/Enum {
+	public static final field CLOSED Ltop/chiloven/pulselink/java/ws/SocketState;
+	public static final field CLOSING Ltop/chiloven/pulselink/java/ws/SocketState;
+	public static final field CONNECTING Ltop/chiloven/pulselink/java/ws/SocketState;
+	public static final field READY Ltop/chiloven/pulselink/java/ws/SocketState;
+	public static final field WAITING_FOR_PEER Ltop/chiloven/pulselink/java/ws/SocketState;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/java/ws/SocketState;
+	public static fun values ()[Ltop/chiloven/pulselink/java/ws/SocketState;
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/TypedRemoteDevice {
+	public abstract fun device ()Ltop/chiloven/pulselink/java/ws/RemoteDevice;
+}
+
+public final class top/chiloven/pulselink/java/ws/TypedRemoteDevice$Civet : java/lang/Record, top/chiloven/pulselink/java/ws/TypedRemoteDevice {
+	public fun <init> (Ltop/chiloven/pulselink/java/ws/RemoteDevice;)V
+	public fun device ()Ltop/chiloven/pulselink/java/ws/RemoteDevice;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/TypedRemoteDevice$Coyote : java/lang/Record, top/chiloven/pulselink/java/ws/TypedRemoteDevice {
+	public fun <init> (Ltop/chiloven/pulselink/java/ws/RemoteDevice;)V
+	public fun device ()Ltop/chiloven/pulselink/java/ws/RemoteDevice;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/TypedRemoteDevice$Opossum : java/lang/Record, top/chiloven/pulselink/java/ws/TypedRemoteDevice {
+	public fun <init> (Ltop/chiloven/pulselink/java/ws/RemoteDevice;)V
+	public fun device ()Ltop/chiloven/pulselink/java/ws/RemoteDevice;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/TypedRemoteDevice$Unknown : java/lang/Record, top/chiloven/pulselink/java/ws/TypedRemoteDevice {
+	public fun <init> (Ltop/chiloven/pulselink/java/ws/RemoteDevice;)V
+	public fun device ()Ltop/chiloven/pulselink/java/ws/RemoteDevice;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/java/ws/WsEvent {
+}
+
+public final class top/chiloven/pulselink/java/ws/WsEvent$CustomAction : java/lang/Record, top/chiloven/pulselink/java/ws/WsEvent {
+	public fun <init> (I)V
+	public fun action ()I
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/WsEvent$DevicesPatch : java/lang/Record, top/chiloven/pulselink/java/ws/WsEvent {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public fun added ()Ljava/util/List;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun removed ()Ljava/util/List;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/WsEvent$DevicesSnapshot : java/lang/Record, top/chiloven/pulselink/java/ws/WsEvent {
+	public fun <init> (Ljava/util/List;)V
+	public fun devices ()Ljava/util/List;
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/WsEvent$Disconnected : java/lang/Record, top/chiloven/pulselink/java/ws/WsEvent {
+	public fun <init> ()V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/WsEvent$Failure : java/lang/Record, top/chiloven/pulselink/java/ws/WsEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun message ()Ljava/lang/String;
+	public final fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/java/ws/WsEvent$SlotsPatch : java/lang/Record, top/chiloven/pulselink/java/ws/WsEvent {
+	public fun <init> (Ljava/util/List;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun hashCode ()I
+	public fun slots ()Ljava/util/List;
+	public final fun toString ()Ljava/lang/String;
+}
+

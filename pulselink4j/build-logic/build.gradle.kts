@@ -15,4 +15,5 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-serialization:2.4.21")
     implementation("org.jetbrains.dokka:dokka-gradle-plugin:2.3.0")
     implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.18.2")
+    implementation("net.ltgt.gradle:gradle-errorprone-plugin:5.2.0")
 }

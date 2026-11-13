@@ -32,6 +32,10 @@ Rules:
 - Prefer `Optional<T>` for optional value results.
 - Never return nullable collections or nullable `CompletableFuture`.
 - JSpecify is an `api` dependency so consumers see the annotations.
+- Public API types are Java interfaces, records, enums, and sealed interfaces. Kotlin value classes,
+  `Flow`, and `kotlin.time.Duration` never appear in the public API.
+- Kotlin adapters live in `top.chiloven.pulselink.java.internal` (a `@NullUnmarked` package) and
+  implement the Java ports. NullAway analyses the Java contracts, not the adapters.
 
 ## Java analysis
 
@@ -42,5 +46,6 @@ NullAway:OnlyNullMarked=true
 NullAway:JSpecifyMode=true
 ```
 
-JDK 21 requires `-XDaddTypeAnnotationsToSymbol=true`; use an OpenJDK build (Temurin is fine). The
-checks must also run on JDK 25.
+JDK 21 requires `-XDaddTypeAnnotationsToSymbol=true` and a recent OpenJDK build (21.0.8+; Temurin
+works). JDK 22+ does not require the flag. The build defaults the Java toolchain to 25 and passes
+`-PjavaToolchainVersion=21` when validating on JDK 21.
