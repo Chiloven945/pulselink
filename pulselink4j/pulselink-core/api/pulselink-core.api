@@ -604,6 +604,10 @@ public final class top/chiloven/pulselink/core/Observed$Unknown : top/chiloven/p
 	public fun valueOrNull ()Ljava/lang/Void;
 }
 
+public final class top/chiloven/pulselink/core/ObservedKt {
+	public static final fun mapObserved (Ltop/chiloven/pulselink/core/Observed;Lkotlin/jvm/functions/Function1;)Ltop/chiloven/pulselink/core/Observed;
+}
+
 public final class top/chiloven/pulselink/core/Pressure : java/lang/Comparable {
 	public static final field Companion Ltop/chiloven/pulselink/core/Pressure$Companion;
 	public static final fun asKpa-impl (I)F
@@ -644,10 +648,6 @@ public final class top/chiloven/pulselink/core/RemoteDeviceId {
 	public final fun getSlotId ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class top/chiloven/pulselink/core/StateKt {
-	public static final fun mapObserved (Ltop/chiloven/pulselink/core/Observed;Lkotlin/jvm/functions/Function1;)Ltop/chiloven/pulselink/core/Observed;
 }
 
 public final class top/chiloven/pulselink/core/Trigger {

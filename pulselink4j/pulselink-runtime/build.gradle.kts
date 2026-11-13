@@ -11,4 +11,6 @@ dependencies {
     api(project(":pulselink-transport"))
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.slf4j.api)
+
+    testImplementation(project(":pulselink-testing"))
 }

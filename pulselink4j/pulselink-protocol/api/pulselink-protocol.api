@@ -98,15 +98,6 @@ public final class top/chiloven/pulselink/protocol/ProtocolException$ValueOutOfR
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class top/chiloven/pulselink/protocol/civet/CivetKt {
-	public static final field DEVICE_NAME Ljava/lang/String;
-	public static final fun getCHAR_BATTERY ()Ljava/util/UUID;
-	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
-	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
-	public static final fun getSERVICE_BATTERY ()Ljava/util/UUID;
-	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
-}
-
 public final class top/chiloven/pulselink/protocol/civet/Command50 {
 	public fun <init> (IZ)V
 	public final fun component1 ()I
@@ -153,6 +144,15 @@ public final class top/chiloven/pulselink/protocol/civet/D0Message {
 
 public final class top/chiloven/pulselink/protocol/civet/D0Message$Companion {
 	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/civet/D0Message;
+}
+
+public final class top/chiloven/pulselink/protocol/civet/GattKt {
+	public static final field DEVICE_NAME Ljava/lang/String;
+	public static final fun getCHAR_BATTERY ()Ljava/util/UUID;
+	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
+	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
+	public static final fun getSERVICE_BATTERY ()Ljava/util/UUID;
+	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
 }
 
 public final class top/chiloven/pulselink/protocol/coyote/v2/CoyoteV2Intensity : java/lang/Comparable {
@@ -531,6 +531,15 @@ public final class top/chiloven/pulselink/protocol/opossum/D0Message$Companion {
 	public final fun decode ([B)Ltop/chiloven/pulselink/protocol/opossum/D0Message;
 }
 
+public final class top/chiloven/pulselink/protocol/opossum/GattKt {
+	public static final field DEVICE_NAME Ljava/lang/String;
+	public static final fun getCHAR_BATTERY ()Ljava/util/UUID;
+	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
+	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
+	public static final fun getSERVICE_BATTERY ()Ljava/util/UUID;
+	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
+}
+
 public abstract interface class top/chiloven/pulselink/protocol/opossum/Message {
 	public static final field Companion Ltop/chiloven/pulselink/protocol/opossum/Message$Companion;
 }
@@ -561,15 +570,6 @@ public final class top/chiloven/pulselink/protocol/opossum/Message$D0Value : top
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class top/chiloven/pulselink/protocol/opossum/OpossumKt {
-	public static final field DEVICE_NAME Ljava/lang/String;
-	public static final fun getCHAR_BATTERY ()Ljava/util/UUID;
-	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
-	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
-	public static final fun getSERVICE_BATTERY ()Ljava/util/UUID;
-	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
-}
-
 public final class top/chiloven/pulselink/protocol/pawprints/Command50 {
 	public static final field Companion Ltop/chiloven/pulselink/protocol/pawprints/Command50$Companion;
 	public synthetic fun <init> ([BLkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -582,6 +582,13 @@ public final class top/chiloven/pulselink/protocol/pawprints/Command50$Companion
 	public final fun probability (ILjava/util/List;I)Ltop/chiloven/pulselink/protocol/pawprints/Command50;
 	public final fun randomReaction (IILkotlin/ranges/IntRange;IIIII)Ltop/chiloven/pulselink/protocol/pawprints/Command50;
 	public final fun rawSensor (I)Ltop/chiloven/pulselink/protocol/pawprints/Command50;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/CommandsKt {
+	public static final fun commandShoulderLight (I)[B
+	public static final fun commandShoulderLightFlash (III)[B
+	public static final fun getCOMMAND_AUTO_DETECT_ANGLES ()[B
+	public static final fun getCOMMAND_RESET_PARAMETER ()[B
 }
 
 public final class top/chiloven/pulselink/protocol/pawprints/D0Message {
@@ -622,6 +629,14 @@ public final class top/chiloven/pulselink/protocol/pawprints/F1Message {
 	public final fun getZ ()Lkotlin/Pair;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/pawprints/GattKt {
+	public static final field DEVICE_NAME_V1_0 Ljava/lang/String;
+	public static final field DEVICE_NAME_V1_1 Ljava/lang/String;
+	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
+	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
+	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
 }
 
 public abstract interface class top/chiloven/pulselink/protocol/pawprints/Message {
@@ -756,18 +771,6 @@ public final class top/chiloven/pulselink/protocol/pawprints/Message5c {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class top/chiloven/pulselink/protocol/pawprints/PawPrintsKt {
-	public static final field DEVICE_NAME_V1_0 Ljava/lang/String;
-	public static final field DEVICE_NAME_V1_1 Ljava/lang/String;
-	public static final fun commandShoulderLight (I)[B
-	public static final fun commandShoulderLightFlash (III)[B
-	public static final fun getCHAR_NOTIFY ()Ljava/util/UUID;
-	public static final fun getCHAR_WRITE ()Ljava/util/UUID;
-	public static final fun getCOMMAND_AUTO_DETECT_ANGLES ()[B
-	public static final fun getCOMMAND_RESET_PARAMETER ()[B
-	public static final fun getSERVICE_CONTROL ()Ljava/util/UUID;
-}
-
 public final class top/chiloven/pulselink/protocol/websocket/v4/ActionType : java/lang/Enum {
 	public static final field AddIntensity Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
 	public static final field AppendPulseData Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
@@ -869,6 +872,11 @@ public final class top/chiloven/pulselink/protocol/websocket/v4/AppEvent$Unknown
 	public fun validate ()Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
 }
 
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppEventCodecKt {
+	public static final fun decodeAppEvent (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
+	public static final fun encodeAppEvent (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;)Ljava/lang/String;
+}
+
 public final class top/chiloven/pulselink/protocol/websocket/v4/AppEventSerializer : kotlinx/serialization/KSerializer {
 	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/AppEventSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -918,6 +926,11 @@ public final class top/chiloven/pulselink/protocol/websocket/v4/AppMessage$Resp 
 	public final fun getResponse ()Ltop/chiloven/pulselink/protocol/websocket/v4/RpcResponse;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/AppMessageCodecKt {
+	public static final fun decodeAppMessage (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;
+	public static final fun encodeAppMessage (Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;)Ljava/lang/String;
 }
 
 public final class top/chiloven/pulselink/protocol/websocket/v4/AppMessageSerializer : kotlinx/serialization/KSerializer {
@@ -1071,20 +1084,6 @@ public final class top/chiloven/pulselink/protocol/websocket/v4/DevicePatch$Comp
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class top/chiloven/pulselink/protocol/websocket/v4/EventKt {
-	public static final fun decodeAppEvent (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;
-	public static final fun encodeAppEvent (Ltop/chiloven/pulselink/protocol/websocket/v4/AppEvent;)Ljava/lang/String;
-}
-
-public final class top/chiloven/pulselink/protocol/websocket/v4/FrameKt {
-	public static final fun decodeRelayFrame (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;
-	public static final fun encodeRelayFrame (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;)Ljava/lang/String;
-}
-
-public final class top/chiloven/pulselink/protocol/websocket/v4/JsonKt {
-	public static final fun getPulselinkJson ()Lkotlinx/serialization/json/Json;
-}
-
 public abstract interface class top/chiloven/pulselink/protocol/websocket/v4/OperateValue {
 }
 
@@ -1173,6 +1172,10 @@ public final class top/chiloven/pulselink/protocol/websocket/v4/PulseFrameWireSe
 	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ltop/chiloven/pulselink/protocol/websocket/v4/PulseFrameWire;)V
+}
+
+public final class top/chiloven/pulselink/protocol/websocket/v4/PulselinkJsonKt {
+	public static final fun getPulselinkJson ()Lkotlinx/serialization/json/Json;
 }
 
 public abstract interface class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame {
@@ -1316,6 +1319,11 @@ public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrame$Unkno
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrameCodecKt {
+	public static final fun decodeRelayFrame (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;
+	public static final fun encodeRelayFrame (Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrame;)Ljava/lang/String;
+}
+
 public final class top/chiloven/pulselink/protocol/websocket/v4/RelayFrameSerializer : kotlinx/serialization/KSerializer {
 	public static final field INSTANCE Ltop/chiloven/pulselink/protocol/websocket/v4/RelayFrameSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1361,11 +1369,6 @@ public final synthetic class top/chiloven/pulselink/protocol/websocket/v4/Remote
 
 public final class top/chiloven/pulselink/protocol/websocket/v4/RemoteDevice$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class top/chiloven/pulselink/protocol/websocket/v4/RpcKt {
-	public static final fun decodeAppMessage (Ljava/lang/String;)Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;
-	public static final fun encodeAppMessage (Ltop/chiloven/pulselink/protocol/websocket/v4/AppMessage;)Ljava/lang/String;
 }
 
 public final class top/chiloven/pulselink/protocol/websocket/v4/RpcRequest {

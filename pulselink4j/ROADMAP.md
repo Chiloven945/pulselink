@@ -1,7 +1,7 @@
 # pulselink4j Implementation Roadmap
 
-> Status: J0 build foundation, J1-J2 core/pattern/protocol, and J8 shared
-> documentation/spec are complete. J3-J7 and J9 follow.
+> Status: J0 build foundation, J1-J2 core/pattern/protocol, J3-J6 transport/BLE/device/runtime/
+> WebSocket, and J8 shared documentation/spec are complete. J7 and J9 follow.
 >
 > Scope: JVM implementation of `pulselink`: Kotlin core plus an optional Java
 > extension. Rust (`pulselink-rs`) remains the reference implementation for
@@ -458,12 +458,23 @@ sync must be skipped on JVM unless a platform-specific MTU path is added.
 - Other device sessions.
 - Mock integration tests.
 
+**J5 completion notes**: `pulselink-runtime` provides `Client` and `CoyoteV3Session` with B0/BF
+encoding, B1 ACK tracking, 100 ms pattern playback, safety limits, reconnect, and shutdown zeroing.
+`pulselink-device` provides `DeviceClient`, name-first/service-fallback profiles, and sessions for
+Coyote V2/V3, Opossum, Civet, and PawPrints. The JVM currently reports ATT MTU 23, so Opossum B2 is
+skipped.
+
 ### J6 — WebSocket
 
 - Ktor CIO client, WebSocket plugin, serialization.
 - Socket/AppClient/RPC/registry/cache/operations.
 - Typed V4 snapshots and pulse v2.
 - Ktor test server integration tests.
+
+**J6 completion notes**: `pulselink-ws` uses Ktor CIO + WebSockets + kotlinx.serialization JSON.
+`Socket`, `AppClient`, `RemoteDeviceHandle`, `OperationHandle`, device cache, multi-app registry,
+RPC timeouts, clear operations, heartbeat/pong, and close handling are implemented. Ktor embedded
+server tests cover hello, client attach, devices.get, ping, clear, and shutdown.
 
 ### J7 — Java extension
 

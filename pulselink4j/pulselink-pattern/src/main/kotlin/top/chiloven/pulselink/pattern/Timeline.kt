@@ -9,6 +9,7 @@ public const val FRAME_DURATION_MS: Long = 100
 public class Timeline private constructor(
     private val frames: List<StereoFrame>,
 ) {
+
     /** Returns the number of frames. */
     public val size: Int get() = frames.size
 
@@ -36,6 +37,7 @@ public class Timeline private constructor(
     override fun toString(): String = "Timeline(frames=$frames)"
 
     public companion object {
+
         /** Creates a non-empty timeline. */
         public fun of(frames: List<StereoFrame>): Timeline {
             if (frames.isEmpty()) throw PatternException.EmptyTimeline()

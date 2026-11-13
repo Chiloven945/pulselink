@@ -1,0 +1,463 @@
+public final class top/chiloven/pulselink/runtime/Client : java/lang/AutoCloseable {
+	public fun <init> (Ltop/chiloven/pulselink/transport/Backend;Ltop/chiloven/pulselink/runtime/ClientConfig;)V
+	public synthetic fun <init> (Ltop/chiloven/pulselink/transport/Backend;Ltop/chiloven/pulselink/runtime/ClientConfig;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public final fun connectCoyoteV3 (Ltop/chiloven/pulselink/transport/DiscoveredDevice;Ltop/chiloven/pulselink/runtime/CoyoteV3Config;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun connectCoyoteV3$default (Ltop/chiloven/pulselink/runtime/Client;Ltop/chiloven/pulselink/transport/DiscoveredDevice;Ltop/chiloven/pulselink/runtime/CoyoteV3Config;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun scan-8Mi8wO0 (Ltop/chiloven/pulselink/transport/ScanFilter;JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun scan-8Mi8wO0$default (Ltop/chiloven/pulselink/runtime/Client;Ltop/chiloven/pulselink/transport/ScanFilter;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun shutdown (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/runtime/ClientConfig {
+	public fun <init> ()V
+	public synthetic fun <init> (IIJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (IIJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3-UwyO8pc ()J
+	public final fun copy-SxA4cEA (IIJ)Ltop/chiloven/pulselink/runtime/ClientConfig;
+	public static synthetic fun copy-SxA4cEA$default (Ltop/chiloven/pulselink/runtime/ClientConfig;IIJILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/ClientConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCommandCapacity ()I
+	public final fun getConnectTimeout-UwyO8pc ()J
+	public final fun getEventCapacity ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Balance {
+	public fun <init> ()V
+	public fun <init> (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;)V
+	public synthetic fun <init> (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun copy (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;)Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFrequency ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getIntensity ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Config {
+	public fun <init> ()V
+	public synthetic fun <init> (JJJLtop/chiloven/pulselink/runtime/SafetyPolicy;Ltop/chiloven/pulselink/runtime/ReconnectPolicy;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJLtop/chiloven/pulselink/runtime/SafetyPolicy;Ltop/chiloven/pulselink/runtime/ReconnectPolicy;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-UwyO8pc ()J
+	public final fun component2-UwyO8pc ()J
+	public final fun component3-UwyO8pc ()J
+	public final fun component4 ()Ltop/chiloven/pulselink/runtime/SafetyPolicy;
+	public final fun component5 ()Ltop/chiloven/pulselink/runtime/ReconnectPolicy;
+	public final fun component6 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun component7 ()Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;
+	public final fun copy-tfH5p8Q (JJJLtop/chiloven/pulselink/runtime/SafetyPolicy;Ltop/chiloven/pulselink/runtime/ReconnectPolicy;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;)Ltop/chiloven/pulselink/runtime/CoyoteV3Config;
+	public static synthetic fun copy-tfH5p8Q$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Config;JJJLtop/chiloven/pulselink/runtime/SafetyPolicy;Ltop/chiloven/pulselink/runtime/ReconnectPolicy;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Config;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAckTimeout-UwyO8pc ()J
+	public final fun getBalance ()Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;
+	public final fun getInitialSoftLimit ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getLagThreshold-UwyO8pc ()J
+	public final fun getReconnect ()Ltop/chiloven/pulselink/runtime/ReconnectPolicy;
+	public final fun getSafety ()Ltop/chiloven/pulselink/runtime/SafetyPolicy;
+	public final fun getTickInterval-UwyO8pc ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/runtime/CoyoteV3Event {
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$AckTimeout : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public synthetic fun <init> (ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-w32iQC4 ()I
+	public final fun copy-h6NOYQ8 (I)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$AckTimeout;
+	public static synthetic fun copy-h6NOYQ8$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Event$AckTimeout;IILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$AckTimeout;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSequence-w32iQC4 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$B1Mismatch : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$B1Mismatch;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Event$B1Mismatch;IIILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$B1Mismatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExpected ()I
+	public final fun getReceived ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$Closed : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public static final field INSTANCE Ltop/chiloven/pulselink/runtime/CoyoteV3Event$Closed;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$Device : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public fun <init> (Ltop/chiloven/pulselink/core/DeviceEvent;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/DeviceEvent;
+	public final fun copy (Ltop/chiloven/pulselink/core/DeviceEvent;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$Device;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Event$Device;Ltop/chiloven/pulselink/core/DeviceEvent;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$Device;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEvent ()Ltop/chiloven/pulselink/core/DeviceEvent;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$PatternFinished : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public synthetic fun <init> (JLtop/chiloven/pulselink/runtime/PlayEndReason;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-V3LKDv4 ()J
+	public final fun component2 ()Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public final fun copy-k52bxAA (JLtop/chiloven/pulselink/runtime/PlayEndReason;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$PatternFinished;
+	public static synthetic fun copy-k52bxAA$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Event$PatternFinished;JLtop/chiloven/pulselink/runtime/PlayEndReason;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$PatternFinished;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId-V3LKDv4 ()J
+	public final fun getReason ()Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$PatternStarted : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-V3LKDv4 ()J
+	public final fun copy-D6zbyeI (J)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$PatternStarted;
+	public static synthetic fun copy-D6zbyeI$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Event$PatternStarted;JILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$PatternStarted;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId-V3LKDv4 ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$ReconnectFailed : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public fun <init> (ILjava/lang/Throwable;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/Throwable;
+	public final fun copy (ILjava/lang/Throwable;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$ReconnectFailed;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Event$ReconnectFailed;ILjava/lang/Throwable;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$ReconnectFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttempts ()I
+	public final fun getError ()Ljava/lang/Throwable;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$Reconnected : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public static final field INSTANCE Ltop/chiloven/pulselink/runtime/CoyoteV3Event$Reconnected;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$Reconnecting : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public synthetic fun <init> (IJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2-UwyO8pc ()J
+	public final fun copy-HG0u8IE (IJ)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$Reconnecting;
+	public static synthetic fun copy-HG0u8IE$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Event$Reconnecting;IJILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$Reconnecting;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttempt ()I
+	public final fun getDelay-UwyO8pc ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Event$SchedulerLag : top/chiloven/pulselink/runtime/CoyoteV3Event {
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-UwyO8pc ()J
+	public final fun copy-LRDsOJo (J)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$SchedulerLag;
+	public static synthetic fun copy-LRDsOJo$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Event$SchedulerLag;JILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Event$SchedulerLag;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBehind-UwyO8pc ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Session : java/lang/AutoCloseable {
+	public final fun adjustIntensity-WjOHiE4 (Ltop/chiloven/pulselink/core/Channel;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun close ()V
+	public final fun getDeviceInfo ()Ltop/chiloven/pulselink/core/DeviceInfo;
+	public final fun getEvents ()Lkotlinx/coroutines/flow/SharedFlow;
+	public final fun getId ()Ltop/chiloven/pulselink/core/DeviceId;
+	public final fun getState ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun play (Ltop/chiloven/pulselink/pattern/Pattern;Ltop/chiloven/pulselink/runtime/PlayOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun play$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Session;Ltop/chiloven/pulselink/pattern/Pattern;Ltop/chiloven/pulselink/runtime/PlayOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun reconnect (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setBalance (Ltop/chiloven/pulselink/runtime/CoyoteV3Balance;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setIntensity-T0PPeqs (Ltop/chiloven/pulselink/core/Channel;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun setSoftLimit-T0PPeqs (Ltop/chiloven/pulselink/core/Channel;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun stop (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3Settings {
+	public fun <init> (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun component3 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun copy (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;)Ltop/chiloven/pulselink/runtime/CoyoteV3Settings;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/CoyoteV3Settings;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3Settings;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFrequencyBalance ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getIntensityBalance ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getSoftLimit ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/CoyoteV3State {
+	public fun <init> (Ltop/chiloven/pulselink/core/DeviceState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/runtime/PatternPlaybackState;Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;)V
+	public synthetic fun <init> (Ltop/chiloven/pulselink/core/DeviceState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/runtime/PatternPlaybackState;Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/DeviceState;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/Observed;
+	public final fun component3 ()Ltop/chiloven/pulselink/runtime/PatternPlaybackState;
+	public final fun component4 ()Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;
+	public final fun copy (Ltop/chiloven/pulselink/core/DeviceState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/runtime/PatternPlaybackState;Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;)Ltop/chiloven/pulselink/runtime/CoyoteV3State;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/CoyoteV3State;Ltop/chiloven/pulselink/core/DeviceState;Ltop/chiloven/pulselink/core/Observed;Ltop/chiloven/pulselink/runtime/PatternPlaybackState;Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/CoyoteV3State;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCommon ()Ltop/chiloven/pulselink/core/DeviceState;
+	public final fun getLastB1 ()Ltop/chiloven/pulselink/protocol/coyote/v3/B1Message;
+	public final fun getPattern ()Ltop/chiloven/pulselink/runtime/PatternPlaybackState;
+	public final fun getSettings ()Ltop/chiloven/pulselink/core/Observed;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/IntensityChange {
+	public synthetic fun <init> (Ltop/chiloven/pulselink/core/Channel;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/Channel;
+	public final fun component2-RSn5AP4 ()I
+	public final fun component3-RSn5AP4 ()I
+	public final fun copy-0-Si2kA (Ltop/chiloven/pulselink/core/Channel;II)Ltop/chiloven/pulselink/runtime/IntensityChange;
+	public static synthetic fun copy-0-Si2kA$default (Ltop/chiloven/pulselink/runtime/IntensityChange;Ltop/chiloven/pulselink/core/Channel;IIILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/IntensityChange;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getApplied-RSn5AP4 ()I
+	public final fun getChannel ()Ltop/chiloven/pulselink/core/Channel;
+	public final fun getRequested-RSn5AP4 ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/PatternId {
+	public static final synthetic fun box-impl (J)Ltop/chiloven/pulselink/runtime/PatternId;
+	public static fun constructor-impl (J)J
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (JLjava/lang/Object;)Z
+	public static final fun equals-impl0 (JJ)Z
+	public final fun getValue ()J
+	public fun hashCode ()I
+	public static fun hashCode-impl (J)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (J)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()J
+}
+
+public final class top/chiloven/pulselink/runtime/PatternPlaybackState {
+	public synthetic fun <init> (JJIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-V3LKDv4 ()J
+	public final fun component2-UwyO8pc ()J
+	public final fun component3 ()I
+	public final fun component4 ()Z
+	public final fun copy-AIKLCns (JJIZ)Ltop/chiloven/pulselink/runtime/PatternPlaybackState;
+	public static synthetic fun copy-AIKLCns$default (Ltop/chiloven/pulselink/runtime/PatternPlaybackState;JJIZILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/PatternPlaybackState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getElapsed-UwyO8pc ()J
+	public final fun getFrameIndex ()I
+	public final fun getId-V3LKDv4 ()J
+	public final fun getLooped ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/PlayEndReason : java/lang/Enum {
+	public static final field Completed Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public static final field Failed Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public static final field LinkLost Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public static final field Replaced Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public static final field SchedulerLag Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public static final field Shutdown Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public static final field Stopped Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public static fun values ()[Ltop/chiloven/pulselink/runtime/PlayEndReason;
+}
+
+public final class top/chiloven/pulselink/runtime/PlayHandle {
+	public final fun getId-V3LKDv4 ()J
+	public final fun isFinished ()Z
+	public final fun stop (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun wait (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/runtime/PlayOptions {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Ltop/chiloven/pulselink/runtime/PlayOptions;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/PlayOptions;ZILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/PlayOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReplace ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/runtime/PlaybackState {
+}
+
+public final class top/chiloven/pulselink/runtime/PlaybackState$Finished : top/chiloven/pulselink/runtime/PlaybackState {
+	public synthetic fun <init> (JLtop/chiloven/pulselink/runtime/PlayEndReason;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-V3LKDv4 ()J
+	public final fun component2 ()Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public final fun copy-k52bxAA (JLtop/chiloven/pulselink/runtime/PlayEndReason;)Ltop/chiloven/pulselink/runtime/PlaybackState$Finished;
+	public static synthetic fun copy-k52bxAA$default (Ltop/chiloven/pulselink/runtime/PlaybackState$Finished;JLtop/chiloven/pulselink/runtime/PlayEndReason;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/PlaybackState$Finished;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId-V3LKDv4 ()J
+	public final fun getReason ()Ltop/chiloven/pulselink/runtime/PlayEndReason;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/PlaybackState$Idle : top/chiloven/pulselink/runtime/PlaybackState {
+	public static final field INSTANCE Ltop/chiloven/pulselink/runtime/PlaybackState$Idle;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/PlaybackState$Playing : top/chiloven/pulselink/runtime/PlaybackState {
+	public synthetic fun <init> (JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-V3LKDv4 ()J
+	public final fun component2 ()I
+	public final fun copy-k52bxAA (JI)Ltop/chiloven/pulselink/runtime/PlaybackState$Playing;
+	public static synthetic fun copy-k52bxAA$default (Ltop/chiloven/pulselink/runtime/PlaybackState$Playing;JIILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/PlaybackState$Playing;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFrameIndex ()I
+	public final fun getId-V3LKDv4 ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/ReconnectPolicy {
+	public fun <init> ()V
+	public synthetic fun <init> (ZIJJZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ZIJJZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()I
+	public final fun component3-UwyO8pc ()J
+	public final fun component4-UwyO8pc ()J
+	public final fun component5 ()Z
+	public final fun copy-ck1zr5g (ZIJJZ)Ltop/chiloven/pulselink/runtime/ReconnectPolicy;
+	public static synthetic fun copy-ck1zr5g$default (Ltop/chiloven/pulselink/runtime/ReconnectPolicy;ZIJJZILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/ReconnectPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnabled ()Z
+	public final fun getInitialBackoff-UwyO8pc ()J
+	public final fun getJitter ()Z
+	public final fun getMaxAttempts ()I
+	public final fun getMaxBackoff-UwyO8pc ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class top/chiloven/pulselink/runtime/RuntimeException : top/chiloven/pulselink/core/PulseLinkException {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class top/chiloven/pulselink/runtime/RuntimeException$AckTimeout : top/chiloven/pulselink/runtime/RuntimeException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/runtime/RuntimeException$AckTimeout;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/RuntimeException$AckTimeout;IILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/RuntimeException$AckTimeout;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSequence ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/RuntimeException$Busy : top/chiloven/pulselink/runtime/RuntimeException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/runtime/RuntimeException$Cancelled : top/chiloven/pulselink/runtime/RuntimeException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/runtime/RuntimeException$Closed : top/chiloven/pulselink/runtime/RuntimeException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/runtime/RuntimeException$NotReady : top/chiloven/pulselink/runtime/RuntimeException {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/runtime/RuntimeException$ReconnectFailed : top/chiloven/pulselink/runtime/RuntimeException {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/runtime/RuntimeException$ReconnectFailed;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/RuntimeException$ReconnectFailed;IILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/RuntimeException$ReconnectFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttempts ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/RuntimeException$SafetyLimit : top/chiloven/pulselink/runtime/RuntimeException {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/runtime/RuntimeException$SafetyLimit;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/RuntimeException$SafetyLimit;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/RuntimeException$SafetyLimit;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/RuntimeException$Unsupported : top/chiloven/pulselink/runtime/RuntimeException {
+	public fun <init> (Ltop/chiloven/pulselink/core/DeviceKind;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/DeviceKind;
+	public final fun copy (Ltop/chiloven/pulselink/core/DeviceKind;)Ltop/chiloven/pulselink/runtime/RuntimeException$Unsupported;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/RuntimeException$Unsupported;Ltop/chiloven/pulselink/core/DeviceKind;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/RuntimeException$Unsupported;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKind ()Ltop/chiloven/pulselink/core/DeviceKind;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/SafetyPolicy {
+	public fun <init> ()V
+	public fun <init> (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;ZZ)V
+	public synthetic fun <init> (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun copy (Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;ZZ)Ltop/chiloven/pulselink/runtime/SafetyPolicy;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/SafetyPolicy;Ltop/chiloven/pulselink/core/ChannelMap;Ltop/chiloven/pulselink/core/ChannelMap;ZZILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/SafetyPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllowTemporary ()Z
+	public final fun getMaxDelta ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getMaxIntensity ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun getRequireSoftLimit ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/runtime/StopOutcome {
+	public fun <init> (ZLtop/chiloven/pulselink/core/ChannelMap;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public final fun copy (ZLtop/chiloven/pulselink/core/ChannelMap;)Ltop/chiloven/pulselink/runtime/StopOutcome;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/runtime/StopOutcome;ZLtop/chiloven/pulselink/core/ChannelMap;ILjava/lang/Object;)Ltop/chiloven/pulselink/runtime/StopOutcome;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAcknowledged ()Z
+	public final fun getIntensity ()Ltop/chiloven/pulselink/core/ChannelMap;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

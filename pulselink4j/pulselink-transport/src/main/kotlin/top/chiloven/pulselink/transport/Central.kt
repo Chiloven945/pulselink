@@ -20,19 +20,3 @@ public interface Central {
     public suspend fun connect(device: DiscoveredDevice): GattLink
 
 }
-
-/** A target used for reconnection. */
-public data class ReconnectTarget(
-    public val deviceId: TransportDeviceId,
-    public val filter: ScanFilter = ScanFilter.all(),
-)
-
-/** Re-establishes a previously known link. */
-public interface Connector {
-
-    public suspend fun reconnect(target: ReconnectTarget): GattLink
-
-}
-
-/** A complete local-device backend. */
-public interface Backend : Central, Connector

@@ -1,6 +1,10 @@
 package top.chiloven.pulselink.ble
 
 import com.juul.kable.WriteType
+import top.chiloven.pulselink.ble.internal.selectWriteType
+import top.chiloven.pulselink.ble.internal.toJavaUuid
+import top.chiloven.pulselink.ble.internal.toKable
+import top.chiloven.pulselink.ble.internal.toKableUuid
 import top.chiloven.pulselink.transport.CharacteristicInfo
 import top.chiloven.pulselink.transport.GattCharacteristic
 import top.chiloven.pulselink.transport.TransportException

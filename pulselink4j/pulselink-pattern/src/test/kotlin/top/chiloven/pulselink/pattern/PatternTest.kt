@@ -48,6 +48,23 @@ class PatternTest {
     }
 
     @Test
+    fun patternCursorLoopsAndEnds() {
+        val frame = StereoFrame.silent()
+        val timeline = Timeline.of(listOf(frame, frame))
+        val once = PatternCursor(Pattern.of(timeline))
+        assertEquals(0, once.frameIndex)
+        assertTrue(once.advance())
+        assertEquals(1, once.frameIndex)
+        assertFalse(once.advance())
+        assertTrue(once.isFinished)
+
+        val looped = PatternCursor(Pattern.of(timeline, looped = true))
+        assertTrue(looped.advance())
+        assertTrue(looped.advance())
+        assertEquals(0, looped.frameIndex)
+    }
+
+    @Test
     fun timelineLookup() {
         val frame = StereoFrame.silent()
         val timeline = Timeline.of(listOf(frame, frame))

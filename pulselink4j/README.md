@@ -2,8 +2,8 @@
 
 JVM implementation of `pulselink`: a Kotlin core with an optional Java extension.
 
-Status: **J0 build foundation, J8 shared docs/spec, J1-J2 core/pattern/protocol, and J3-J4
-transport/BLE are complete**; J5-J7 and J9 follow [`ROADMAP.md`](ROADMAP.md).
+Status: **J0 build foundation, J8 shared docs/spec, J1-J6 core/pattern/protocol/transport/BLE/
+device/runtime/WebSocket are complete**; J7 and J9 follow [`ROADMAP.md`](ROADMAP.md).
 
 ## Toolchain
 

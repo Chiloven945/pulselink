@@ -1,0 +1,492 @@
+public final class top/chiloven/pulselink/ws/AppClient {
+	public final fun clearOperate (Ltop/chiloven/pulselink/ws/ClearTarget;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun device (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/RemoteDeviceHandle;
+	public final fun devices ()Ljava/util/List;
+	public final fun getClientId ()Ljava/lang/String;
+	public final fun ping (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun requestDevices (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun submitOperate (Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate;Ltop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun submitOperate$default (Ltop/chiloven/pulselink/ws/AppClient;Ltop/chiloven/pulselink/protocol/websocket/v4/DeviceOperate;Ltop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun subscribe ()Lkotlinx/coroutines/flow/Flow;
+}
+
+public abstract interface class top/chiloven/pulselink/ws/ClearTarget {
+}
+
+public final class top/chiloven/pulselink/ws/ClearTarget$All : top/chiloven/pulselink/ws/ClearTarget {
+	public static final field INSTANCE Ltop/chiloven/pulselink/ws/ClearTarget$All;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/ClearTarget$Channel : top/chiloven/pulselink/ws/ClearTarget {
+	public fun <init> (Ljava/lang/String;Ltop/chiloven/pulselink/core/Channel;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ltop/chiloven/pulselink/core/Channel;
+	public final fun copy (Ljava/lang/String;Ltop/chiloven/pulselink/core/Channel;)Ltop/chiloven/pulselink/ws/ClearTarget$Channel;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/ClearTarget$Channel;Ljava/lang/String;Ltop/chiloven/pulselink/core/Channel;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/ClearTarget$Channel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChannel ()Ltop/chiloven/pulselink/core/Channel;
+	public final fun getSlotId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/ClearTarget$Device : top/chiloven/pulselink/ws/ClearTarget {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/ClearTarget$Device;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/ClearTarget$Device;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/ClearTarget$Device;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSlotId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/OperationHandle {
+	public final fun completion (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getAction ()Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public final fun getReqId ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/OperationOptions {
+	public fun <init> ()V
+	public synthetic fun <init> (Ljava/lang/Integer;ZLkotlin/time/Duration;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/Integer;ZLkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Z
+	public final fun component3-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-moChb0s (Ljava/lang/Integer;ZLkotlin/time/Duration;)Ltop/chiloven/pulselink/ws/OperationOptions;
+	public static synthetic fun copy-moChb0s$default (Ltop/chiloven/pulselink/ws/OperationOptions;Ljava/lang/Integer;ZLkotlin/time/Duration;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/OperationOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getImmediate ()Z
+	public final fun getPriority ()Ljava/lang/Integer;
+	public final fun getTimeout-FghU774 ()Lkotlin/time/Duration;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/OperationResult {
+	public fun <init> (Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;Ljava/lang/String;Ltop/chiloven/pulselink/core/Channel;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public final fun component2 ()Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ltop/chiloven/pulselink/core/Channel;
+	public final fun copy (Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;Ljava/lang/String;Ltop/chiloven/pulselink/core/Channel;)Ltop/chiloven/pulselink/ws/OperationResult;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/OperationResult;Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;Ljava/lang/String;Ltop/chiloven/pulselink/core/Channel;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/OperationResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAction ()Ltop/chiloven/pulselink/protocol/websocket/v4/ActionType;
+	public final fun getChannel ()Ltop/chiloven/pulselink/core/Channel;
+	public final fun getReason ()Ltop/chiloven/pulselink/protocol/websocket/v4/OperationEndReason;
+	public final fun getSlotId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/RemoteDeviceHandle {
+	public final fun addIntensity (Ltop/chiloven/pulselink/core/Channel;ILtop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun addIntensity$default (Ltop/chiloven/pulselink/ws/RemoteDeviceHandle;Ltop/chiloven/pulselink/core/Channel;ILtop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun getSlotId ()Ljava/lang/String;
+	public final fun kind ()Ltop/chiloven/pulselink/core/DeviceKind;
+	public final fun reduceIntensity (Ltop/chiloven/pulselink/core/Channel;ILtop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun reduceIntensity$default (Ltop/chiloven/pulselink/ws/RemoteDeviceHandle;Ltop/chiloven/pulselink/core/Channel;ILtop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun resetIntensity (Ltop/chiloven/pulselink/core/Channel;Ltop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun resetIntensity$default (Ltop/chiloven/pulselink/ws/RemoteDeviceHandle;Ltop/chiloven/pulselink/core/Channel;Ltop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun sendPulse-WPwdCS8 (Ltop/chiloven/pulselink/core/Channel;JLjava/util/List;Ltop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun sendPulse-WPwdCS8$default (Ltop/chiloven/pulselink/ws/RemoteDeviceHandle;Ltop/chiloven/pulselink/core/Channel;JLjava/util/List;Ltop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun sendPulseV2-WPwdCS8 (Ltop/chiloven/pulselink/core/Channel;JLjava/util/List;Ltop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun sendPulseV2-WPwdCS8$default (Ltop/chiloven/pulselink/ws/RemoteDeviceHandle;Ltop/chiloven/pulselink/core/Channel;JLjava/util/List;Ltop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun setTempIntensity-eJvPj7c (Ltop/chiloven/pulselink/core/Channel;IJLtop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun setTempIntensity-eJvPj7c$default (Ltop/chiloven/pulselink/ws/RemoteDeviceHandle;Ltop/chiloven/pulselink/core/Channel;IJLtop/chiloven/pulselink/ws/OperationOptions;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun snapshot ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public final fun typed ()Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot;
+}
+
+public final class top/chiloven/pulselink/ws/RemoteDeviceSnapshot {
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun component6 ()Lkotlinx/serialization/json/JsonObject;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;)Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlinx/serialization/json/JsonObject;Lkotlinx/serialization/json/JsonObject;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDeviceType ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/Integer;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getProps ()Lkotlinx/serialization/json/JsonObject;
+	public final fun getSlotId ()Ljava/lang/String;
+	public final fun getSlotState ()Lkotlinx/serialization/json/JsonObject;
+	public fun hashCode ()I
+	public final fun kind ()Ltop/chiloven/pulselink/core/DeviceKind;
+	public fun toString ()Ljava/lang/String;
+	public final fun typed ()Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot;
+}
+
+public final class top/chiloven/pulselink/ws/Socket : java/lang/AutoCloseable {
+	public static final field Companion Ltop/chiloven/pulselink/ws/Socket$Companion;
+	public synthetic fun <init> (Lio/ktor/client/HttpClient;Lio/ktor/client/plugins/websocket/DefaultClientWebSocketSession;Ltop/chiloven/pulselink/ws/SocketOptions;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun client (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/AppClient;
+	public final fun clients ()Ljava/util/List;
+	public fun close ()V
+	public final fun getEvents ()Lkotlinx/coroutines/flow/SharedFlow;
+	public final fun getState ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun getTargetId ()Ljava/lang/String;
+	public final fun shutdown (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun waitForClient (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class top/chiloven/pulselink/ws/Socket$Companion {
+	public final fun connect (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun connect (Ltop/chiloven/pulselink/ws/SocketOptions;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class top/chiloven/pulselink/ws/SocketEvent {
+}
+
+public final class top/chiloven/pulselink/ws/SocketEvent$ClientAttached : top/chiloven/pulselink/ws/SocketEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/SocketEvent$ClientAttached;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/SocketEvent$ClientAttached;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/SocketEvent$ClientAttached;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketEvent$ClientDisconnected : top/chiloven/pulselink/ws/SocketEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/SocketEvent$ClientDisconnected;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/SocketEvent$ClientDisconnected;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/SocketEvent$ClientDisconnected;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketEvent$Closed : top/chiloven/pulselink/ws/SocketEvent {
+	public fun <init> (Ljava/lang/Integer;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/Integer;Ljava/lang/String;)Ltop/chiloven/pulselink/ws/SocketEvent$Closed;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/SocketEvent$Closed;Ljava/lang/Integer;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/SocketEvent$Closed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Ljava/lang/Integer;
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketEvent$Error : top/chiloven/pulselink/ws/SocketEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/SocketEvent$Error;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/SocketEvent$Error;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/SocketEvent$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketEvent$Heartbeat : top/chiloven/pulselink/ws/SocketEvent {
+	public static final field INSTANCE Ltop/chiloven/pulselink/ws/SocketEvent$Heartbeat;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketEvent$IdleTimeout : top/chiloven/pulselink/ws/SocketEvent {
+	public static final field INSTANCE Ltop/chiloven/pulselink/ws/SocketEvent$IdleTimeout;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketEvent$Pong : top/chiloven/pulselink/ws/SocketEvent {
+	public fun <init> (Ljava/lang/Long;)V
+	public final fun component1 ()Ljava/lang/Long;
+	public final fun copy (Ljava/lang/Long;)Ltop/chiloven/pulselink/ws/SocketEvent$Pong;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/SocketEvent$Pong;Ljava/lang/Long;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/SocketEvent$Pong;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTs ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketEvent$StateChanged : top/chiloven/pulselink/ws/SocketEvent {
+	public fun <init> (Ltop/chiloven/pulselink/ws/SocketState;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/ws/SocketState;
+	public final fun copy (Ltop/chiloven/pulselink/ws/SocketState;)Ltop/chiloven/pulselink/ws/SocketEvent$StateChanged;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/SocketEvent$StateChanged;Ltop/chiloven/pulselink/ws/SocketState;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/SocketEvent$StateChanged;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getState ()Ltop/chiloven/pulselink/ws/SocketState;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketOptions {
+	public synthetic fun <init> (Ljava/lang/String;JJLkotlin/time/Duration;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;JJLkotlin/time/Duration;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2-UwyO8pc ()J
+	public final fun component3-UwyO8pc ()J
+	public final fun component4-FghU774 ()Lkotlin/time/Duration;
+	public final fun component5 ()J
+	public final fun copy-r74K0lg (Ljava/lang/String;JJLkotlin/time/Duration;J)Ltop/chiloven/pulselink/ws/SocketOptions;
+	public static synthetic fun copy-r74K0lg$default (Ltop/chiloven/pulselink/ws/SocketOptions;Ljava/lang/String;JJLkotlin/time/Duration;JILjava/lang/Object;)Ltop/chiloven/pulselink/ws/SocketOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConnectTimeout-UwyO8pc ()J
+	public final fun getMaxFrameSize ()J
+	public final fun getPingInterval-FghU774 ()Lkotlin/time/Duration;
+	public final fun getResponseTimeout-UwyO8pc ()J
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/SocketState : java/lang/Enum {
+	public static final field Closed Ltop/chiloven/pulselink/ws/SocketState;
+	public static final field Closing Ltop/chiloven/pulselink/ws/SocketState;
+	public static final field Connecting Ltop/chiloven/pulselink/ws/SocketState;
+	public static final field Ready Ltop/chiloven/pulselink/ws/SocketState;
+	public static final field WaitingForPeer Ltop/chiloven/pulselink/ws/SocketState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/SocketState;
+	public static fun values ()[Ltop/chiloven/pulselink/ws/SocketState;
+}
+
+public abstract interface class top/chiloven/pulselink/ws/TypedRemoteSnapshot {
+	public abstract fun getSnapshot ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+}
+
+public final class top/chiloven/pulselink/ws/TypedRemoteSnapshot$Civet : top/chiloven/pulselink/ws/TypedRemoteSnapshot {
+	public fun <init> (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public final fun copy (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;)Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Civet;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Civet;Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Civet;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getSnapshot ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/TypedRemoteSnapshot$Coyote : top/chiloven/pulselink/ws/TypedRemoteSnapshot {
+	public fun <init> (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public final fun copy (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;)Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Coyote;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Coyote;Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Coyote;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getSnapshot ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/TypedRemoteSnapshot$Opossum : top/chiloven/pulselink/ws/TypedRemoteSnapshot {
+	public fun <init> (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public final fun copy (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;)Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Opossum;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Opossum;Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Opossum;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getSnapshot ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/TypedRemoteSnapshot$Unknown : top/chiloven/pulselink/ws/TypedRemoteSnapshot {
+	public fun <init> (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;)V
+	public final fun component1 ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public final fun copy (Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;)Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Unknown;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Unknown;Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/TypedRemoteSnapshot$Unknown;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getSnapshot ()Ltop/chiloven/pulselink/ws/RemoteDeviceSnapshot;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class top/chiloven/pulselink/ws/WsError : top/chiloven/pulselink/core/PulseLinkException {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+
+public final class top/chiloven/pulselink/ws/WsError$Busy : top/chiloven/pulselink/ws/WsError {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/ws/WsError$Cancelled : top/chiloven/pulselink/ws/WsError {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/ws/WsError$ClientNotFound : top/chiloven/pulselink/ws/WsError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsError$ClientNotFound;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsError$ClientNotFound;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsError$ClientNotFound;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClientId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsError$Closed : top/chiloven/pulselink/ws/WsError {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/ws/WsError$DeviceNotFound : top/chiloven/pulselink/ws/WsError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsError$DeviceNotFound;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsError$DeviceNotFound;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsError$DeviceNotFound;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSlotId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsError$Disconnected : top/chiloven/pulselink/ws/WsError {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/ws/WsError$DuplicateRequestId : top/chiloven/pulselink/ws/WsError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsError$DuplicateRequestId;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsError$DuplicateRequestId;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsError$DuplicateRequestId;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReqId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsError$InvalidParams : top/chiloven/pulselink/ws/WsError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsError$InvalidParams;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsError$InvalidParams;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsError$InvalidParams;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsError$Json : top/chiloven/pulselink/ws/WsError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsError$Json;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsError$Json;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsError$Json;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsError$NotPaired : top/chiloven/pulselink/ws/WsError {
+	public fun <init> ()V
+}
+
+public final class top/chiloven/pulselink/ws/WsError$Rpc : top/chiloven/pulselink/ws/WsError {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsError$Rpc;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsError$Rpc;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsError$Rpc;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()Ljava/lang/String;
+	public final fun getMethod ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsError$RpcTimeout : top/chiloven/pulselink/ws/WsError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsError$RpcTimeout;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsError$RpcTimeout;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsError$RpcTimeout;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReqId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsError$Transport : top/chiloven/pulselink/ws/WsError {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsError$Transport;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsError$Transport;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsError$Transport;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class top/chiloven/pulselink/ws/WsEvent {
+}
+
+public final class top/chiloven/pulselink/ws/WsEvent$CustomAction : top/chiloven/pulselink/ws/WsEvent {
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Ltop/chiloven/pulselink/ws/WsEvent$CustomAction;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsEvent$CustomAction;IILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsEvent$CustomAction;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAction ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsEvent$DevicesPatch : top/chiloven/pulselink/ws/WsEvent {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Ltop/chiloven/pulselink/ws/WsEvent$DevicesPatch;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsEvent$DevicesPatch;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsEvent$DevicesPatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdded ()Ljava/util/List;
+	public final fun getRemoved ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsEvent$DevicesSnapshot : top/chiloven/pulselink/ws/WsEvent {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/ws/WsEvent$DevicesSnapshot;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsEvent$DevicesSnapshot;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsEvent$DevicesSnapshot;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDevices ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsEvent$Disconnected : top/chiloven/pulselink/ws/WsEvent {
+	public static final field INSTANCE Ltop/chiloven/pulselink/ws/WsEvent$Disconnected;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsEvent$Error : top/chiloven/pulselink/ws/WsEvent {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Ltop/chiloven/pulselink/ws/WsEvent$Error;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsEvent$Error;Ljava/lang/String;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsEvent$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class top/chiloven/pulselink/ws/WsEvent$SlotsPatch : top/chiloven/pulselink/ws/WsEvent {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Ltop/chiloven/pulselink/ws/WsEvent$SlotsPatch;
+	public static synthetic fun copy$default (Ltop/chiloven/pulselink/ws/WsEvent$SlotsPatch;Ljava/util/List;ILjava/lang/Object;)Ltop/chiloven/pulselink/ws/WsEvent$SlotsPatch;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSlots ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
