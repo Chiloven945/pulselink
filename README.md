@@ -2,6 +2,11 @@
 
 `pulselink` is a multi-language SDK for DG-LAB devices.
 
+[![GitHub release](https://img.shields.io/github/v/release/Chiloven945/pulselink?display_name=tag&sort=semver)](https://github.com/Chiloven945/pulselink/releases)
+[![crates.io](https://img.shields.io/crates/v/pulselink)](https://crates.io/crates/pulselink)
+[![docs.rs](https://img.shields.io/docsrs/pulselink)](https://docs.rs/pulselink)
+[![Maven Central](https://img.shields.io/maven-central/v/top.chiloven/pulselink-java?label=Maven%20Central)](https://central.sonatype.com/artifact/top.chiloven/pulselink-java)
+
 | Implementation                  | Language                              | Status                         |
 |---------------------------------|---------------------------------------|--------------------------------|
 | [`pulselink-rs`](pulselink-rs/) | Rust                                  | `0.1.0` published on crates.io |
